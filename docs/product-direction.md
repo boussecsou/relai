@@ -30,7 +30,8 @@ Les usages envisagés comprennent les réponses dans un thread, la reprise de co
 - « New session » demande un titre, une destination et un prompt Markdown, avec libellés ; « Reply » ne demande que le prompt.
 - Découvrir automatiquement les historiques locaux, métadonnées en premier ; reprendre une session arrêtée lors d’une réponse si le harness le permet.
 - Documenter les erreurs, leurs états et les actions de récupération dans des SDDs.
-- Prévoir une API et un MCP Relai dans la structure du produit ; architecture et packaging restent à décider.
+- Prévoir une API et des opérations applicatives réutilisables par un futur MCP Relai. Aucun MCP à construire dans le périmètre actuel ; architecture et packaging restent à décider.
+- Un échec suspend uniquement la file de la session concernée, conserve les messages et propose « Réessayer », « Ignorer cet envoi » ou « Annuler ». Les autres sessions continuent.
 - Sans session ouverte, choisir un dossier de travail et un harness disponible, puis lancer automatiquement la session avec le prompt.
 - Détecter automatiquement les harnesses disponibles ; la couverture de découverte et de pilotage reste à vérifier par outil.
 - Tenir compte de la distribution et de l’installation dès les choix de conception.

@@ -22,6 +22,10 @@ Objectif : une installation claire, un moteur indépendant du navigateur et des 
 
 La modularité du code n’impose pas plusieurs services. Ces modes peuvent partager les mêmes modules et contrats ; aucun ne garantit l’exécution de tous les outils Windows natifs depuis Linux/WSL.
 
+## Périmètre précisé après la recherche
+
+Le MCP est une extension future, à anticiper via les opérations applicatives communes ; aucune implémentation MCP dans le périmètre actuel. Le mode d’installation reste ouvert : l’utilisateur demande les raisons des coûts Docker avant de choisir.
+
 ## Candidat recommandé pour le mode par défaut
 
 Un service local natif dans l’environnement des repos et harnesses, d’abord Linux/WSL. Si Rust/React/SQLite sont retenus, distribuer un binaire Rust avec assets React embarqués et un store SQLite dans le répertoire de données utilisateur.
