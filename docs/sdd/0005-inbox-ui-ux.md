@@ -60,3 +60,9 @@ Navigation clavier, focus visible, champs nommés, boutons avec libellé accessi
 Maquette autonome : `design/relai-inbox.html`, ouvrable directement dans un navigateur, sans dépendance ni backend. Les états de démonstration sont signalés et les changements disparaissent au rechargement.
 
 À valider avec l’utilisateur : hiérarchie et densité, confort de lecture des prompts/réponses, espace du terminal, contraste, navigation à plusieurs onglets et quantité d’accent coloré. La direction ne démontre pas la cible de 10 000 chats / 25 sessions ; pagination et virtualisation feront partie de l’UI de production.
+
+## Révision Glass — nouvelles références Gmail
+
+La nouvelle maquette `design/relai-glass.html` suit le parcours inbox pleine largeur → clic sur un Relai → conversation, avec retour et navigation précédente/suivante. Fond teal/bleu/pêche animé lentement, surface en verre dépoli, typographie Manrope embarquée et boutons arrondis. Ajouts : favoris, archives avec annulation, sélection multiple, densité compacte, raccourcis et suspension du mouvement. Deux nouvelles références du board ont été consultées ; le board reste intact.
+
+Vérification navigateur réalisée : navigation, favoris, archivage/annulation, actions groupées, recherche, New session, Reply, densité/mouvement et vues mobile sans débordement horizontal. Les interactions restent simulées.
