@@ -96,3 +96,7 @@ La documentation [Codex app-server](https://learn.chatgpt.com/docs/app-server) d
 - Comment coordonner des modifications parallèles sur un repo ?
 
 Les décisions seront documentées au fil du cadrage. La mise en œuvre suivra la confirmation d’une compréhension partagée.
+
+## Direction UI/UX
+
+Références tldraw lues : inbox compactes et vues divisées, dashboard sobre, gradients diffus et textures. Direction demandée : Gmail pour l’organisation, Notion pour la sobriété, gris foncé/blanc et accents colorés discrets. Voir [SDD-005](sdd/0005-inbox-ui-ux.md) et la [maquette autonome](../design/README.md). Maquette avec données fictives ; disposition et densité à valider avant UI de production.

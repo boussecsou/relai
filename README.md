@@ -12,6 +12,8 @@ New session uses a destination, chat title, and Markdown prompt; Reply continues
 
 The first integration targets Codex and the initial user's WSL environment. Relai is intended to use harnesses already installed on the user's machine. The chosen architecture is a native local Rust service with a TypeScript/React browser UI, SQLite storage, and Git CLI. UI and API share application operations that a future MCP adapter can reuse; MCP implementation is deferred. Distribution targets Linux/WSL first, with independent installations on multiple machines. Broader platform support and Docker distribution remain future options. See the [installation draft](docs/sdd/0004-local-installation-and-api.md).
 
+An interactive [inbox design mockup](design/README.md) uses fictitious data to explore the UI/UX. It is separate from the future production app. See the [visual direction draft](docs/sdd/0005-inbox-ui-ux.md).
+
 See [product direction](docs/product-direction.md) for confirmed requirements and open decisions, and [CONTEXT.md](CONTEXT.md) for the project glossary.
 
 ## Security
