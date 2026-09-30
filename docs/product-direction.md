@@ -4,7 +4,7 @@
 
 ## Vision
 
-Relai est une interface locale et open source pour gérer une équipe d’agents IA comme une boîte mail. L’utilisateur envoie un sujet et un prompt Markdown à une session existante, ou choisit un dossier et un harness pour lancer une nouvelle session. Relai suit le travail et présente les retours avec les fichiers modifiés et, lorsque Git est disponible, les diffs, les commits et les PR.
+Relai est une interface locale et open source pour gérer une équipe d’agents IA comme une boîte mail. L’utilisateur répond avec un prompt Markdown à une session existante, ou choisit un titre, un dossier et un harness pour lancer une nouvelle session. Relai suit le travail et présente les retours avec les fichiers modifiés et, lorsque Git est disponible, les diffs, les commits et les PR.
 
 Les usages envisagés comprennent les réponses dans un thread, la reprise de conversations et plusieurs agents au travail en parallèle. Le transfert vers un autre agent est retiré du périmètre actuel pour garder le produit léger.
 
@@ -27,7 +27,10 @@ Les usages envisagés comprennent les réponses dans un thread, la reprise de co
 - Programmer des Relais ponctuellement ; demander confirmation pour les échéances manquées pendant un arrêt.
 - Rechercher titres, sujets, prompts et réponses ; filtrer par harness, dossier, libellé, état, branche et informations Git/GitHub.
 - Concevoir une interface utilisable avec de nombreux chats et plus de 20 sessions, ainsi qu’un code modulaire permettant des changements localisés. Cible de validation proposée : 10 000 chats et 25 sessions, budgets à mesurer.
-- Limiter la composition initiale au destinataire, au sujet et au prompt Markdown.
+- « New session » demande un titre, une destination et un prompt Markdown, avec libellés ; « Reply » ne demande que le prompt.
+- Découvrir automatiquement les historiques locaux, métadonnées en premier ; reprendre une session arrêtée lors d’une réponse si le harness le permet.
+- Documenter les erreurs, leurs états et les actions de récupération dans des SDDs.
+- Prévoir une API et un MCP Relai dans la structure du produit ; architecture et packaging restent à décider.
 - Sans session ouverte, choisir un dossier de travail et un harness disponible, puis lancer automatiquement la session avec le prompt.
 - Détecter automatiquement les harnesses disponibles ; la couverture de découverte et de pilotage reste à vérifier par outil.
 - Tenir compte de la distribution et de l’installation dès les choix de conception.
@@ -66,7 +69,7 @@ Le destinataire de composition vise une session native existante, par exemple «
 
 Le choix précédent d’un destinataire correspondant à un profil d’agent et d’un dépôt obligatoire est corrigé. Les profils nommés restent une éventuelle extension, pas une exigence de la première composition. Le [brouillon SDD-001](sdd/0001-compose-message.md) décrit le formulaire demandé et ses questions ouvertes.
 
-Une conversation Relai correspond à une session native. Le champ sujet et son rapport au titre du chat restent à confirmer. Un run reste un terme proposé pour une période de travail ; il n’a pas encore été validé.
+Une conversation Relai correspond à une session native. Un titre est choisi à la création ; les réponses n’ont pas de sujet distinct. Un run reste un terme proposé pour une période de travail ; il n’a pas encore été validé.
 
 La session native, le processus terminal et le thread Relai doivent être distingués. Reprendre un historique enregistré et prendre le contrôle d’un terminal déjà actif sont deux besoins distincts. Les définitions seront ajoutées au glossaire après validation.
 
@@ -82,7 +85,7 @@ La documentation [Codex app-server](https://learn.chatgpt.com/docs/app-server) d
 - Comment distinguer agent, tâche, thread, session et run ?
 - Comment connecter une session marquée « À connecter » selon les capacités du harness ?
 - Comment ordonner, annuler et reprendre les envois en file ?
-- Conserver un sujet distinct ou seulement le titre du chat ?
+- Comment transmettre ou conserver le titre lorsque le harness ne permet pas le renommage ?
 - Quels événements produisent des messages, et lesquels restent dans l’activité du terminal ?
 - Les pièces jointes représentent-elles les fichiers à un moment précis ou leur état courant ?
 - Comment afficher les contextes historiques manquants des chats importés ?
