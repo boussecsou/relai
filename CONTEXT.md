@@ -4,8 +4,11 @@ Relai organise les échanges entre un utilisateur et les sessions de ses outils 
 
 ## Language
 
-**Relai** :
+**Relai (application)** :
 Interface locale et open source de gestion du travail avec des outils de coding IA, organisée comme une boîte de réception.
+
+**Relai (message)** :
+Message envoyé par l’utilisateur à une destination de coding depuis l’application Relai.
 
 **Harness** :
 Outil de coding IA externe qui porte les conversations et le travail de l’agent, comme Codex, Claude Code, OpenCode ou Pi.
@@ -15,7 +18,7 @@ _Avoid_ : Modèle IA, fournisseur de modèles.
 Contenu échangé dans Relai pour demander du travail à un agent, recevoir son retour ou poursuivre la conversation. Un retour peut être une réponse, une question ou une demande d’approbation.
 
 **Session** :
-Conversation gérée par un harness et associée à un dossier de travail. Elle est identifiée dans Relai par son titre de chat et le nom du harness.
+Conversation gérée par un harness et associée à un dossier de travail. Relai affiche son titre de chat, le nom du harness et son dossier de travail. Son historique reste accessible lorsque le terminal est fermé.
 
 **Destinataire** :
 Destination d’un message : une session existante ou un dossier de travail et un harness pour ouvrir une nouvelle session.
