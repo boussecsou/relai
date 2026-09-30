@@ -10,7 +10,7 @@ Composer une demande dans une interface inspirée de Gmail, en visant une sessio
 
 ### Session existante
 
-Le champ destinataire propose les sessions détectées par Relai. Chaque entrée montre le titre du chat, le nom du harness et le dossier courant, par exemple « Régler issue 3 — Codex CLI — /home/user/projects/p1 ». Une session détectée mais non pilotable apparaît comme « À connecter » ; l’envoi devient disponible après connexion.
+Le champ destinataire propose les sessions détectées par Relai. Chaque entrée sélectionnable montre le nom de l’agent, le dossier courant et le titre du chat, par exemple « Codex CLI — /home/user/projects/p1 — Régler issue 3 », avec un résumé Git/GitHub lorsque disponible. Un Relai est envoyé à un seul destinataire. La distinction entre nom d’agent et nom du harness reste à préciser. Une session détectée mais non pilotable apparaît comme « À connecter » ; l’envoi devient disponible après connexion.
 
 L’utilisateur choisit la session, écrit un sujet et un prompt en Markdown, puis envoie son message.
 
@@ -58,6 +58,6 @@ Relai doit conserver cette distinction dans son modèle pour ne pas présenter u
 - Ordre, annulation et comportement après erreur de la file d’attente.
 - Rapport entre sujet d’un message, titre du chat natif et thread de l’inbox.
 - Cycle de vie des processus lorsque le navigateur, le terminal ou le service est fermé.
-- Sens de « dans tous les destinataires » : choix dans une liste ou envoi à plusieurs sessions.
+- Informations Git/GitHub du résumé : branche, dépôt distant, PR, fraîcheur et disponibilité.
 - Définition du dossier courant affiché : dossier de session ou dossier d’une commande terminal.
 - Comportement du sujet et du prompt au niveau du harness : transmission exacte et rôle éventuel du sujet dans la création du titre de chat.

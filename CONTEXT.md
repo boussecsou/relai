@@ -21,7 +21,7 @@ Contenu échangé dans Relai pour demander du travail à un agent, recevoir son 
 Conversation gérée par un harness et associée à un dossier de travail. Relai affiche son titre de chat, le nom du harness et son dossier de travail. Son historique reste accessible lorsque le terminal est fermé.
 
 **Destinataire** :
-Destination d’un message : une session existante ou un dossier de travail et un harness pour ouvrir une nouvelle session.
+Destination unique d’un envoi : une session existante ou un dossier de travail et un harness pour ouvrir une nouvelle session. La sélection affiche le nom de l’agent, le dossier courant, le titre du chat et un résumé Git/GitHub lorsque disponible.
 
 **Sujet** :
 Intitulé du message rédigé par l’utilisateur.

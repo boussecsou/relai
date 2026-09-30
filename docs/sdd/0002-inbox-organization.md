@@ -7,26 +7,26 @@ Statut : brouillon. Besoins recueillis ; aucune fonctionnalité implémentée.
 - Une inbox inspirée de Gmail, avec une UI/UX soignée comme priorité du produit.
 - Un historique des chats accessible même après fermeture de leur terminal.
 - Des réponses dans la conversation et une file d’attente lorsque la session travaille déjà.
-- Des libellés ou tickets pour organiser les chats.
-- Des Relais programmés et une recherche de chats efficace.
-- Une application locale légère, conçue pour évoluer. Le transfert entre agents est hors du périmètre actuel.
+- Des libellés multiples sur les conversations, conservés lors des réponses, avec états d’exécution séparés.
+- Des regroupements automatiques par agent, dossier et branche, en complément des libellés personnalisés.
+- Programmation ponctuelle des Relais ; confirmation avant envoi lorsque l’échéance a été manquée pendant un arrêt.
+- Recherche dans les titres, sujets, prompts et réponses, avec filtres par harness, dossier, libellé, état, branche et informations Git/GitHub.
+- Une application locale légère, conçue pour de nombreux chats et plus de 20 sessions de travail. Le code doit permettre des ajouts et modifications localisés. Le transfert entre agents est hors du périmètre actuel.
 
 ## Propositions à discuter
 
 - Navigation : Inbox, Envoyés, En attente, Programmés, puis libellés personnalisés.
-- Libellés multiples sur la conversation, conservés lors des réponses ; états d’exécution affichés séparément.
-- Recherche dans les titres, sujets, prompts et réponses, avec filtres de harness, dossier, libellé et état.
-- Programmation ponctuelle avant les récurrences ; affichage, annulation et modification des messages programmés.
+- Affichage, annulation et modification des messages programmés.
 - Séparer la persistance de l’historique du cycle de vie des processus ; fermer la vue terminal ne devrait pas arrêter le travail.
 
 Ces propositions ne fixent ni l’architecture ni le périmètre de la première version.
 
 ## Décisions ouvertes
 
-- Libellés seuls ou tickets numérotés avec cycle de vie ?
-- Recherche également dans les logs, diffs et commandes ?
-- Programmation ponctuelle ou récurrente, fuseau et traitement des échéances manquées lorsque la machine ou le service est arrêté ?
-- Volumes de chats et nombre de sessions simultanées visés ; critères de réactivité et consommation de ressources ?
+- Regroupements automatiques : métadonnées actuelles de session ou contexte conservé lors de chaque message ?
+- Champs Git/GitHub à indexer ; recherche dans logs, diffs et commandes hors du premier périmètre accepté.
+- Fuseau et seuil de retard ; reprise et interaction entre programmation et file d’attente.
+- Cible de validation proposée : 10 000 chats et 25 sessions simultanées, sans plafond produit à 25. Machine de référence, taille des historiques, débit des événements et budgets de réactivité à définir.
 - Signification de fermeture du terminal, règles d’arrêt et reprise des processus ?
 
 ## Repères vérifiés
