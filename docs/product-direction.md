@@ -17,12 +17,14 @@ Les usages envisagés comprennent les réponses dans un thread, la reprise de co
 - Utiliser les harnesses installés sur la machine où Relai est déployé, avec une configuration simple pour plusieurs agents.
 - Présenter les réponses, les questions et les demandes de validation comme des messages dans l’inbox ; présenter les changements de fichiers comme des pièces jointes et intégrer les informations Git.
 - S’inspirer explicitement de Gmail pour une inbox et une composition simples.
-- Proposer automatiquement les sessions détectées dans le destinataire, affichées sous la forme « Titre du chat — Nom du harness — Dossier courant ». Une session non pilotable reste visible comme « À connecter ».
+- Proposer automatiquement les sessions détectées dans le destinataire, affichées avec nom d’agent, dossier courant, titre du chat et résumé Git/GitHub disponible. Chaque envoi vise un seul destinataire. Une session non pilotable reste visible comme « À connecter ».
 - Appeler le message envoyé par l’utilisateur « un Relai ».
 - Mettre les nouveaux messages en file lorsque leur session travaille déjà et permettre les réponses dans la conversation.
 - Exécuter les sessions en arrière-plan avec un terminal consultable dans l’interface et conserver les historiques après fermeture du terminal.
-- Organiser les chats avec des libellés ou tickets, permettre les Relais programmés et une recherche inspirée de Gmail. Ces comportements restent à préciser.
-- Concevoir une application légère et scalable ; les volumes et objectifs de performance restent à définir.
+- Organiser les conversations avec des libellés personnalisés et des regroupements automatiques par agent, dossier et branche.
+- Programmer des Relais ponctuellement ; demander confirmation pour les échéances manquées pendant un arrêt.
+- Rechercher titres, sujets, prompts et réponses ; filtrer par harness, dossier, libellé, état, branche et informations Git/GitHub.
+- Concevoir une interface utilisable avec de nombreux chats et plus de 20 sessions, ainsi qu’un code modulaire permettant des changements localisés. Cible de validation proposée : 10 000 chats et 25 sessions, budgets à mesurer.
 - Limiter la composition initiale au destinataire, au sujet et au prompt Markdown.
 - Sans session ouverte, choisir un dossier de travail et un harness disponible, puis lancer automatiquement la session avec le prompt.
 - Détecter automatiquement les harnesses disponibles ; la couverture de découverte et de pilotage reste à vérifier par outil.
@@ -81,10 +83,9 @@ La documentation [Codex app-server](https://learn.chatgpt.com/docs/app-server) d
 - Un nouveau sujet envoyé à la même session crée-t-il un autre thread Relai ?
 - Quels événements produisent des messages, et lesquels restent dans l’activité du terminal ?
 - Les pièces jointes représentent-elles les fichiers à un moment précis ou leur état courant ?
-- Un envoi choisit-il un destinataire ou vise-t-il plusieurs sessions ?
-- Libellés de conversation ou tickets avec numéro et statut ?
-- Programmation ponctuelle ou récurrente, et comportement lorsque le service est arrêté à l’heure prévue ?
-- Quel périmètre de recherche et quels volumes doivent être supportés ?
+- Regroupements par agent/dossier/branche : contexte actuel ou historique de chaque message ?
+- Fuseau, seuil de retard et interaction entre programmation et file d’attente ?
+- Quels champs Git/GitHub rechercher et quels budgets mesurer sur quelle machine ?
 - Quels pouvoirs accorder aux agents et quelles actions doivent demander une approbation ?
 - Comment coordonner des modifications parallèles sur un repo ?
 
