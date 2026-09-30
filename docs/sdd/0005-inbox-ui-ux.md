@@ -66,3 +66,11 @@ Maquette autonome : `design/relai-inbox.html`, ouvrable directement dans un navi
 La nouvelle maquette `design/relai-glass.html` suit le parcours inbox pleine largeur → clic sur un Relai → conversation, avec retour et navigation précédente/suivante. Fond teal/bleu/pêche animé lentement, surface en verre dépoli, typographie Manrope embarquée et boutons arrondis. Ajouts : favoris, archives avec annulation, sélection multiple, densité compacte, raccourcis et suspension du mouvement. Deux nouvelles références du board ont été consultées ; le board reste intact.
 
 Vérification navigateur réalisée : navigation, favoris, archivage/annulation, actions groupées, recherche, New session, Reply, densité/mouvement et vues mobile sans débordement horizontal. Les interactions restent simulées.
+
+## Direction confirmée — panneau de terminal natif
+
+L'utilisateur souhaite conserver l'expérience du véritable CLI de chaque harness, notamment ses commandes `/`, skills, menus et validations. Un clic sur un mail reçu ouvre un panneau donnant accès au terminal de la session associée, entouré des outils graphiques de Relai. Le panneau dispose d'un retour à l'inbox et d'un mode focus.
+
+Pour ce parcours, la saisie native du CLI devient la surface principale ; le formulaire Markdown simulé de Glass ne définit plus à lui seul l'expérience de réponse. Markdown reste un format possible du texte saisi. Un éditeur externe et les envois automatiques exigent une intégration spécifique pour ne pas injecter du texte dans un menu ou une validation.
+
+Le [prototype interactif](../../design/terminal-prototype/README.md) compare terminal central, vue côte à côte et terminal sous le mail. Ses mails sont fictifs ; à la première ouverture il crée une nouvelle session CLI, puis retrouve ce même processus. Il ne démontre pas encore la remontée de vrais mails depuis les événements du harness. La disposition finale et la fidélité de chaque CLI restent à valider ; les exigences d'accessibilité des maquettes ne sont pas garanties automatiquement par l'émulation terminal.

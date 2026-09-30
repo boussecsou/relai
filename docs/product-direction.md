@@ -16,6 +16,7 @@ Les usages envisagés comprennent les réponses dans un thread, la reprise de co
 - Utiliser les harnesses de coding choisis par l’utilisateur. Codex est le premier outil visé ; Pi, Claude Code et OpenCode font partie des outils souhaités ensuite.
 - Utiliser les harnesses installés sur la machine où Relai est déployé, avec une configuration simple pour plusieurs agents.
 - Présenter les réponses, les questions et les demandes de validation comme des messages dans l’inbox ; présenter les changements de fichiers comme des pièces jointes et intégrer les informations Git.
+- Un clic sur un mail reçu ouvre le panneau du véritable terminal de sa session. Conserver la saisie, les commandes `/`, skills, menus et validations natifs du harness, avec l'organisation graphique de Relai autour. Voir le [prototype interactif](../design/terminal-prototype/README.md).
 - S’inspirer explicitement de Gmail pour une inbox et une composition simples.
 - Proposer automatiquement les sessions détectées dans le destinataire, affichées avec nom d’agent, dossier courant, titre du chat et résumé Git/GitHub disponible. Chaque envoi vise un seul destinataire. Une session non pilotable reste visible comme « À connecter ».
 - Appeler le message envoyé par l’utilisateur « un Relai ». Le nom d’agent affiché est celui du harness détecté.

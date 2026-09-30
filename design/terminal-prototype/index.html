@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Relai — prototype terminal</title>
+  <link rel="stylesheet" href="/xterm.css"><link rel="stylesheet" href="/style.css">
+  <script src="/xterm.js" defer></script><script src="/fit.js" defer></script><script src="/client.js" defer></script>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+  <div class="app">
+    <aside class="navigation">
+      <a class="brand" href="/" aria-label="Relai, accueil"><span class="brand-mark">r</span>relai<span class="brand-dot">.</span></a>
+      <span class="eyebrow">VOTRE ESPACE DE TRAVAIL</span>
+      <button class="nav-item active" id="inbox-button"><span>▤</span> Inbox <span class="count">2</span></button>
+      <div class="nav-caption">Sessions du prototype</div>
+      <button class="nav-item session-link" data-session="session-a"><span class="agent-dot"></span>Session principale</button>
+      <button class="nav-item session-link" data-session="session-b"><span class="agent-dot secondary"></span>Deuxième session</button>
+      <div class="nav-spacer"></div>
+      <div class="project"><span class="project-icon">↳</span><div><strong>Relai</strong><small>Projet local</small></div></div>
+      <p class="prototype-label">Prototype exploratoire</p>
+    </aside>
+    <main>
+      <header class="topbar"><span id="breadcrumb">Inbox</span><span class="top-note">Mails d’exemple · terminal réel</span></header>
+      <section id="inbox" class="inbox">
+        <div class="inbox-heading"><div><span class="eyebrow">LE TRAVAIL CONTINUE</span><h1>Votre inbox.</h1><p>Ouvrez un mail pour retrouver l’espace de sa session.</p></div><span class="inbox-total">2 messages</span></div>
+        <div class="mail-list">
+          <button class="mail" data-session="session-a"><span class="mail-indicator"></span><span class="avatar">C</span><span class="mail-content"><span class="mail-line"><strong>Session principale</strong><span class="mail-tag">Relai</span></span><span class="mail-subject">Retrouver mon agent et ses commandes</span><span class="mail-preview">Un espace pour le terminal, les skills et le contexte du projet.</span></span><span class="mail-meta">Exemple<br><span>↗</span></span></button>
+          <button class="mail" data-session="session-b"><span class="mail-indicator muted"></span><span class="avatar second">C</span><span class="mail-content"><span class="mail-line"><strong>Deuxième session</strong><span class="mail-tag">Relai</span></span><span class="mail-subject">Travailler avec un deuxième terminal</span><span class="mail-preview">Changer de session et revenir au même processus.</span></span><span class="mail-meta">Exemple<br><span>↗</span></span></button>
+        </div>
+        <div class="inbox-foot"><span>↵</span><p>La première ouverture démarre un CLI neuf. Les suivantes retrouvent ce même terminal, tant que le serveur tourne.</p></div>
+      </section>
+      <section id="workspace" class="workspace" hidden>
+        <header class="workspace-heading"><button id="back" class="icon-button" aria-label="Retour à l’inbox">←</button><div><h1 id="session-title">Session principale</h1><p><span id="agent-name">Codex</span><span class="dot-separator">·</span>Relai<span class="dot-separator">·</span><span id="connection">Connexion…</span></p></div><div class="heading-actions"><button id="focus" class="quiet-button" aria-pressed="false">⤢ Mode focus</button><button id="context-toggle" class="quiet-button" aria-expanded="true">Contexte</button></div></header>
+        <div class="workspace-body">
+          <article class="mail-summary"><span class="eyebrow">MAIL REÇU · EXEMPLE</span><h2>Votre session, à portée de main.</h2><p>Le terminal ci-dessous est interactif. Retrouvez les commandes et les menus de votre agent directement dans son interface.</p></article>
+          <section class="terminal-panel" aria-label="Terminal interactif de la session">
+            <div class="terminal-toolbar"><span class="terminal-label"><span class="live-dot"></span><strong id="terminal-name">Terminal</strong><span id="dimensions">100 × 30</span></span><div class="terminal-actions"><button id="claim" class="quiet-button" hidden>Prendre le contrôle</button><button id="reconnect" class="quiet-button">Reconnecter</button><button id="stop" class="quiet-button danger">Arrêter</button></div></div>
+            <div id="terminal" class="terminal-host"></div>
+            <div class="terminal-footer"><span id="control-status">Connexion au terminal…</span><span>Cliquer dans le terminal pour écrire</span></div>
+          </section>
+          <aside id="context" class="context-panel"><span class="eyebrow">AUTOUR DE LA SESSION</span><h2>Contexte</h2><div class="context-row"><span>Projet</span><strong>Relai</strong></div><div class="context-row"><span>Interface</span><strong>CLI natif</strong></div><div class="context-row"><span>Processus</span><strong id="process-state">—</strong></div><div class="context-row"><span>Panneaux ouverts</span><strong id="client-count">—</strong></div><div class="context-row"><span>Saisie</span><strong id="writer-state">—</strong></div><hr><h3>Activité de connexion</h3><ol id="activity" aria-live="polite"></ol><p class="context-note">Les réponses et les diffs seront reliés ici après intégration des événements de l’agent.</p></aside>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="variant-switcher" role="group" aria-label="Comparer les dispositions du prototype"><button id="previous-variant" aria-label="Disposition précédente">←</button><span id="variant-label">A · Terminal central</span><button id="next-variant" aria-label="Disposition suivante">→</button></div>
+  <div id="notice" role="status" hidden></div>
+</body>
+</html>

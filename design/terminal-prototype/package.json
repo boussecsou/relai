@@ -1,0 +1,15 @@
+{
+  "name": "relai-terminal-prototype",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "@xterm/xterm": "5.5.0",
+    "@xterm/headless": "5.5.0",
+    "@xterm/addon-fit": "0.10.0",
+    "@xterm/addon-serialize": "0.13.0",
+    "ws": "8.22.0"
+  }
+}

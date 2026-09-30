@@ -1,5 +1,11 @@
 # Maquette UI/UX Relai
 
+## Prototype de terminal interactif
+
+Le [prototype mail → terminal](terminal-prototype/README.md) permet d'ouvrir le **vrai CLI** depuis un mail d'exemple, de revenir à l'inbox et de retrouver sa session. Après installation de ses dépendances, lancer `npm --prefix design/terminal-prototype start` depuis la racine puis ouvrir http://127.0.0.1:4174. Trois dispositions sont comparables. Le pont temporaire Node/Python ne constitue pas le moteur Rust de production.
+
+## Maquettes autonomes
+
 Ouvrir **`relai-glass.html`** dans un navigateur pour la nouvelle version : fond animé, verre dépoli et navigation Gmail. La première maquette reste disponible dans `relai-inbox.html`. Pour servir les deux depuis la racine du dépôt :
 
 ```bash

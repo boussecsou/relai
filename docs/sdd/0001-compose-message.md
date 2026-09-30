@@ -54,6 +54,12 @@ Relai doit conserver cette distinction dans son modèle pour ne pas présenter u
 
 ## Décisions encore ouvertes
 
+### Révision du parcours — terminal natif
+
+L'utilisateur a confirmé un panneau de véritable terminal accessible depuis un mail reçu. La saisie native du CLI devient le parcours principal d'interaction pour cette vue, afin de conserver commandes `/`, skills et menus. Les formulaires Markdown ci-dessus restent un cadrage antérieur à adapter ; ils ne doivent pas devenir un second pilote concurrent de la session. La file automatique et la programmation exigent une connaissance fiable de l'état de saisie propre au harness. Voir [SDD-005](0005-inbox-ui-ux.md#direction-confirmée--panneau-de-terminal-natif) et le [prototype](../../design/terminal-prototype/README.md).
+
+### Questions restantes
+
 - Couverture et mode de connexion des sessions externes, avec état inconnu si leur activité ne peut pas être confirmée.
 - Ordre, annulation et comportement après erreur de la file d’attente.
 - Arrêt du moteur et reprise après arrêt de la machine ; fermeture du navigateur et masquage du terminal sans arrêt des agents.

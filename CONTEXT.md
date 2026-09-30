@@ -27,7 +27,7 @@ Destination unique d’un envoi : une session existante ou un dossier de travail
 Nom de la conversation, détecté depuis le harness ou choisi lors de « New session ».
 
 **Prompt** :
-Corps du message envoyé au harness, rédigé en Markdown.
+Texte de la demande envoyé au harness. Il peut être rédigé en Markdown ; dans le parcours de terminal natif confirmé, il est saisi directement dans le CLI depuis un panneau Relai. Markdown est un format de rédaction, pas une obligation d'éditeur graphique.
 
 **Reply** :
 Réponse qui poursuit la conversation dans la même session native.
