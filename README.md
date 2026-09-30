@@ -4,13 +4,13 @@ A local, open-source interface for managing coding AI agents like an inbox. Mess
 
 The interface runs in a browser. Agent replies, questions, and approval requests appear as inbox messages, with file changes presented as attachments.
 
-The initial compose flow uses a session destination, a subject, and a Markdown prompt. Available harnesses and active sessions should be discovered automatically; discovery and control capabilities vary by harness and remain under design. See the [compose draft](docs/sdd/0001-compose-message.md).
+New session uses a destination, chat title, and Markdown prompt; Reply continues an existing session with a Markdown prompt. Available harnesses and active sessions should be discovered automatically; discovery and control capabilities vary by harness and remain under design. See the [compose draft](docs/sdd/0001-compose-message.md).
 
 ## Status
 
 **In development — product design and architecture exploration.** No application or API is available yet.
 
-The first integration targets Codex and the initial user's WSL environment. Relai is intended to use harnesses already installed on the user's machine. Docker packaging and the host execution bridge are still being designed; broader harness and operating-system support remain product goals.
+The first integration targets Codex and the initial user's WSL environment. Relai is intended to use harnesses already installed on the user's machine. The chosen architecture is a native local Rust service with a TypeScript/React browser UI, SQLite storage, and Git CLI. UI and API share application operations that a future MCP adapter can reuse; MCP implementation is deferred. Distribution targets Linux/WSL first, with independent installations on multiple machines. Broader platform support and Docker distribution remain future options. See the [installation draft](docs/sdd/0004-local-installation-and-api.md).
 
 See [product direction](docs/product-direction.md) for confirmed requirements and open decisions, and [CONTEXT.md](CONTEXT.md) for the project glossary.
 

@@ -30,7 +30,7 @@ Les usages envisagés comprennent les réponses dans un thread, la reprise de co
 - « New session » demande un titre, une destination et un prompt Markdown, avec libellés ; « Reply » ne demande que le prompt.
 - Découvrir automatiquement les historiques locaux, métadonnées en premier ; reprendre une session arrêtée lors d’une réponse si le harness le permet.
 - Documenter les erreurs, leurs états et les actions de récupération dans des SDDs.
-- Prévoir une API et des opérations applicatives réutilisables par un futur MCP Relai. Aucun MCP à construire dans le périmètre actuel ; architecture et packaging restent à décider.
+- Prévoir une API et des opérations applicatives réutilisables par un futur MCP Relai. Aucun MCP à construire dans le périmètre actuel ; architecture native retenue, détails de packaging à spécifier.
 - Un échec suspend uniquement la file de la session concernée, conserve les messages et propose « Réessayer », « Ignorer cet envoi » ou « Annuler ». Les autres sessions continuent.
 - Sans session ouverte, choisir un dossier de travail et un harness disponible, puis lancer automatiquement la session avec le prompt.
 - Détecter automatiquement les harnesses disponibles ; la couverture de découverte et de pilotage reste à vérifier par outil.
@@ -40,29 +40,29 @@ Les usages envisagés comprennent les réponses dans un thread, la reprise de co
 
 Le stockage local de Relai n’établit pas une exigence de modèles hors ligne : les échanges d’un harness avec son fournisseur de modèles dépendent de sa propre configuration.
 
-## Pistes techniques, encore ouvertes
+## Configuration retenue après délégation du choix
 
-- Rust pour le moteur et la gestion des processus et terminaux.
-- TypeScript et React pour l’interface graphique.
-- SQLite pour les données locales.
-- Git CLI pour le suivi du repo.
-- Tauri reste une piste de distribution future ; l’interface retenue pour le cadrage actuel est celle du navigateur.
-- Docker comme piste de distribution et/ou d’environnement d’exécution.
-- MCP et JSON-RPC comme pistes d’intégration, selon les fonctions et les outils concernés.
+- Rust pour le moteur local et la supervision des processus.
+- TypeScript/React pour l’UI navigateur, servie par le service local.
+- SQLite pour le stockage local et Git CLI pour les fonctions Git.
+- Service natif Linux/WSL par défaut, avec cœur applicatif commun à l’UI et l’API ; MCP futur, sans implémentation actuelle.
+- Modules cohérents pour conversations, envois, runtime/adaptateurs et Git ; détails privés derrière des interfaces courtes.
+- Distribution installable sur plusieurs machines sous forme d’instances indépendantes ; pas de décision de synchronisation entre machines.
+- Docker comme option de distribution ultérieure ; Tauri comme éventuelle extension desktop.
 
-L’interface navigateur est retenue. Les harnesses visés sont ceux du poste utilisateur. Le rôle exact de Docker, la connexion au poste et le packaging de cette connexion restent ouverts.
+Voir [ADR-002](adr/0002-native-local-service.md) et [SDD-004](sdd/0004-local-installation-and-api.md). Les performances, formats de packages et plateformes supplémentaires restent à valider.
 
 ## Faits vérifiés pour éclairer les choix
 
 Les interfaces des harnesses diffèrent : [Codex app-server](https://learn.chatgpt.com/docs/app-server) expose JSON-RPC et la gestion des sessions et approbations ; [Claude Code](https://code.claude.com/docs/en/headless) propose la CLI en mode programmatique et un SDK ; [OpenCode](https://opencode.ai/docs/server/) expose un serveur HTTP et des événements ; [Pi](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/rpc.md) propose un mode RPC.
 
-**Proposition, à valider :** définir un adaptateur par harness et déclarer ses capacités. Ces interfaces permettent d’envisager une abstraction commune, mais ne démontrent pas une portabilité universelle des sessions entre outils. Une session de harness et une conversation Relai restent des concepts à préciser.
+**Choix retenu :** définir un adaptateur par harness et déclarer ses capacités. Ces interfaces permettent d’envisager une abstraction commune, mais ne démontrent pas une portabilité universelle des sessions entre outils. Une session de harness et une conversation Relai restent des concepts à préciser.
 
 [Docker Desktop](https://docs.docker.com/desktop/features/networking/) exécute les conteneurs Linux dans une machine virtuelle. Les [bind mounts](https://docs.docker.com/engine/storage/bind-mounts/) partagent des fichiers du poste avec un conteneur ; ils ne donnent pas automatiquement accès aux processus ou aux sessions terminal déjà ouverts sur le poste. Sous WSL, Docker recommande de conserver le code monté dans le [système de fichiers Linux](https://docs.docker.com/desktop/features/wsl/best-practices/).
 
 Docker documente les connexions entre un conteneur et un [service sur l’hôte](https://docs.docker.com/desktop/features/networking/networking-how-tos/). Cet accès réseau ne lance pas les programmes de l’hôte. WSL permet de [faire communiquer les environnements Windows et Linux](https://learn.microsoft.com/en-us/windows/wsl/filesystems), mais les chemins, les exécutables et le contexte utilisateur restent à prendre en compte.
 
-**Proposition, à valider :** l’inbox et le service Relai dans Docker, avec un composant d’exécution sur le poste Linux ou dans la distribution WSL qui contient les harnesses et les repos. Ce composant lancerait les outils avec l’utilisateur concerné et communiquerait leurs événements au service Relai. Le protocole, l’appairage, l’authentification et l’installation de ce composant restent à concevoir. Cette proposition découle des contraintes d’isolation ; elle n’est pas une capacité automatique de Docker.
+**Option future :** l’inbox et le service Relai dans Docker, avec un composant d’exécution sur le poste Linux ou dans la distribution WSL qui contient les harnesses et les repos. Ce composant lancerait les outils avec l’utilisateur concerné et communiquerait leurs événements au service Relai. Le protocole, l’appairage, l’authentification et l’installation de ce composant restent à concevoir. Cette proposition découle des contraintes d’isolation ; elle n’est pas une capacité automatique de Docker.
 
 ## Composition et modèle de conversation
 
@@ -79,7 +79,7 @@ La documentation [Codex app-server](https://learn.chatgpt.com/docs/app-server) d
 ## Questions encore ouvertes
 
 - Quel scénario concret doit rendre la première version utile au quotidien ?
-- Accepter un composant d’exécution Linux/WSL en complément du conteneur Relai ?
+- Définir les formats de packages et la supervision du service natif Linux/WSL.
 - Quel périmètre de plateformes supporter dans la première version ?
 - Sessions créées par Relai uniquement ou reprise de sessions créées ailleurs ?
 - Quels processus continuent lorsque le navigateur, le terminal ou le service est fermé ?
