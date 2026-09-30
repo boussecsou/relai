@@ -6,7 +6,7 @@
 
 Relai est une interface locale et open source pour gérer une équipe d’agents IA comme une boîte mail. L’utilisateur envoie un sujet et un prompt Markdown à une session existante, ou choisit un dossier et un harness pour lancer une nouvelle session. Relai suit le travail et présente les retours avec les fichiers modifiés et, lorsque Git est disponible, les diffs, les commits et les PR.
 
-Les usages envisagés comprennent les réponses dans un thread, le transfert de tâches, la reprise de conversations et plusieurs agents au travail en parallèle. Leur comportement détaillé reste à définir.
+Les usages envisagés comprennent les réponses dans un thread, la reprise de conversations et plusieurs agents au travail en parallèle. Le transfert vers un autre agent est retiré du périmètre actuel pour garder le produit léger.
 
 ## Intentions confirmées par l’utilisateur
 
@@ -17,7 +17,12 @@ Les usages envisagés comprennent les réponses dans un thread, le transfert de 
 - Utiliser les harnesses installés sur la machine où Relai est déployé, avec une configuration simple pour plusieurs agents.
 - Présenter les réponses, les questions et les demandes de validation comme des messages dans l’inbox ; présenter les changements de fichiers comme des pièces jointes et intégrer les informations Git.
 - S’inspirer explicitement de Gmail pour une inbox et une composition simples.
-- Proposer automatiquement les sessions en cours dans le destinataire, affichées sous la forme « Titre du chat — Nom du harness ».
+- Proposer automatiquement les sessions détectées dans le destinataire, affichées sous la forme « Titre du chat — Nom du harness — Dossier courant ». Une session non pilotable reste visible comme « À connecter ».
+- Appeler le message envoyé par l’utilisateur « un Relai ».
+- Mettre les nouveaux messages en file lorsque leur session travaille déjà et permettre les réponses dans la conversation.
+- Exécuter les sessions en arrière-plan avec un terminal consultable dans l’interface et conserver les historiques après fermeture du terminal.
+- Organiser les chats avec des libellés ou tickets, permettre les Relais programmés et une recherche inspirée de Gmail. Ces comportements restent à préciser.
+- Concevoir une application légère et scalable ; les volumes et objectifs de performance restent à définir.
 - Limiter la composition initiale au destinataire, au sujet et au prompt Markdown.
 - Sans session ouverte, choisir un dossier de travail et un harness disponible, puis lancer automatiquement la session avec le prompt.
 - Détecter automatiquement les harnesses disponibles ; la couverture de découverte et de pilotage reste à vérifier par outil.
@@ -69,14 +74,17 @@ La documentation [Codex app-server](https://learn.chatgpt.com/docs/app-server) d
 - Accepter un composant d’exécution Linux/WSL en complément du conteneur Relai ?
 - Quel périmètre de plateformes supporter dans la première version ?
 - Sessions créées par Relai uniquement ou reprise de sessions créées ailleurs ?
-- Que signifie « vrai terminal » : environnement d’exécution, console visible, reprise manuelle de la TUI ?
+- Quels processus continuent lorsque le navigateur, le terminal ou le service est fermé ?
 - Comment distinguer agent, tâche, thread, session et run ?
-- Que faire d’une session externe détectée que Relai ne peut pas encore piloter ?
-- Que faire d’un nouveau prompt envoyé à une session qui travaille déjà ?
+- Comment connecter une session marquée « À connecter » selon les capacités du harness ?
+- Comment ordonner, annuler et reprendre les envois en file ?
 - Un nouveau sujet envoyé à la même session crée-t-il un autre thread Relai ?
 - Quels événements produisent des messages, et lesquels restent dans l’activité du terminal ?
 - Les pièces jointes représentent-elles les fichiers à un moment précis ou leur état courant ?
-- Comment transmettre une tâche d’un harness à un autre ?
+- Un envoi choisit-il un destinataire ou vise-t-il plusieurs sessions ?
+- Libellés de conversation ou tickets avec numéro et statut ?
+- Programmation ponctuelle ou récurrente, et comportement lorsque le service est arrêté à l’heure prévue ?
+- Quel périmètre de recherche et quels volumes doivent être supportés ?
 - Quels pouvoirs accorder aux agents et quelles actions doivent demander une approbation ?
 - Comment coordonner des modifications parallèles sur un repo ?
 

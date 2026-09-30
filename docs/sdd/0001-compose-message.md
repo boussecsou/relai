@@ -10,7 +10,7 @@ Composer une demande dans une interface inspirée de Gmail, en visant une sessio
 
 ### Session existante
 
-Le champ destinataire propose les sessions en cours détectées par Relai. Chaque entrée montre le titre du chat et le nom du harness, par exemple « Régler issue 3 — Codex CLI ».
+Le champ destinataire propose les sessions détectées par Relai. Chaque entrée montre le titre du chat, le nom du harness et le dossier courant, par exemple « Régler issue 3 — Codex CLI — /home/user/projects/p1 ». Une session détectée mais non pilotable apparaît comme « À connecter » ; l’envoi devient disponible après connexion.
 
 L’utilisateur choisit la session, écrit un sujet et un prompt en Markdown, puis envoie son message.
 
@@ -18,7 +18,13 @@ L’utilisateur choisit la session, écrit un sujet et un prompt en Markdown, pu
 
 En l’absence de session lancée, l’utilisateur choisit un dossier de travail et un harness parmi les outils disponibles détectés automatiquement. Exemple : dossier « /home/user/projects/p1 », harness « Codex CLI ».
 
-L’envoi demande à Relai de lancer automatiquement un terminal avec le harness, le prompt et le contexte d’exécution nécessaire. La forme de ce terminal — interne à Relai ou fenêtre externe — reste à préciser.
+L’envoi demande à Relai de lancer automatiquement le harness avec le prompt et le contexte d’exécution nécessaire. La session travaille en arrière-plan et son terminal est consultable dans l’interface.
+
+### Réponse et file d’attente
+
+L’utilisateur répond dans la conversation comme dans une boîte mail. Si la session travaille déjà, le nouveau Relai rejoint une file d’attente. L’ordre, l’annulation et les reprises après erreur restent à préciser.
+
+Le suivi des chats et leur historique restent accessibles après fermeture du terminal. Fermer l’affichage, terminer le processus et arrêter le service sont des événements distincts ; les règles d’arrêt et de reprise restent à définir.
 
 ## Formulaire initial
 
@@ -42,14 +48,16 @@ Relai doit conserver cette distinction dans son modèle pour ne pas présenter u
 
 ## Suggestions à discuter
 
-- Un destinataire recherchable qui affiche les titres de chats et les noms des harnesses, avec le dossier en information secondaire pour distinguer les sessions homonymes.
+- Un destinataire recherchable qui affiche rapidement le titre, le harness et le dossier pour distinguer les sessions homonymes.
 - Une action « Nouvelle session » accessible même lorsque des sessions existent déjà.
 - Un aperçu Markdown optionnel dans le corps du message.
 
 ## Décisions encore ouvertes
 
 - Périmètre de découverte des sessions créées hors Relai et mode de connexion lorsqu’elles ne sont pas pilotables directement.
-- File d’attente, guidage pendant le travail ou interruption lorsqu’une session reçoit un nouveau prompt alors qu’elle travaille déjà.
+- Ordre, annulation et comportement après erreur de la file d’attente.
 - Rapport entre sujet d’un message, titre du chat natif et thread de l’inbox.
-- Présentation et cycle de vie du terminal lancé pour une nouvelle session.
+- Cycle de vie des processus lorsque le navigateur, le terminal ou le service est fermé.
+- Sens de « dans tous les destinataires » : choix dans une liste ou envoi à plusieurs sessions.
+- Définition du dossier courant affiché : dossier de session ou dossier d’une commande terminal.
 - Comportement du sujet et du prompt au niveau du harness : transmission exacte et rôle éventuel du sujet dans la création du titre de chat.
