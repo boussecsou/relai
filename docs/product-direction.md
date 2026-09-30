@@ -18,10 +18,12 @@ Les usages envisagés comprennent les réponses dans un thread, la reprise de co
 - Présenter les réponses, les questions et les demandes de validation comme des messages dans l’inbox ; présenter les changements de fichiers comme des pièces jointes et intégrer les informations Git.
 - S’inspirer explicitement de Gmail pour une inbox et une composition simples.
 - Proposer automatiquement les sessions détectées dans le destinataire, affichées avec nom d’agent, dossier courant, titre du chat et résumé Git/GitHub disponible. Chaque envoi vise un seul destinataire. Une session non pilotable reste visible comme « À connecter ».
-- Appeler le message envoyé par l’utilisateur « un Relai ».
+- Appeler le message envoyé par l’utilisateur « un Relai ». Le nom d’agent affiché est celui du harness détecté.
+- « Reply » poursuit la même session ; « New session » crée une nouvelle session native et sa conversation Relai.
+- Découvrir les chats actifs et non actifs, leurs titres et dossiers, selon les informations effectivement accessibles par harness.
 - Mettre les nouveaux messages en file lorsque leur session travaille déjà et permettre les réponses dans la conversation.
-- Exécuter les sessions en arrière-plan avec un terminal consultable dans l’interface et conserver les historiques après fermeture du terminal.
-- Organiser les conversations avec des libellés personnalisés et des regroupements automatiques par agent, dossier et branche.
+- Exécuter les sessions en arrière-plan avec un terminal consultable dans l’interface. Fermer le navigateur ou masquer le terminal laisse les agents travailler tant que le moteur tourne. Arrêt d’agent explicite ; historique conservé après arrêt de la machine, reprise selon le harness.
+- Organiser les conversations avec des libellés personnalisés et des regroupements automatiques selon le contexte actuel du harness, dossier et branche ; conserver le contexte historique de chaque message.
 - Programmer des Relais ponctuellement ; demander confirmation pour les échéances manquées pendant un arrêt.
 - Rechercher titres, sujets, prompts et réponses ; filtrer par harness, dossier, libellé, état, branche et informations Git/GitHub.
 - Concevoir une interface utilisable avec de nombreux chats et plus de 20 sessions, ainsi qu’un code modulaire permettant des changements localisés. Cible de validation proposée : 10 000 chats et 25 sessions, budgets à mesurer.
@@ -64,7 +66,7 @@ Le destinataire de composition vise une session native existante, par exemple «
 
 Le choix précédent d’un destinataire correspondant à un profil d’agent et d’un dépôt obligatoire est corrigé. Les profils nommés restent une éventuelle extension, pas une exigence de la première composition. Le [brouillon SDD-001](sdd/0001-compose-message.md) décrit le formulaire demandé et ses questions ouvertes.
 
-Le lien entre thread Relai, sujet du message et session native reste à décider. Un run reste un terme proposé pour une période de travail ; il n’a pas encore été validé.
+Une conversation Relai correspond à une session native. Le champ sujet et son rapport au titre du chat restent à confirmer. Un run reste un terme proposé pour une période de travail ; il n’a pas encore été validé.
 
 La session native, le processus terminal et le thread Relai doivent être distingués. Reprendre un historique enregistré et prendre le contrôle d’un terminal déjà actif sont deux besoins distincts. Les définitions seront ajoutées au glossaire après validation.
 
@@ -80,10 +82,10 @@ La documentation [Codex app-server](https://learn.chatgpt.com/docs/app-server) d
 - Comment distinguer agent, tâche, thread, session et run ?
 - Comment connecter une session marquée « À connecter » selon les capacités du harness ?
 - Comment ordonner, annuler et reprendre les envois en file ?
-- Un nouveau sujet envoyé à la même session crée-t-il un autre thread Relai ?
+- Conserver un sujet distinct ou seulement le titre du chat ?
 - Quels événements produisent des messages, et lesquels restent dans l’activité du terminal ?
 - Les pièces jointes représentent-elles les fichiers à un moment précis ou leur état courant ?
-- Regroupements par agent/dossier/branche : contexte actuel ou historique de chaque message ?
+- Comment afficher les contextes historiques manquants des chats importés ?
 - Fuseau, seuil de retard et interaction entre programmation et file d’attente ?
 - Quels champs Git/GitHub rechercher et quels budgets mesurer sur quelle machine ?
 - Quels pouvoirs accorder aux agents et quelles actions doivent demander une approbation ?
