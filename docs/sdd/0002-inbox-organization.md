@@ -5,10 +5,10 @@ Statut : brouillon. Besoins recueillis ; aucune fonctionnalité implémentée.
 ## Besoins confirmés
 
 - Une inbox inspirée de Gmail, avec une UI/UX soignée comme priorité du produit.
-- Un historique des chats accessible même après fermeture de leur terminal.
+- Un historique des chats accessible même après fermeture de leur terminal. Fermer le navigateur ou masquer le terminal laisse le travail continuer tant que le moteur local tourne ; la reprise après arrêt de la machine dépend du harness.
 - Des réponses dans la conversation et une file d’attente lorsque la session travaille déjà.
 - Des libellés multiples sur les conversations, conservés lors des réponses, avec états d’exécution séparés.
-- Des regroupements automatiques par agent, dossier et branche, en complément des libellés personnalisés.
+- Des regroupements automatiques par harness, dossier et branche selon le contexte actuel, en complément des libellés personnalisés. Le contexte historique est conservé sur chaque message.
 - Programmation ponctuelle des Relais ; confirmation avant envoi lorsque l’échéance a été manquée pendant un arrêt.
 - Recherche dans les titres, sujets, prompts et réponses, avec filtres par harness, dossier, libellé, état, branche et informations Git/GitHub.
 - Une application locale légère, conçue pour de nombreux chats et plus de 20 sessions de travail. Le code doit permettre des ajouts et modifications localisés. Le transfert entre agents est hors du périmètre actuel.
@@ -17,17 +17,16 @@ Statut : brouillon. Besoins recueillis ; aucune fonctionnalité implémentée.
 
 - Navigation : Inbox, Envoyés, En attente, Programmés, puis libellés personnalisés.
 - Affichage, annulation et modification des messages programmés.
-- Séparer la persistance de l’historique du cycle de vie des processus ; fermer la vue terminal ne devrait pas arrêter le travail.
 
 Ces propositions ne fixent ni l’architecture ni le périmètre de la première version.
 
 ## Décisions ouvertes
 
-- Regroupements automatiques : métadonnées actuelles de session ou contexte conservé lors de chaque message ?
+- Métadonnées historiques disponibles lors de la découverte de chats existants : afficher inconnu si le contexte passé n’est pas enregistré.
 - Champs Git/GitHub à indexer ; recherche dans logs, diffs et commandes hors du premier périmètre accepté.
 - Fuseau et seuil de retard ; reprise et interaction entre programmation et file d’attente.
 - Cible de validation proposée : 10 000 chats et 25 sessions simultanées, sans plafond produit à 25. Machine de référence, taille des historiques, débit des événements et budgets de réactivité à définir.
-- Signification de fermeture du terminal, règles d’arrêt et reprise des processus ?
+- Arrêt explicite des agents, arrêt du moteur et reprise après redémarrage de la machine.
 
 ## Repères vérifiés
 
