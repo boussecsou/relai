@@ -23,8 +23,8 @@ Conversation gérée par un harness et associée à un dossier de travail. Relai
 **Destinataire** :
 Destination unique d’un envoi : une session existante ou un dossier de travail et un harness pour ouvrir une nouvelle session. Le nom de l’agent affiché est celui du harness détecté. La sélection affiche ce nom, le dossier courant, le titre du chat et un résumé Git/GitHub lorsque disponible.
 
-**Sujet** :
-Intitulé du message rédigé par l’utilisateur.
+**Titre du chat** :
+Nom de la conversation, détecté depuis le harness ou choisi lors de « New session ».
 
 **Prompt** :
 Corps du message envoyé au harness, rédigé en Markdown.
