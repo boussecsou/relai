@@ -1,5 +1,9 @@
 # Maquette UI/UX Relai
 
+## Prototype inbox Glass
+
+Le [prototype inbox](inbox-prototype/README.md) conserve le design Glass et ouvre les mails en lecture sans créer de terminal. Les réponses finales des sessions Codex lancées ici arrivent automatiquement dans leur conversation ; son terminal natif reste accessible à la demande. Lancer `npm --prefix design/inbox-prototype ci`, puis `npm --prefix design/inbox-prototype start` et ouvrir http://127.0.0.1:4176. Le premier prototype sur 4174 reste séparé.
+
 ## Prototype de terminal interactif
 
 Le [prototype mail → terminal](terminal-prototype/README.md) permet d'ouvrir le **vrai CLI** depuis un mail d'exemple, de revenir à l'inbox et de retrouver sa session. Après installation de ses dépendances, lancer `npm --prefix design/terminal-prototype start` depuis la racine puis ouvrir http://127.0.0.1:4174. Trois dispositions sont comparables. Le pont temporaire Node/Python ne constitue pas le moteur Rust de production.

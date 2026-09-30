@@ -56,7 +56,7 @@ Relai doit conserver cette distinction dans son modèle pour ne pas présenter u
 
 ### Révision du parcours — terminal natif
 
-L'utilisateur a confirmé un panneau de véritable terminal accessible depuis un mail reçu. La saisie native du CLI devient le parcours principal d'interaction pour cette vue, afin de conserver commandes `/`, skills et menus. Les formulaires Markdown ci-dessus restent un cadrage antérieur à adapter ; ils ne doivent pas devenir un second pilote concurrent de la session. La file automatique et la programmation exigent une connaissance fiable de l'état de saisie propre au harness. Voir [SDD-005](0005-inbox-ui-ux.md#direction-confirmée--panneau-de-terminal-natif) et le [prototype](../../design/terminal-prototype/README.md).
+Après essai, l’utilisateur a précisé que le clic sur un mail doit ouvrir sa lecture dans l’inbox Glass, sans nouvelle session. Le terminal natif reste une vue optionnelle du même chat, conservant commandes `/`, skills et menus. La réponse peut être préparée dans la conversation en Markdown ; le prototype propose de la copier puis de la coller dans ce CLI. « New session » est la seule action qui crée un processus. Un envoi graphique direct, la file automatique et la programmation exigent encore une intégration propre au harness. Voir [SDD-005](0005-inbox-ui-ux.md#direction-confirmée--inbox-glass-et-terminal-du-même-chat) et le [prototype inbox](../../design/inbox-prototype/README.md).
 
 ### Questions restantes
 

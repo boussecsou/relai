@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Relai — inbox</title>
+  <link rel="stylesheet" href="/xterm.css"><link rel="stylesheet" href="/style.css">
+  <script src="/xterm.js" defer></script><script src="/fit.js" defer></script>
+  <script src="/marked.js" defer></script><script src="/purify.js" defer></script><script src="/client.js" defer></script>
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"><div class="orb teal"></div><div class="orb blue"></div><div class="orb peach"></div></div>
+  <div class="app">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="Relai, accueil"><span class="brand-mark">r</span><span class="brand-name">relai<span>.</span></span></a>
+      <button class="compose-button" id="new-session"><span data-icon="plus"></span><span>New session</span></button>
+      <nav aria-label="Organisation des conversations">
+        <button class="nav-item active" data-view="inbox"><span data-icon="inbox"></span><span>Inbox</span><b id="unread-count">0</b></button>
+        <button class="nav-item" data-view="sent"><span data-icon="send"></span><span>Envoyés</span></button>
+        <button class="nav-item" data-view="questions"><span data-icon="question"></span><span>À répondre</span></button>
+        <button class="nav-item" data-view="tasks"><span data-icon="tasks"></span><span>Tâches à revoir</span></button>
+        <button class="nav-item" data-view="starred"><span data-icon="star"></span><span>Favoris</span></button>
+        <button class="nav-item" data-view="tickets"><span data-icon="ticket"></span><span>Tickets</span></button>
+        <button class="nav-item" data-view="archived"><span data-icon="archive"></span><span>Archives</span></button>
+      </nav>
+      <div class="labels-heading"><span>LIBELLÉS</span><button class="icon-button" id="add-label" aria-label="Ajouter un libellé à la conversation" disabled><span data-icon="plus"></span></button></div>
+      <div id="label-navigation" class="label-navigation"></div>
+      <div class="sidebar-foot"><span class="project-icon" data-icon="folder"></span><div><strong>Relai</strong><small>Votre espace local</small></div></div>
+    </aside>
+    <div class="main">
+      <header class="topbar">
+        <div class="search-field"><span data-icon="search"></span><input id="search" type="search" placeholder="Rechercher un Relai, un agent, un dossier…" aria-label="Rechercher les conversations"><kbd>⌘ K</kbd></div>
+        <span class="receive-status" id="receive-status"><i></i><span>Connexion…</span></span>
+        <button class="icon-button" id="motion" aria-label="Suspendre le fond animé" aria-pressed="false"><span data-icon="motion"></span></button>
+        <button class="icon-button" id="theme" aria-label="Passer au thème clair"><span data-icon="sun"></span></button>
+      </header>
+      <main class="workspace" id="workspace">
+        <section class="list-panel" id="list-panel" aria-label="Boîte de réception">
+          <header class="list-heading"><h1 id="list-title">Inbox</h1><span id="list-count">—</span><div class="list-options"><select id="source-filter" aria-label="Origine des conversations"><option value="all">Tout · exemples inclus</option><option value="local">Mes conversations</option><option value="example">Exemples</option></select><button id="density" class="icon-button" aria-label="Activer la densité compacte" aria-pressed="false"><span data-icon="density"></span></button></div></header>
+          <div class="list-toolbar"><label class="select-all"><input id="select-all" type="checkbox" aria-label="Sélectionner les conversations affichées"></label><div id="bulk-actions" hidden><button class="text-button" id="bulk-read">Marquer comme lus</button><button class="text-button" id="bulk-archive">Archiver</button></div><div id="filter-tabs" class="filter-tabs"><button class="active" data-filter="all">Tout</button><button data-filter="unread">Non lus</button><button data-filter="connected">Terminal disponible</button></div><span class="list-end-note">Une conversation, un destinataire</span></div>
+          <div class="mail-list" id="mail-list" role="list" aria-label="Conversations"></div>
+          <div class="empty-state" id="empty-state" hidden><span data-icon="inbox"></span><h2>Aucun Relai dans cette vue</h2><p id="empty-text">Essayez une autre recherche ou ouvrez une nouvelle session.</p><button class="secondary-button" id="reset-filters">Effacer les filtres</button></div>
+          <footer class="list-footer"><span>Les réponses des sessions Codex lancées ici arrivent automatiquement.</span><span id="terminal-count">0 terminal actif</span></footer>
+        </section>
+        <section class="thread" id="thread" hidden aria-label="Conversation sélectionnée">
+          <div class="thread-toolbar"><button class="icon-button" id="back" aria-label="Retour à l’inbox"><span data-icon="back"></span></button><span id="thread-crumb">Inbox</span><div class="thread-actions"><button class="icon-button" id="star-thread" aria-label="Ajouter aux favoris"><span data-icon="star"></span></button><button class="icon-button" id="label-thread" aria-label="Modifier les libellés"><span data-icon="tag"></span></button><button class="icon-button" id="archive-thread" aria-label="Archiver la conversation"><span data-icon="archive"></span></button><button class="icon-button" id="previous-thread" aria-label="Conversation précédente"><span data-icon="up"></span></button><button class="icon-button" id="next-thread" aria-label="Conversation suivante"><span data-icon="down"></span></button></div></div>
+          <header class="thread-header"><div class="title-line"><h1 id="thread-title"></h1><span id="thread-source" class="source-badge"></span></div><div class="recipient" id="recipient"></div><div class="thread-labels" id="thread-labels"></div><div class="view-tabs" role="group" aria-label="Affichage de cette conversation"><button class="active" id="show-message"><span data-icon="mail"></span>Conversation</button><button id="show-terminal"><span data-icon="terminal"></span>Terminal du chat</button><span id="terminal-availability"></span></div></header>
+          <div class="reader-body" id="reader-body"><div id="messages" class="messages"></div><div class="reply" id="reply"><button class="reply-toggle" id="reply-toggle"><span data-icon="reply"></span>Répondre au même destinataire<span id="reply-recipient"></span></button><div id="reply-editor" hidden><label for="reply-text" class="sr-only">Prompt de réponse en Markdown</label><textarea id="reply-text" placeholder="Continuer ce chat… Votre prompt peut contenir du Markdown."></textarea><div id="reply-preview" class="markdown reply-preview" hidden></div><div class="reply-foot"><button id="copy-and-open" class="primary-button"><span data-icon="terminal"></span>Copier et répondre dans le terminal</button><button id="copy-prompt" class="text-button">Copier</button><button id="preview-prompt" class="text-button" aria-pressed="false">Aperçu Markdown</button></div><p class="reply-hint" id="reply-hint">Le prompt reste destiné à ce chat.</p></div></div></div>
+          <section class="terminal-panel" id="terminal-panel" hidden aria-label="Terminal existant de cette conversation"><div class="terminal-toolbar"><span><i class="live-dot"></i><strong id="terminal-name">Terminal</strong><small id="dimensions"></small></span><div class="terminal-actions"><button id="claim" class="text-button" hidden>Prendre le contrôle</button><button id="reconnect" class="text-button">Reconnecter</button><button id="focus" class="text-button" aria-pressed="false">Mode focus</button><button id="stop" class="text-button danger">Arrêter</button></div></div><div id="terminal" class="terminal-host"></div><div class="terminal-footer"><span id="control-status">Connexion…</span><span>Saisie et commandes natives de l’agent</span></div></section>
+        </section>
+      </main>
+      <footer class="app-footer"><span>Relai · prototype local</span><span>Lire un mail ne lance aucun agent.</span></footer>
+    </div>
+  </div>
+  <dialog id="compose-dialog"><form id="compose-form"><header class="dialog-header"><h2>New session</h2><button type="button" class="icon-button" data-close="compose-dialog" aria-label="Fermer"><span data-icon="close"></span></button></header><p class="dialog-intro">Choisir un destinataire pour démarrer un nouveau chat.</p><label>Agent<select id="compose-agent" required></select></label><label>Dossier<input id="compose-directory" required autocomplete="off"></label><label>Nom du chat<input id="compose-title" required maxlength="160" placeholder="Ex. Corriger le refresh de session"></label><div class="form-pair"><label>Libellé<input id="compose-label" placeholder="Ex. Bug" maxlength="40"></label><label>Ticket (optionnel)<input id="compose-ticket" placeholder="Ex. RELAI-18" maxlength="80"></label></div><label>Premier prompt (optionnel)<textarea id="compose-prompt" placeholder="Décrire le travail à faire…"></textarea></label><p id="compose-error" class="form-error" role="alert" hidden></p><footer><span>Cette action crée une session.</span><button class="primary-button" id="create-session" type="submit">Créer la session</button></footer></form></dialog>
+  <dialog id="label-dialog"><form id="label-form"><header class="dialog-header"><h2>Libellés du chat</h2><button type="button" class="icon-button" data-close="label-dialog" aria-label="Fermer"><span data-icon="close"></span></button></header><div id="label-options" class="label-options"></div><label>Nouveau libellé<input id="new-label-name" maxlength="40" placeholder="Ex. À revoir"></label><footer><button class="primary-button" type="submit">Appliquer</button></footer></form></dialog>
+  <div id="notice" role="status" hidden></div>
+</body>
+</html>

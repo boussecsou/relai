@@ -4,6 +4,8 @@ Recherche du 30 septembre 2026, sources primaires consultées. Proposition à va
 
 ## Recommandation
 
+Révision après essai utilisateur : le terminal natif reste la surface d’interaction avec l’agent, mais le clic sur un mail ouvre d’abord sa lecture dans l’inbox Glass. Le terminal est une vue du même chat ; lire ou recevoir un Relai ne crée aucun processus. Voir le [prototype inbox](../../design/inbox-prototype/README.md).
+
 Faire du véritable CLI la surface d'interaction principale d'une session : un terminal intégré dans un panneau Relai, avec autour une liste de sessions, des informations de projet, les différences Git et des documents. Les commandes `/`, les skills, les menus et les validations restent traités par le CLI installé. Relai ajoute la navigation et l'observation ; il ne réimplémente pas les menus de chaque agent.
 
 Sur Linux/WSL, le candidat recommandé pour le MVP est **xterm.js dans React → WebSocket → service Rust → PTY → CLI**. Le moteur possède le processus indépendamment du navigateur. tmux reste une option ultérieure pour séparer davantage la persistance du processus de celle du moteur, et pour réattacher depuis un terminal externe. Dans ce cas, utiliser une instance tmux dédiée à Relai pour éviter les conflits de configuration. Cette option ajoute une dépendance et doit être testée avec les agents retenus.
@@ -38,5 +40,11 @@ Proposition UX : inbox à gauche, terminal principal au centre, contexte Git et 
 - Un terminal externe existant ne devient pas attachable universellement. Garantir d'abord les sessions démarrées sous Relai/tmux ; traiter séparément l'import d'historiques et la reprise native par identifiant d'agent.
 
 ## Question du prototype
+
+Le prototype inbox utilise désormais `notify` de Codex, configuré pour chaque invocation, pour recevoir `agent-turn-complete` avec identifiants de thread/tour, entrées utilisateur et dernière réponse assistant. La réception est indépendante du panneau terminal. Cette voie ne couvre pas les approbations ou tous les événements intermédiaires ; elle n’importe pas les chats externes. Source primaire : [notifications Codex](https://learn.chatgpt.com/docs/config-file/config-advanced#notifications).
+
+Le test avec Codex 0.159.0 a reproduit une notification supplémentaire de génération interne de titre, décrite dans le [signalement amont](https://github.com/openai/codex/issues/43384). Elle peut arriver avant ou après la vraie réponse. Le prototype vérifie le thread avec `thread/read` sans reprise et accepte seulement une conversation persistée d’origine CLI ; le thread éphémère interne est absent. Il ne filtre ni un prompt par mots clés ni une réponse JSON, qui pourraient être légitimes. Cela reste une intégration à vérifier par version. L’API distingue explicitement [lecture et reprise du thread](https://learn.chatgpt.com/docs/app-server).
+
+Vérifications du prototype inbox : lecture sans aucun processus, recherche du contenu et des métadonnées, libellés, mobile et thème clair, réduction du mouvement, terminal Unicode, reconnexion au même processus, contrôle entre deux panneaux, callback automatique et déduplication. Une vraie réponse Codex a aussi été reçue dans la conversation avec le terminal masqué, puis son CLI a été ouvert dans ce même chat. Les approbations, IME, grands historiques et autres harnesses restent à vérifier.
 
 Vérifier sur un vrai agent : `/` et sélection de skills, navigation clavier, approbations, interruption Ctrl-C, collage multiligne, accents/IME, souris, largeur Unicode, redimensionnement et écran alternatif. Fermer puis rouvrir le panneau et redémarrer le pont sans relancer l'agent. Tester un second panneau observateur et le transfert de contrôle. Comparer ttyd + tmux avec le pont Rust, puis choisir la solution la plus simple qui préserve cette expérience.
