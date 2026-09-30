@@ -1,6 +1,6 @@
 # Relai
 
-Relai organise les échanges entre un utilisateur et ses outils de coding IA autour du travail sur ses dépôts.
+Relai organise les échanges entre un utilisateur et les sessions de ses outils de coding IA.
 
 ## Language
 
@@ -13,3 +13,15 @@ _Avoid_ : Modèle IA, fournisseur de modèles.
 
 **Message** :
 Contenu échangé dans Relai pour demander du travail à un agent, recevoir son retour ou poursuivre la conversation. Un retour peut être une réponse, une question ou une demande d’approbation.
+
+**Session** :
+Conversation gérée par un harness et associée à un dossier de travail. Elle est identifiée dans Relai par son titre de chat et le nom du harness.
+
+**Destinataire** :
+Destination d’un message : une session existante ou un dossier de travail et un harness pour ouvrir une nouvelle session.
+
+**Sujet** :
+Intitulé du message rédigé par l’utilisateur.
+
+**Prompt** :
+Corps du message envoyé au harness, rédigé en Markdown.

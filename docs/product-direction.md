@@ -4,7 +4,7 @@
 
 ## Vision
 
-Relai est une interface locale et open source pour gérer une équipe d’agents IA comme une boîte mail. L’utilisateur envoie une tâche à un agent, Relai lance ou reprend sa vraie session, suit son travail sur le repo et présente son retour avec les diffs Git, les tests, les commits et les PR.
+Relai est une interface locale et open source pour gérer une équipe d’agents IA comme une boîte mail. L’utilisateur envoie un sujet et un prompt Markdown à une session existante, ou choisit un dossier et un harness pour lancer une nouvelle session. Relai suit le travail et présente les retours avec les fichiers modifiés et, lorsque Git est disponible, les diffs, les commits et les PR.
 
 Les usages envisagés comprennent les réponses dans un thread, le transfert de tâches, la reprise de conversations et plusieurs agents au travail en parallèle. Leur comportement détaillé reste à définir.
 
@@ -16,6 +16,11 @@ Les usages envisagés comprennent les réponses dans un thread, le transfert de 
 - Utiliser les harnesses de coding choisis par l’utilisateur. Codex est le premier outil visé ; Pi, Claude Code et OpenCode font partie des outils souhaités ensuite.
 - Utiliser les harnesses installés sur la machine où Relai est déployé, avec une configuration simple pour plusieurs agents.
 - Présenter les réponses, les questions et les demandes de validation comme des messages dans l’inbox ; présenter les changements de fichiers comme des pièces jointes et intégrer les informations Git.
+- S’inspirer explicitement de Gmail pour une inbox et une composition simples.
+- Proposer automatiquement les sessions en cours dans le destinataire, affichées sous la forme « Titre du chat — Nom du harness ».
+- Limiter la composition initiale au destinataire, au sujet et au prompt Markdown.
+- Sans session ouverte, choisir un dossier de travail et un harness disponible, puis lancer automatiquement la session avec le prompt.
+- Détecter automatiquement les harnesses disponibles ; la couverture de découverte et de pilotage reste à vérifier par outil.
 - Tenir compte de la distribution et de l’installation dès les choix de conception.
 - Prendre le workflow quotidien sous WSL comme point de départ du cadrage.
 - Privilégier Bash et les environnements Linux. Le périmètre exact de support de Windows natif reste à décider.
@@ -46,13 +51,17 @@ Docker documente les connexions entre un conteneur et un [service sur l’hôte]
 
 **Proposition, à valider :** l’inbox et le service Relai dans Docker, avec un composant d’exécution sur le poste Linux ou dans la distribution WSL qui contient les harnesses et les repos. Ce composant lancerait les outils avec l’utilisateur concerné et communiquerait leurs événements au service Relai. Le protocole, l’appairage, l’authentification et l’installation de ce composant restent à concevoir. Cette proposition découle des contraintes d’isolation ; elle n’est pas une capacité automatique de Docker.
 
-## Modèle de conversation proposé, à valider
+## Composition et modèle de conversation
 
-L’utilisateur demande de définir ce que signifie « envoyer » et le rapport entre un thread Relai et un chat Codex avant de choisir un scénario de première utilisation.
+Le destinataire de composition vise une session native existante, par exemple « Régler issue 3 — Codex CLI ». Pour créer une session, il vise un dossier et un harness, par exemple « /home/user/projects/p1 — Codex CLI ». Le dossier de travail est le point d’entrée ; il n’est pas nécessaire de le présenter comme un dépôt Git dans le formulaire.
 
-Piste à discuter : un thread Relai serait une conversation autour d’un travail sur un repo. Il pourrait référencer des sessions natives de plusieurs harnesses. Un run représenterait une période de travail déclenchée par un message ; une réponse à une demande d’approbation ou à une question en attente pourrait continuer le même run.
+Le choix précédent d’un destinataire correspondant à un profil d’agent et d’un dépôt obligatoire est corrigé. Les profils nommés restent une éventuelle extension, pas une exigence de la première composition. Le [brouillon SDD-001](sdd/0001-compose-message.md) décrit le formulaire demandé et ses questions ouvertes.
+
+Le lien entre thread Relai, sujet du message et session native reste à décider. Un run reste un terme proposé pour une période de travail ; il n’a pas encore été validé.
 
 La session native, le processus terminal et le thread Relai doivent être distingués. Reprendre un historique enregistré et prendre le contrôle d’un terminal déjà actif sont deux besoins distincts. Les définitions seront ajoutées au glossaire après validation.
+
+La documentation [Codex app-server](https://learn.chatgpt.com/docs/app-server) distingue l’historique des threads des threads chargés dans le serveur interrogé. Cela ne garantit pas le pilotage de toutes les sessions CLI indépendantes déjà ouvertes sur le poste. La détection automatique souhaitée doit distinguer une session pilotable d’une session seulement détectée ou d’un historique reprenable.
 
 ## Questions encore ouvertes
 
@@ -62,7 +71,9 @@ La session native, le processus terminal et le thread Relai doivent être distin
 - Sessions créées par Relai uniquement ou reprise de sessions créées ailleurs ?
 - Que signifie « vrai terminal » : environnement d’exécution, console visible, reprise manuelle de la TUI ?
 - Comment distinguer agent, tâche, thread, session et run ?
-- Que configure-t-on pour un agent : un harness, un profil nommé, des instructions, un environnement ?
+- Que faire d’une session externe détectée que Relai ne peut pas encore piloter ?
+- Que faire d’un nouveau prompt envoyé à une session qui travaille déjà ?
+- Un nouveau sujet envoyé à la même session crée-t-il un autre thread Relai ?
 - Quels événements produisent des messages, et lesquels restent dans l’activité du terminal ?
 - Les pièces jointes représentent-elles les fichiers à un moment précis ou leur état courant ?
 - Comment transmettre une tâche d’un harness à un autre ?
