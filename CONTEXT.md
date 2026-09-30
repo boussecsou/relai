@@ -12,4 +12,4 @@ Outil de coding IA externe qui porte les conversations et le travail de l’agen
 _Avoid_ : Modèle IA, fournisseur de modèles.
 
 **Message** :
-Contenu échangé dans Relai pour demander du travail à un agent, recevoir son retour ou poursuivre la conversation.
+Contenu échangé dans Relai pour demander du travail à un agent, recevoir son retour ou poursuivre la conversation. Un retour peut être une réponse, une question ou une demande d’approbation.
