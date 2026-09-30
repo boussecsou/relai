@@ -7,7 +7,8 @@ Statut : brouillon. L’utilisateur demande une gestion des erreurs explicite et
 - Reprendre automatiquement la session native lorsqu’un utilisateur répond à un chat arrêté et que le harness le permet.
 - Si son dossier manque ou que la reprise échoue, afficher le problème et demander comment continuer.
 - Conserver les historiques après arrêt de la machine ; la reprise dépend du harness.
-- Concevoir les erreurs pour l’interface, l’API et le MCP Relai.
+- Concevoir les erreurs pour l’interface et l’API, avec réutilisation possible par un futur MCP Relai. Le MCP n’est pas à construire actuellement.
+- Un échec suspend uniquement la file de la session concernée ; conserver les messages et proposer « Réessayer », « Ignorer cet envoi » ou « Annuler ». Les autres sessions continuent.
 
 ## Règles proposées
 
@@ -39,7 +40,7 @@ Statut : brouillon. L’utilisateur demande une gestion des erreurs explicite et
 
 ## Décisions ouvertes
 
-- Portée d’annulation : message en file, travail actif, commandes enfants et arrêt du moteur.
+- Portée des actions acceptées : « Réessayer » après réconciliation si livraison incertaine ; « Ignorer cet envoi » et « Annuler » à préciser pour message en file, travail actif et commandes enfants.
 - Délais de reconnexion, nombre d’essais et règles de réconciliation propres à chaque harness.
 - Permissions de l’utilisateur et des futurs clients API/MCP pour envoi, arrêt et approbation.
 - Rétention des diagnostics, texte masqué et export volontaire pour un rapport de bug.
