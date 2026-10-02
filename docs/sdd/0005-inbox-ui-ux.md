@@ -1,6 +1,22 @@
 # SDD-005 — Interface inbox et direction visuelle
 
-Statut : brouillon. Direction demandée par l’utilisateur et proposition de parcours ; la maquette utilise uniquement des données fictives et ne contrôle aucun agent.
+## Révision du 2 octobre 2026 — composition centrée et terminal
+
+La dernière demande de l’utilisateur remplace la composition latérale : fenêtre modale centrée, fond assombri et flouté, expansion, adaptation mobile, focus clavier contenu et brouillon sauvegardé avant fermeture. La police livrée est IBM Plex Sans Regular avec IBM Plex Mono pour le code et le terminal, fichiers embarqués avec leur licence OFL.
+
+Les filtres d’agent restent disponibles dans toutes les boîtes, même sans résultat et sans session pour l’agent choisi. Les agents détectés complètent une liste stable Codex, Claude Code, OpenCode et Pi. Les filtres actifs sont visibles et réinitialisables. Inbox comporte All, Needs attention et Replies ; leurs nombres tiennent compte de l’agent et de la recherche. Les onglets disposent de navigation clavier. Les conversations locales sont séparées des boîtes d’envoi dans la navigation.
+
+La conversation propose Markdown et Open terminal. Le véritable CLI utilise un PTY et un mode focus ; masquer le panneau conserve son processus. Une seule connexion peut écrire à la fois. Le mode terminal suspend la livraison automatique de ce chat jusqu’au retour explicite. Voir [SDD-006](0006-native-terminal.md). Les sections suivantes décrivent les révisions historiques et ne remplacent pas cette demande.
+
+Statut : interface Glass native et parcours de livraison Codex implémentés au 30 septembre 2026. Les maquettes historiques restent séparées ; la révision suivante fixe l’interface actuelle.
+
+## Révision livrée — workspace Glass et moteur graphique
+
+Application élargie jusqu’à 1760 px sans augmenter la hauteur. Le panneau Compose conserve la liste à partir de 1280 px, propose une expansion et prend l’espace principal aux tailles inférieures. Navigation compacte intermédiaire puis adaptation mobile. Destination, Message, Details et actions utilisent les tokens existants, bordures lisibles et faible chrome. L’UI est en anglais ; noms natifs et texte rédigé restent inchangés.
+
+Les boîtes et leurs vrais états sont affichés sans exemples : démarrage vierge, chargement, absence de résultat, erreur de filtre, sauvegarde, conflit, acceptation, travail, approbation/question, échec, échéance manquée et livraison incertaine. Activity et Changes montrent commandes/plans/diffs, avec arrêt explicite et cartes de décision. Aucun terminal interactif dans cette étape. Dossiers et onglets disposent d’interactions clavier ; les dialogues restaurent le focus.
+
+Vérification rendue sur 390, 768, 1024, 1365 et 1920 px, thèmes clair/sombre, mouvement réduit, clavier, titres/URLs longs et reflow équivalent à un zoom navigateur 200 %, plus parcours navigateur de bout en bout. Contrastes de contrôles mesurés avec le script PracticalSwan. Commandes de zoom du navigateur, lecteur d’écran réel et Core Web Vitals terrain non vérifiés ; ne pas assimiler les captures à une conformité intégrale. [Détails et limites](../research/codex-delivery.md).
 
 ## Référence consultée
 
@@ -76,3 +92,15 @@ La lecture utilise un rendu Markdown dans le style Glass : Manrope, graphite/bla
 Le [prototype inbox](../../design/inbox-prototype/README.md) remonte les réponses finales des sessions Codex lancées ici grâce à `notify`, même si le panneau terminal est masqué. Lire un mail, recevoir une réponse, reconnecter le navigateur et changer de vue ne créent aucun processus supplémentaire. Les exemples sont explicitement distingués des conversations locales. Tickets et tâches sont des métadonnées locales, sans connexion à un gestionnaire externe. Stockage en mémoire et plafond de 200 lignes : la persistance et la cible de charge restent à implémenter dans le moteur natif.
 
 Le [premier prototype interactif](../../design/terminal-prototype/README.md), conservé séparément, compare trois dispositions. Son ancien comportement de création au clic est remplacé dans le nouveau prototype. Aucun des deux ne sait prendre le contrôle d’un CLI externe déjà ouvert.
+
+## Révision graphique — catalogue passif et démarrage vierge
+
+Cette révision remplace la priorité terminal décrite ci-dessus. Application dans apps/web, service Rust dans crates/relai ; voir [ADR-003](../adr/0003-passive-catalogue-and-blank-inbox.md).
+
+Au premier démarrage, Inbox, libellés et brouillons sont vides. Les historiques détectés apparaissent dans Sessions et le destinataire, sans création de mail ou runtime. Lecture seule et activité inconnue sont distinguées. Pas de démonstrations dans l’application.
+
+Glass est conservé : Manrope, teal/lilas/pêche, gradient périphérique statique, navigation 220 px, lignes 64 px ou 48 px, corps 14 px et métadonnées 12 px. Mobile sans débordement. Le retour du lecteur conserve filtres, page et position.
+
+Libellés persistants multiples avec édition/suppression ; favoris, archives et tickets locaux. Recherche sur métadonnées puis texte indexé progressivement. Sources et erreurs consultables ; dossiers natifs configurables dans l’interface.
+
+Rédaction graphique : destinataire agent/dossier/chat, titre seulement pour une nouvelle destination, Visuel/Markdown/Aperçu, autosauvegarde persistante et copie en cas de conflit. Les formats non convertibles restent en Markdown. Copier/exporter disponibles ; envoi, programmation et terminal non simulés.

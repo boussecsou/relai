@@ -1,6 +1,18 @@
 # SDD-003 — Erreurs et récupération
 
-Statut : brouillon. L’utilisateur demande une gestion des erreurs explicite et documentée. Les règles suivantes sont des propositions à valider avant implémentation.
+## Actualisation du 2 octobre 2026
+
+La fermeture du composeur attend aussi les modifications survenues pendant la sauvegarde. Les intentions natives ne peuvent pas être restaurées en brouillons graphiques ou reprogrammées en perdant leurs skills et pièces jointes. Le contrat terminal et ses limites sont dans [SDD-006](0006-native-terminal.md). Les révisions du 30 septembre ci-dessous restent le contexte historique.
+
+Statut : récupération des brouillons et livraisons Codex implémentée au 30 septembre 2026. La révision suivante prévaut sur les propositions historiques.
+
+## Révision livrée — conflits, interruptions et incertitude
+
+Les brouillons et modifications d’envoi utilisent des révisions optimistes. Un conflit conserve le texte local, permet une copie et n’écrase pas l’autre onglet. Dossier manquant, outil absent/version incompatible et erreurs natives restent visibles avec actions de récupération. Les décisions natives sont corrélées au processus d’origine, transmises une seule fois et expirent après perte du moteur.
+
+Avant envoi natif, une opération persistée peut retourner en file ; après la frontière d’envoi sans résultat final enregistré, elle devient Uncertain. Aucun renvoi automatique. Verify native outcome consulte uniquement un thread/tour identifié ; sans accusé enregistré, inspection manuelle requise. Resend explicitly exige la reconnaissance du risque de travail répété. Retry, Skip et Cancel ne libèrent que la file concernée ; Cancel restaure un nouveau brouillon. Stop demande l’interruption du tour actif, sans supprimer son historique.
+
+Au redémarrage, une échéance dépassée devient Missed ; Send now, Reschedule ou Cancel nécessitent un choix. Fermer le navigateur n’arrête pas le moteur. L’arrêt du service interrompt ses tours et ferme ses propres processus. Reconnexion SSE/snapshots reconstruit l’affichage, jamais une exécution. Tests de crash, accusé perdu, file, migration et reprise : [contrat et preuves](../research/codex-delivery.md).
 
 ## Besoins confirmés
 
@@ -48,3 +60,10 @@ Statut : brouillon. L’utilisateur demande une gestion des erreurs explicite et
 ## Critères de validation proposés
 
 Vérifier dossier manquant, version incompatible, arrêt entre livraison et accusé, stockage indisponible, double clic et reconnexion. Chaque scénario doit préserver le texte, l’identité de session et un état explicable. Une livraison incertaine ne doit pas provoquer deux exécutions silencieuses.
+
+
+## Erreurs de la livraison graphique passive
+
+Découverte indépendante par source avec couverture partielle ; un schéma inconnu ou un store inaccessible ne bloque pas les autres. Un fichier disparu garde ses références locales et affiche une erreur de lecture. Une ligne JSONL finale incomplète est ignorée jusqu’à son achèvement ; une entrée complète corrompue produit une erreur sans réparation native.
+
+Les brouillons sont sauvegardés avec révision optimiste. Un conflit ou un échec garde le contenu local ; « Enregistrer une copie », copier et exporter permettent sa récupération. La navigation attend la sauvegarde et reste dans l’éditeur en cas d’échec. Le rechargement avertit si du texte n’a pas été enregistré. Les erreurs de livraison/runtime décrites plus haut restent des règles futures ; aucun prompt n’est envoyé actuellement.

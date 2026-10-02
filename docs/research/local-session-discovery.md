@@ -1,6 +1,8 @@
 # Relai — découverte des sessions locales
 
-Recherche du 30 septembre 2026. Statut : faits vérifiés et propositions d’adaptateurs ; aucune intégration implémentée.
+Recherche du 30 septembre 2026. Statut : faits vérifiés et propositions d’adaptateurs ; les interfaces décrites sont le contexte de recherche initial. La première découverte passive est désormais implémentée suivant [la révision graphique](gui-and-session-discovery.md) et [ADR-003](../adr/0003-passive-catalogue-and-blank-inbox.md).
+
+La livraison suivante ajoute la reprise Codex dans un moteur Relai via le même ID natif, sans prise de contrôle du CLI externe. Lire et découvrir restent sans lancement de moteur ; l’envoi graphique des autres outils reste indisponible. Leurs terminaux natifs à la demande sont décrits dans [SDD-006](../sdd/0006-native-terminal.md). Voir [l’implémentation d’envoi](codex-delivery.md) pour les versions, la persistance, les limites d’historique et la récupération.
 Besoin : découvrir automatiquement harnesses et chats conservés, afficher titre + harness + dossier, distinguer activité réelle et historique, puis répondre dans la même session native.
 
 ## Interfaces natives vérifiées

@@ -1,6 +1,18 @@
 # SDD-004 — Installation locale et cœur applicatif
 
-Statut : brouillon. Le choix d’architecture est retenu ; les détails de distribution et critères techniques ci-dessous doivent être validés lors du prototype. Aucune application implémentée.
+## Actualisation du 2 octobre 2026
+
+Le service fournit aussi les terminaux natifs Codex, Claude Code et OpenCode à la demande ; l’envoi graphique reste limité à Codex. Le contrat terminal et ses limites sont dans [SDD-006](0006-native-terminal.md). Les révisions du 30 septembre ci-dessous restent le contexte historique.
+
+Statut : service graphique et moteur Codex implémentés au 30 septembre 2026 ; distribution installable et plateformes supplémentaires restent à spécifier. La révision suivante prévaut sur les étapes passives antérieures.
+
+## Révision livrée — moteur, migration et API
+
+Rust supervise un app-server Codex par source seulement lorsqu’un envoi s’exécute. Adaptateur vérifié pour CLI 0.159.x, initialisation JSON-RPC, reprise par ID natif, événements et décisions corrélées. Les mêmes opérations sont disponibles via API versionnée et UI ; MCP différé. Authentification et politiques restent celles de la source native ; le navigateur ne reçoit pas de secrets.
+
+SQLite ajoute livraisons, tentatives, retours, activité, demandes, baseline d’historique, dossiers récents et journal d’événements. Migration additive compatible avec brouillons/libellés antérieurs. Un verrou de propriétaire exclut deux moteurs sur le même répertoire de données. Reprise ne rejoue pas les envois incertains et marque les échéances manquées. Le service doit rester actif pour les programmations ; aucun daemon système n’est installé.
+
+La protection loopback, origine, hôte et cookie local reste active. API de recherche, livraison, récupération, activité, arrêt, réponses natives et dossiers bornés : [routes et contrat](../research/codex-delivery.md). Instructions reproductibles de compilation/tests dans le [README](../../README.md). Couverture actuelle limitée à l’utilisateur Linux/WSL courant ; autres outils en lecture seule.
 
 ## Configuration retenue
 
@@ -40,3 +52,10 @@ Les commandes exactes, formats de packages, signature et mécanisme de mise à j
 Valider installation, upgrade, désinstallation sans effacement implicite des données, démarrage durable, PATH des harnesses et plusieurs onglets sans moteur dupliqué. Mesurer recherche et navigation sur 10 000 chats et 25 sessions, en distinguant sessions chargées et travail simultané ; les performances ne sont pas garanties avant mesure.
 
 Support de macOS et Windows natif, versions minimales, matériel de référence, démarrage au login, bibliothèques HTTP/persistance, compatibilité des clients et versions d’API restent à préciser. Docker est une extension de distribution future ; le design des modules doit permettre son étude sans dupliquer les règles applicatives.
+
+
+## Livraison actuelle
+
+Service Axum/Tokio dans crates/relai et UI React dans apps/web, embarquée dans le binaire de release. SQLite Relai pour catalogue, index FTS, brouillons, annotations, libellés et préférences. Écoute loopback sur 4179, cookie HttpOnly/SameSite et contrôle Host/Origin ; API /api/v1, catalogue par 100, messages par 50, événements SSE, surveillance avec réconciliation.
+
+Les sources natives Codex, Claude Code, OpenCode et Pi sont lues passivement dans l’environnement utilisateur Linux/WSL courant. Aucun lancement, reprise, envoi, Git CLI ou MCP n’est inclus dans cette livraison. La distribution est compilable depuis les sources ; installateur et supervision automatique du service restent à réaliser. Voir [README](../../README.md) et [ADR-003](../adr/0003-passive-catalogue-and-blank-inbox.md).

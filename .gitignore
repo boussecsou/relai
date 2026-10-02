@@ -19,3 +19,24 @@ __pycache__/
 dist/
 build/
 coverage/
+target/
+*.tsbuildinfo
+.relai-data/
+
+# Private runtime state, logs and local tool settings
+.codex/
+.agents/
+.aws/
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+*.log
+*.pid
+*.sock
+playwright-report/
+test-results/
+artifacts/
+.auth/
+.npmrc
+.netrc

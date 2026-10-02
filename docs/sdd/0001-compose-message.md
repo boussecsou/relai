@@ -1,6 +1,18 @@
 # SDD-001 — Composer un message
 
-Statut : brouillon. Ce document enregistre le parcours demandé et les décisions encore ouvertes ; il ne décrit pas une fonctionnalité déjà implémentée.
+## Révision du 2 octobre 2026 — fenêtre de rédaction centrée
+
+La demande explicite la plus récente remplace le panneau à droite : Compose et Reply s’ouvrent au centre avec un fond flouté. Les comportements d’envoi, de programmation, de sauvegarde et de conflit sont conservés. Échap ferme après sauvegarde ; le navigateur contient le focus dans son dialogue natif. Les révisions ci-dessous restent historiques. Le terminal est désormais décrit dans [SDD-006](0006-native-terminal.md).
+
+Statut : composition et envoi Codex implémentés au 30 septembre 2026. La révision suivante prévaut sur les propositions et étapes passives conservées plus bas.
+
+## Révision livrée — composition et envoi
+
+Le panneau de composition se place à droite, avec la liste visible sur grand écran et une commande d’expansion. Les régions Destination, Message, Details et actions sont délimitées ; interface en anglais, contenu natif et utilisateur préservé. Le titre est obligatoire pour une nouvelle session ; une réponse garde agent, dossier, titre et branche disponibles. Le contexte récent est consultable dans le panneau. Dossiers détectés/récents, autocomplétion clavier et navigation bornée remplacent la saisie seule.
+
+Visuel/Markdown/Preview conservent le Markdown comme référence. Autosauvegarde et révisions empêchent l’écrasement entre onglets. Send et Schedule sont les actions principales ; copie, export et sauvegarde explicite restent dans More. Une soumission consomme atomiquement le brouillon, conserve un instantané et protège les doubles clics/requêtes. Les erreurs laissent le contenu récupérable. L’acceptation native et la fin du travail sont distinctes.
+
+Codex reprend le même thread natif via un moteur géré par Relai, sans contrôler le CLI externe. Nouvelle session créée seulement à l’exécution d’un envoi. Les autres outils restent lisibles mais non envoyables. Files FIFO par session, sessions indépendantes dans un même dossier, programmation ponctuelle et récupération sont décrites dans le [contrat implémenté](../research/codex-delivery.md). Terminal interactif différé.
 
 ## Objectif
 
@@ -66,3 +78,7 @@ Après essai, l’utilisateur a précisé que le clic sur un mail doit ouvrir sa
 - Informations Git/GitHub du résumé : branche, dépôt distant, PR, fraîcheur et disponibilité.
 - Définition du dossier courant affiché : dossier de session ou dossier d’une commande terminal.
 - Transmission du titre au harness et repli lorsque le renommage natif n’est pas disponible.
+
+## Livraison graphique du 30 septembre 2026
+
+Préparation implémentée : destinataire existant ou nouvelle destination, libellés multiples, ticket facultatif, Markdown/Visuel/Aperçu, brouillon persistant avec révision et copie lors d’un conflit. Une réponse conserve l’identité native et ne demande pas de nouvel objet. Une nouvelle destination ne lance aucun runtime. Enregistrer, copier et exporter disponibles ; envoi différé suivant [ADR-003](../adr/0003-passive-catalogue-and-blank-inbox.md).

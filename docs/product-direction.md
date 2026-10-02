@@ -1,6 +1,13 @@
 # Direction du produit Relai
 
-État : en développement, phase de conception. Les réponses de cadrage fixent les intentions du produit ; les propositions techniques restent à discuter.
+## Révision du 2 octobre 2026
+
+Composition centrée avec fond flouté, IBM Plex embarquée, filtres permanents pour chaque agent/boîte, catégories Inbox et terminal natif à la demande sont implémentés. Codex partage son moteur géré ; Claude Code et OpenCode reprennent leurs identifiants natifs. L’envoi graphique des autres agents reste indisponible. Le mode terminal conserve une seule autorité d’entrée et suspend les envois automatiques du chat. Les détails et limites sont dans [SDD-006](sdd/0006-native-terminal.md). Les révisions antérieures ci-dessous restent comme contexte historique.
+
+> Révision historique du 30 septembre 2026 : [envoi Codex et vérification](research/codex-delivery.md), après le catalogue passif d’[ADR-003](adr/0003-passive-catalogue-and-blank-inbox.md). L’interface Glass élargie reste vierge par défaut. Composition à droite avec expansion, dossiers suggérés/navigables, recherche multi-boîtes, envoi Codex réel, reprise du même thread natif, files persistantes par session, programmation ponctuelle et cartes graphiques de validation/questions sont implémentés. Plusieurs sessions peuvent partager un dossier. Lire ou rédiger ne lance aucun agent ; seuls les retours gérés entrent dans Inbox. Claude Code, OpenCode et Pi restent en lecture seule. Terminal interactif différé. Les sections antérieures constituent le contexte ; Le périmètre actuel est fixé par la révision du 2 octobre ci-dessus et SDD-006.
+
+
+État : en développement, prototype fonctionnel Linux/WSL. Les fonctionnalités et limites livrées sont décrites dans le README et le contrat d’envoi ; distribution et plateformes supplémentaires restent à définir.
 
 ## Vision
 
