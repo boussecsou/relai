@@ -42,13 +42,13 @@ pub fn roots() -> Vec<Root> {
                 .unwrap_or_else(|_| format!("{home}/.pi/agent/sessions")),
         },
     ];
-    if let Ok(custom) = std::env::var("RELAI_SESSION_ROOTS") {
-        if let Ok(extra) = serde_json::from_str::<Vec<Root>>(&custom) {
-            if std::env::var("RELAI_DISCOVERY_ISOLATED").as_deref() == Ok("1") {
-                r = extra
-            } else {
-                r.extend(extra)
-            }
+    if let Ok(custom) = std::env::var("RELAI_SESSION_ROOTS")
+        && let Ok(extra) = serde_json::from_str::<Vec<Root>>(&custom)
+    {
+        if std::env::var("RELAI_DISCOVERY_ISOLATED").as_deref() == Ok("1") {
+            r = extra
+        } else {
+            r.extend(extra)
         }
     }
     let mut seen = HashSet::new();
@@ -56,12 +56,12 @@ pub fn roots() -> Vec<Root> {
     r
 }
 pub fn installed(tool: &str) -> bool {
-    if tool == "Codex" {
-        if let Ok(path) = std::env::var("RELAI_CODEX_BIN") {
-            use std::os::unix::fs::PermissionsExt;
-            return fs::metadata(path)
-                .is_ok_and(|m| m.is_file() && m.permissions().mode() & 0o111 != 0);
-        }
+    if tool == "Codex"
+        && let Ok(path) = std::env::var("RELAI_CODEX_BIN")
+    {
+        use std::os::unix::fs::PermissionsExt;
+        return fs::metadata(path)
+            .is_ok_and(|m| m.is_file() && m.permissions().mode() & 0o111 != 0);
     }
     let exe = match tool {
         "Codex" => "codex",
@@ -304,10 +304,10 @@ fn file_session(root: &Root, path: &Path) -> Result<Session, String> {
     let meta = fs::metadata(path).map_err(|_| "Historique inaccessible.")?;
     let signature = format!("{:?}:{}", meta.modified(), meta.len());
     let key = format!("{}:{}", root.tool, canonical(path));
-    if let Some((old, s)) = cache.lock().unwrap().get(&key) {
-        if *old == signature {
-            return Ok(s.clone());
-        }
+    if let Some((old, s)) = cache.lock().unwrap().get(&key)
+        && *old == signature
+    {
+        return Ok(s.clone());
     }
     let s = read_file_session(root, path)?;
     let mut cache = cache.lock().unwrap();
@@ -429,15 +429,15 @@ pub fn scan(root: &Root, mut emit: impl FnMut(Session)) -> Coverage {
         return cov;
     }
     let mut names = HashMap::new();
-    if root.tool == "Codex" {
-        if let Ok(file) = File::open(base.join("session_index.jsonl")) {
-            for line in BufReader::new(file).lines().map_while(Result::ok) {
-                if let Ok(v) = serde_json::from_str::<Value>(&line) {
-                    let id = str_at(&v, "id");
-                    let name = str_at(&v, "thread_name");
-                    if !id.is_empty() && !name.is_empty() {
-                        names.insert(id, name);
-                    }
+    if root.tool == "Codex"
+        && let Ok(file) = File::open(base.join("session_index.jsonl"))
+    {
+        for line in BufReader::new(file).lines().map_while(Result::ok) {
+            if let Ok(v) = serde_json::from_str::<Value>(&line) {
+                let id = str_at(&v, "id");
+                let name = str_at(&v, "thread_name");
+                if !id.is_empty() && !name.is_empty() {
+                    names.insert(id, name);
                 }
             }
         }
@@ -723,28 +723,28 @@ pub fn messages(s: &Session) -> Result<Vec<Message>, String> {
             links.insert(id, (parent, message));
         }
     }
-    if s.tool != "Codex" {
-        if let Some(last) = ordered.last() {
-            let mut id = last.clone();
-            let mut visited = HashSet::new();
-            while visited.insert(id.clone()) {
-                if let Some((parent, m)) = links.get(&id) {
-                    out.push(m.clone());
-                    id = parent.clone();
-                } else if let Some(parent) = ancestry.get(&id) {
-                    id = parent.clone()
-                } else {
-                    break;
-                }
+    if s.tool != "Codex"
+        && let Some(last) = ordered.last()
+    {
+        let mut id = last.clone();
+        let mut visited = HashSet::new();
+        while visited.insert(id.clone()) {
+            if let Some((parent, m)) = links.get(&id) {
+                out.push(m.clone());
+                id = parent.clone();
+            } else if let Some(parent) = ancestry.get(&id) {
+                id = parent.clone()
+            } else {
+                break;
             }
-            out.reverse();
-            // Some old transcripts have no parent links: preserve chronological records.
-            if out.len() == 1 && ordered.len() > 1 && links.values().all(|(p, _)| p.is_empty()) {
-                out = ordered
-                    .iter()
-                    .filter_map(|id| links.get(id).map(|(_, m)| m.clone()))
-                    .collect()
-            }
+        }
+        out.reverse();
+        // Some old transcripts have no parent links: preserve chronological records.
+        if out.len() == 1 && ordered.len() > 1 && links.values().all(|(p, _)| p.is_empty()) {
+            out = ordered
+                .iter()
+                .filter_map(|id| links.get(id).map(|(_, m)| m.clone()))
+                .collect()
         }
     }
     Ok(out)
@@ -827,10 +827,10 @@ fn sqlite_messages(s: &Session) -> Result<Vec<Message>, String> {
                 .map_err(|_| "Contenu indisponible.")?
                 .filter_map(Result::ok)
             {
-                if let Ok(v) = serde_json::from_str::<Value>(&data) {
-                    if v["type"] == "text" {
-                        texts.push(str_at(&v, "text"))
-                    }
+                if let Ok(v) = serde_json::from_str::<Value>(&data)
+                    && v["type"] == "text"
+                {
+                    texts.push(str_at(&v, "text"))
                 }
             }
             if !texts.is_empty() {

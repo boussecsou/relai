@@ -60,18 +60,17 @@ fn error(code: StatusCode, message: &str) -> (StatusCode, Json<Value>) {
 }
 fn notify(a: &App) {
     let mut data = json!({"kind":"changed"});
-    if let Ok(store) = a.store.try_lock() {
-        if store
+    if let Ok(store) = a.store.try_lock()
+        && store
             .conn
             .execute("INSERT INTO event_log(data) VALUES(?)", [data.to_string()])
             .is_ok()
-        {
-            data["id"] = json!(store.conn.last_insert_rowid());
-            let _ = store.conn.execute(
-                "DELETE FROM event_log WHERE id < ?",
-                [store.conn.last_insert_rowid() - 10000],
-            );
-        }
+    {
+        data["id"] = json!(store.conn.last_insert_rowid());
+        let _ = store.conn.execute(
+            "DELETE FROM event_log WHERE id < ?",
+            [store.conn.last_insert_rowid() - 10000],
+        );
     }
     let _ = a.events.send(data.to_string());
 }
@@ -93,10 +92,10 @@ async fn guard(State(a): State<App>, req: Request, next: Next) -> Response {
     if !allowed(host) {
         return StatusCode::FORBIDDEN.into_response();
     }
-    if let Some(origin) = req.headers().get("origin").and_then(|h| h.to_str().ok()) {
-        if !origin.strip_prefix("http://").is_some_and(allowed) {
-            return StatusCode::FORBIDDEN.into_response();
-        }
+    if let Some(origin) = req.headers().get("origin").and_then(|h| h.to_str().ok())
+        && !origin.strip_prefix("http://").is_some_and(allowed)
+    {
+        return StatusCode::FORBIDDEN.into_response();
     }
     if req
         .headers()
@@ -431,10 +430,10 @@ async fn draft_save(
             "Invalid draft or content exceeding 512 KiB.",
         ));
     }
-    if let Some(ref target) = d.session_id {
-        if a.store.lock().unwrap().session(target).is_none() {
-            return Err(error(StatusCode::BAD_REQUEST, "Recipient not found."));
-        }
+    if let Some(ref target) = d.session_id
+        && a.store.lock().unwrap().session(target).is_none()
+    {
+        return Err(error(StatusCode::BAD_REQUEST, "Recipient not found."));
     }
     a.store.lock().unwrap().save_draft(&mut d).map_err(|e| {
         error(

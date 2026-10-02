@@ -80,10 +80,10 @@ impl Engine {
 }
 pub(crate) async fn client(a: &App, source: &str) -> Result<Client, RpcError> {
     let mut clients = a.engine.clients.lock().await;
-    if let Some(c) = clients.get(source) {
-        if !c.tx.is_closed() {
-            return Ok(c.clone());
-        }
+    if let Some(c) = clients.get(source)
+        && !c.tx.is_closed()
+    {
+        return Ok(c.clone());
     }
     let executable = std::env::var("RELAI_CODEX_BIN").unwrap_or_else(|_| "codex".into());
     let version = tokio::time::timeout(
@@ -157,7 +157,7 @@ pub(crate) async fn client(a: &App, source: &str) -> Result<Client, RpcError> {
                         let supported=["item/commandExecution/requestApproval","item/fileChange/requestApproval","item/permissions/requestApproval","item/tool/requestUserInput","mcpServer/elicitation/request"].contains(&v["method"].as_str().unwrap_or(""));
                         if !supported {let mut bytes=json!({"id":v["id"],"error":{"code":-32601,"message":"This native tool or authentication callback is unavailable in Relai. Use the native configuration to reconnect it."}}).to_string().into_bytes();bytes.push(b'\n');if stdin.write_all(&bytes).await.is_err(){break;}continue;}
                         if let Err(e)=request(&app,&process,&actor_source,&v){eprintln!("Could not persist a native request: {e}");break;}}else if let Err(e)=event(&app,&process,&actor_source,&v){eprintln!("Could not persist a native event: {e}");break;}let _ = native_events.send(v.clone());}
-                    else if let Some(id)=v["id"].as_i64(){if let Some(reply)=pending.remove(&id){let result=if v.get("error").is_some(){Err(RpcError{message:v["error"]["message"].as_str().unwrap_or("Codex rejected the operation.").chars().take(2000).collect(),definite:true})}else{Ok(v["result"].clone())};let _=reply.send(result);}}
+                    else if let Some(id)=v["id"].as_i64()&& let Some(reply)=pending.remove(&id){let result=if v.get("error").is_some(){Err(RpcError{message:v["error"]["message"].as_str().unwrap_or("Codex rejected the operation.").chars().take(2000).collect(),definite:true})}else{Ok(v["result"].clone())};let _=reply.send(result);}
                 }
             }
         }
@@ -379,10 +379,10 @@ fn event(a: &App, process: &str, source: &str, v: &Value) -> rusqlite::Result<()
         let id = sid.clone();
         tokio::task::spawn_blocking(move || {
             let mut store = app.store.lock().unwrap();
-            if let Some(session) = store.session(&id) {
-                if let Some(rows) = managed_messages(&store, &id) {
-                    let _ = store.index(&session, &rows, &discovery::fingerprint(&session));
-                }
+            if let Some(session) = store.session(&id)
+                && let Some(rows) = managed_messages(&store, &id)
+            {
+                let _ = store.index(&session, &rows, &discovery::fingerprint(&session));
             }
         });
     }
@@ -952,28 +952,28 @@ pub async fn reconcile(a: App, id: String, v: Value) -> ApiResult {
             "Could not save the native outcome.",
         )
     })?;
-    if let Some(sid) = current.draft.session_id.as_deref() {
-        if let Some(items) = turn["items"].as_array() {
-            for item in items {
-                let iid = item["id"].as_str().unwrap_or("");
-                s.conn.execute("INSERT INTO runtime_items(session_id,turn_id,item_id,data) VALUES(?,?,?,?) ON CONFLICT(session_id,turn_id,item_id) DO UPDATE SET data=excluded.data",rusqlite::params![sid,current.native_turn_id,iid,item.to_string()]).map_err(|_|error(StatusCode::INTERNAL_SERVER_ERROR,"Could not save the native history."))?;
-                if item["type"] == "agentMessage" && item["phase"] != "commentary" {
-                    s.receive(
-                        &format!(
-                            "{}:{}:{iid}",
-                            current.native_thread_id, current.native_turn_id
-                        ),
-                        sid,
-                        item["text"].as_str().unwrap_or(""),
-                        "reply",
+    if let Some(sid) = current.draft.session_id.as_deref()
+        && let Some(items) = turn["items"].as_array()
+    {
+        for item in items {
+            let iid = item["id"].as_str().unwrap_or("");
+            s.conn.execute("INSERT INTO runtime_items(session_id,turn_id,item_id,data) VALUES(?,?,?,?) ON CONFLICT(session_id,turn_id,item_id) DO UPDATE SET data=excluded.data",rusqlite::params![sid,current.native_turn_id,iid,item.to_string()]).map_err(|_|error(StatusCode::INTERNAL_SERVER_ERROR,"Could not save the native history."))?;
+            if item["type"] == "agentMessage" && item["phase"] != "commentary" {
+                s.receive(
+                    &format!(
+                        "{}:{}:{iid}",
+                        current.native_thread_id, current.native_turn_id
+                    ),
+                    sid,
+                    item["text"].as_str().unwrap_or(""),
+                    "reply",
+                )
+                .map_err(|_| {
+                    error(
+                        StatusCode::INTERNAL_SERVER_ERROR,
+                        "Could not save the return.",
                     )
-                    .map_err(|_| {
-                        error(
-                            StatusCode::INTERNAL_SERVER_ERROR,
-                            "Could not save the return.",
-                        )
-                    })?;
-                }
+                })?;
             }
         }
     }

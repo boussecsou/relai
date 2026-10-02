@@ -404,9 +404,9 @@ async fn connection(socket: WebSocket, n: Arc<Native>) {
             message=source.next()=>{let Some(Ok(Message::Text(text)))=message else{break};let Ok(v)=serde_json::from_str::<Value>(&text)else{continue};match v["type"].as_str(){
                 Some("claim")=>{if !n.exited.load(Ordering::Acquire){*n.controller.lock().unwrap()=Some(client.clone());}let _=sink.send(Message::Text(state(&n).to_string().into())).await;},
                 Some("ack")=>{ack=ack.max(v["sequence"].as_u64().unwrap_or(ack).min(last));},
-                Some("input")=>{if n.controller.lock().unwrap().as_ref()==Some(&client)&&!n.exited.load(Ordering::Acquire){if let Some(data)=v["data"].as_str(){let _=n.writer.lock().unwrap().write_all(data.as_bytes());}}},
-                Some("binary")=>{if n.controller.lock().unwrap().as_ref()==Some(&client)&&!n.exited.load(Ordering::Acquire){if let Some(data)=v["data"].as_str().and_then(|v|STANDARD.decode(v).ok()){let _=n.writer.lock().unwrap().write_all(&data);}}},
-                Some("resize")=>{if n.controller.lock().unwrap().as_ref()==Some(&client){let rows=v["rows"].as_u64().unwrap_or(30).clamp(5,120)as u16;let cols=v["cols"].as_u64().unwrap_or(100).clamp(20,300)as u16;let _=n.master.lock().unwrap().resize(PtySize{rows,cols,pixel_width:0,pixel_height:0});n.parser.lock().unwrap().screen_mut().set_size(rows,cols);}},_=>{}
+                Some("input")=>{if n.controller.lock().unwrap().as_ref()==Some(&client)&&!n.exited.load(Ordering::Acquire)&& let Some(data)=v["data"].as_str(){let _=n.writer.lock().unwrap().write_all(data.as_bytes());}},
+                Some("binary")=>{if n.controller.lock().unwrap().as_ref()==Some(&client)&&!n.exited.load(Ordering::Acquire)&& let Some(data)=v["data"].as_str().and_then(|v|STANDARD.decode(v).ok()){let _=n.writer.lock().unwrap().write_all(&data);}},
+                Some("resize")if n.controller.lock().unwrap().as_ref()==Some(&client)=> {let rows=v["rows"].as_u64().unwrap_or(30).clamp(5,120)as u16;let cols=v["cols"].as_u64().unwrap_or(100).clamp(20,300)as u16;let _=n.master.lock().unwrap().resize(PtySize{rows,cols,pixel_width:0,pixel_height:0});n.parser.lock().unwrap().screen_mut().set_size(rows,cols);},_=>{}
             }},
             message=output.recv(),if last.saturating_sub(ack)<64=>{let Ok(v)=message else{let _=sink.send(Message::Text(json!({"type":"error","message":"Output exceeded this connection's buffer. Reconnect to restore the current screen."}).to_string().into())).await;break};if let Some(seq)=v["sequence"].as_u64(){if seq<=last{continue;}last=seq;}let value=if v["type"]=="state"{state(&n)}else{v};if sink.send(Message::Text(value.to_string().into())).await.is_err(){break;}},
             _=tick.tick()=>{if sink.send(Message::Text(state(&n).to_string().into())).await.is_err(){break;}}
@@ -490,7 +490,8 @@ async fn proxy(
     loop {
         tokio::select! {
             _=cancel.changed()=>break,
-            event=events.recv()=>{let Ok(v)=event else{break};let thread=v["params"]["threadId"].as_str().or_else(||v["params"]["thread"]["id"].as_str());if thread.is_some_and(|id|id!=s.native_id){continue;}if sink.send(tokio_tungstenite::tungstenite::Message::Text(v.to_string().into())).await.is_err(){break;}},
+            event=events.recv()=>{let Ok(v)=event else{break};let thread=v["params"]["threadId"].as_str().or_else(||v["params"]["thread"]["id"].as_str());if thread.is_some_and(|id|id!=s.native_id){continue;}
+                if sink.send(tokio_tungstenite::tungstenite::Message::Text(v.to_string().into())).await.is_err(){break;}},
             reply=replies.recv()=>{let Some(v)=reply else{break};if sink.send(tokio_tungstenite::tungstenite::Message::Text(v.to_string().into())).await.is_err(){break;}},
             message=source.next()=>{let Some(Ok(tokio_tungstenite::tungstenite::Message::Text(text)))=message else{break};let Ok(v)=serde_json::from_str::<Value>(&text)else{continue};
                 let Some(method)=v["method"].as_str()else{if v.get("result").is_some(){let won={let store=a.store.lock().unwrap();store.conn.execute("UPDATE requests SET state='answering' WHERE process=? AND CAST(json_extract(data,'$.nativeId') AS TEXT)=? AND state='pending'",rusqlite::params![c.process,v["id"].to_string().trim_matches('"')]).unwrap_or(0)>0};if won{let _=c.respond(v["id"].clone(),v["result"].clone()).await;}}continue;};
@@ -867,11 +868,10 @@ async fn opencode(
             .timeout(Duration::from_secs(1))
             .send()
             .await
+            && response.status().is_success()
         {
-            if response.status().is_success() {
-                healthy = true;
-                break;
-            }
+            healthy = true;
+            break;
         }
         tokio::time::sleep(Duration::from_millis(100)).await;
     }
@@ -1079,39 +1079,36 @@ async fn opencode_event(
         && p["info"]["role"] == "assistant"
         && p["info"]["time"]["completed"].is_number()
     {
-        if let Some(message) = p["info"]["id"].as_str() {
-            if let Ok(response) = http
+        if let Some(message) = p["info"]["id"].as_str()
+            && let Ok(response) = http
                 .get(format!("{url}/session/{}/message/{message}", s.native_id))
                 .query(&[("directory", &s.cwd)])
                 .basic_auth("opencode", Some(password))
                 .timeout(Duration::from_secs(5))
                 .send()
                 .await
-            {
-                if let Ok(message_data) = response.json::<Value>().await {
-                    let text = message_data["parts"]
-                        .as_array()
-                        .map(|rows| {
-                            rows.iter()
-                                .filter(|p| {
-                                    p["type"] == "text"
-                                        && !p["synthetic"].as_bool().unwrap_or(false)
-                                })
-                                .filter_map(|p| p["text"].as_str())
-                                .collect::<Vec<_>>()
-                                .join("\n")
+            && let Ok(message_data) = response.json::<Value>().await
+        {
+            let text = message_data["parts"]
+                .as_array()
+                .map(|rows| {
+                    rows.iter()
+                        .filter(|p| {
+                            p["type"] == "text" && !p["synthetic"].as_bool().unwrap_or(false)
                         })
-                        .unwrap_or_default();
-                    if !text.is_empty() {
-                        let _ = a.store.lock().unwrap().receive(
-                            &format!("opencode:{}:{message}", s.native_id),
-                            &s.id,
-                            &text,
-                            "reply",
-                        );
-                        notify(a);
-                    }
-                }
+                        .filter_map(|p| p["text"].as_str())
+                        .collect::<Vec<_>>()
+                        .join("\n")
+                })
+                .unwrap_or_default();
+            if !text.is_empty() {
+                let _ = a.store.lock().unwrap().receive(
+                    &format!("opencode:{}:{message}", s.native_id),
+                    &s.id,
+                    &text,
+                    "reply",
+                );
+                notify(a);
             }
         }
     } else if event == "session.error" {

@@ -63,12 +63,13 @@ pub async fn folders(State(a): State<App>, Query(q): Query<HashMap<String, Strin
             {
                 continue;
             }
-            if let Ok(real) = std::fs::canonicalize(entry.path()) {
-                if real.is_dir() && real.starts_with(&root) {
-                    paths.push(
-                        json!({"name":name,"path":entry.path().to_string_lossy(),"canonical":real}),
-                    );
-                }
+            if let Ok(real) = std::fs::canonicalize(entry.path())
+                && real.is_dir()
+                && real.starts_with(&root)
+            {
+                paths.push(
+                    json!({"name":name,"path":entry.path().to_string_lossy(),"canonical":real}),
+                );
             }
         }
         paths.sort_by(|a, b| a["name"].as_str().cmp(&b["name"].as_str()));
