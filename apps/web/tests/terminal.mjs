@@ -168,9 +168,17 @@ try {
       ),
     ).toBe(true);
   }
+  const released = other.waitForResponse(
+    (response) =>
+      response.url().endsWith(`/sessions/${sid}/terminal`) &&
+      response.request().method() === "POST" &&
+      response.request().postDataJSON()?.action === "release",
+  );
   await other
     .getByRole("button", { name: "Return to automatic sending", exact: true })
     .click();
+  const releaseResponse = await released;
+  expect(releaseResponse.ok(), await releaseResponse.text()).toBe(true);
   await expect(other.locator(".terminal-panel")).toHaveCount(0);
   const state = await context.request.get(
     `http://127.0.0.1:4185/api/v1/sessions/${sid}/terminal`,

@@ -44,6 +44,17 @@ def start(params):
             method='item/commandExecution/requestApproval';p={'command':'echo fixture','cwd':state[tid]['cwd'],'startedAtMs':int(time.time()*1000)}
         p.update(threadId=tid,turnId=turn,itemId='request-item')
         emit({'id':rid,'method':method,'params':p})
+    elif text.startswith('hold:') and os.environ.get('RELAI_FIXTURE_GATES'):
+        # The test owns completion, so FIFO/parallelism assertions do not race
+        # a wall-clock timer on a busy CI worker.
+        gate=Path(os.environ['RELAI_FIXTURE_GATES'])/text.removeprefix('hold:')
+        def await_gate():
+            while not gate.exists():
+                with lock:
+                    if t['status']!='inProgress': return
+                time.sleep(.05)
+            finish(tid,turn)
+        threading.Thread(target=await_gate,daemon=True).start()
     else:
         delay=3 if 'slow' in text else .2
         timer=threading.Timer(delay,finish,args=(tid,turn,'failed' if 'fail' in text else 'completed'));timer.daemon=True;timer.start()

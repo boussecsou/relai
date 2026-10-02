@@ -11,6 +11,8 @@ const repo = resolve(import.meta.dirname, "../../.."),
   data = join(temp, "data");
 await mkdir(root, { recursive: true });
 await mkdir(cwd);
+const gates = join(temp, "gates");
+await mkdir(gates);
 await mkdir(join(root, "sessions"));
 const nativePath = join(root, "sessions", "detected.jsonl");
 await writeFile(
@@ -54,6 +56,7 @@ async function start() {
     env: {
       ...process.env,
       RELAI_PORT: "4182",
+      RELAI_FIXTURE_GATES: gates,
       RELAI_DATA_DIR: data,
       RELAI_SESSION_ROOTS: JSON.stringify([{ tool: "Codex", path: root }]),
       RELAI_DISCOVERY_ISOLATED: "1",
@@ -155,17 +158,17 @@ try {
   assert.equal((await api("mailbox?q=envoyer:hello&view=inbox")).total, 1);
   assert.equal((await api("mailbox?q=inbox:nope&view=sessions")).total, 0);
   await api("mailbox?q=in:sent%20in:inbox", "GET", undefined, 400);
-  const queued = await submit(await draft("slow first", detected.id));
+  const queued = await submit(await draft("hold:first", detected.id));
   await poll(async () => {
     const d = await delivery(queued.id);
     return d.execution === "running";
   });
   const second = await submit(await draft("second in queue", detected.id));
-  await wait(700);
-  assert.equal((await delivery(second.id)).status, "queued");
   const parallel = await submit(await draft("parallel same folder"));
   await complete(parallel.id);
   assert.equal((await delivery(queued.id)).execution, "running");
+  assert.equal((await delivery(second.id)).status, "queued");
+  await writeFile(join(gates, "first"), "release");
   await complete(queued.id);
   await complete(second.id);
   for (const type of ["approval", "question", "permissions"]) {
@@ -184,7 +187,7 @@ try {
     await api("requests/" + r.id + "/respond", "POST", result, 409);
     await complete(d.id);
   }
-  const stopped = await submit(await draft("slow stop"));
+  const stopped = await submit(await draft("hold:stop"));
   const running = await poll(async () => {
     const d = await delivery(stopped.id);
     return d.execution === "running" && d;
@@ -227,7 +230,7 @@ try {
     dueAt: Date.now() + 1800,
     timezone: "UTC",
   });
-  const interrupted = await submit(await draft("slow recovery"));
+  const interrupted = await submit(await draft("hold:recovery"));
   await poll(async () =>
     delivery(interrupted.id).then((d) => d.execution === "running"),
   );
