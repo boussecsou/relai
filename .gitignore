@@ -40,3 +40,5 @@ artifacts/
 .auth/
 .npmrc
 .netrc
+
+.relai-experimental-data/

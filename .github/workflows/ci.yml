@@ -1,0 +1,38 @@
+name: Validate workspace
+on:
+  push:
+    branches: ["experimental/**"]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - name: Install frontend dependencies
+        run: npm ci --prefix apps/web
+      - name: Install test browser
+        working-directory: apps/web
+        run: npx playwright install --with-deps chromium
+      - name: Validate source and user journeys
+        run: bash scripts/check.sh
+      - name: Build standalone binary
+        run: cargo build --release --locked
+      - name: Retain synthetic UI evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: workspace-screenshots
+          path: /tmp/relai-workspace-*/*.png
+          retention-days: 7

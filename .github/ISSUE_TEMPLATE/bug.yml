@@ -1,0 +1,21 @@
+name: Bug report
+description: Report a reproducible problem in Relai
+body:
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened?
+      description: Include the expected behavior and steps to reproduce. Remove prompts, paths and credentials that should remain private.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Branch or commit
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, browser, harness and CLI version. For terminal issues, include which action failed.

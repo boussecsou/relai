@@ -1,77 +1,107 @@
-# relai
+# Relai · Workspace edition
 
-A local, open-source interface for managing coding AI agents like an inbox. Messages target an existing harness session or start a new one in a selected working directory.
+**One calm workspace for your coding agents.**
 
-The interface runs in a browser. Agent replies, questions, and approval requests appear as inbox messages, with file changes presented as attachments.
+Relai brings local agent conversations into an inbox. Find a chat, prepare a prompt, review a reply, answer an approval, or open the real terminal in context. Your histories and drafts stay on your machine.
 
-New session uses a destination, chat title, and Markdown prompt; Reply continues an existing session with a Markdown prompt. Available harnesses and active sessions should be discovered automatically; discovery and control capabilities vary by harness and remain under design. See the [compose draft](docs/sdd/0001-compose-message.md).
+[![Validate workspace](https://github.com/boussecsou/relai/actions/workflows/ci.yml/badge.svg?branch=experimental%2Frelai-workspace)](https://github.com/boussecsou/relai/actions/workflows/ci.yml)
+[![License: Apache 2.0](https://img.shields.io/badge/license-Apache_2.0-607d6b)](LICENSE)
 
-## Status
+> This is the **experimental workspace edition**, developed on `experimental/relai-workspace`. The `main` branch and the original prototypes are preserved. Linux/WSL is the supported development environment.
 
-**In development — native GUI and Codex sending available for Linux/WSL.** Empty Inbox, passive discovery, readable histories, labels, favorites/archives, persistent Markdown drafts, per-session delivery queues and one-off scheduled sends. Browsing and drafting start no agent. Sending starts a Relai-managed Codex engine; replies, approvals and questions arrive in Inbox.
+![Relai's light workspace with synthetic conversations](docs/images/workspace-light.png)
 
-Discovery covers Codex, Claude Code, OpenCode and Pi histories in the current user's Linux/WSL environment. Only Codex can send, using the installed **Codex CLI 0.159.x** app-server protocol. Other versions fail with a compatibility message. Graphical sending remains unavailable for other harnesses; installed native CLIs can be opened in the same recorded chat. Continuing a detected Codex chat resumes its native thread ID in the managed engine; it does not control an external CLI process, whose activity remains unknown. The native Rust service embeds a TypeScript/React UI and stores Relai state in SQLite. MCP, Windows-wide discovery, packaging and Docker remain future work. See the [installation specification](docs/sdd/0004-local-installation-and-api.md).
+## A place to keep work moving
 
-An interactive [inbox design mockup](design/README.md) uses fictitious data to explore the UI/UX. It is separate from the native graphical app. See the [visual direction draft](docs/sdd/0005-inbox-ui-ux.md).
+- **An inbox for decisions.** Replies, questions and approvals have a home. Imported histories remain in Sessions.
+- **Read without losing your place.** A conversation opens beside the list on wide screens. Focus mode gives the conversation the full workspace; smaller screens use a single pane.
+- **Get anywhere quickly.** A searchable command palette, visible library navigation, keyboard shortcuts and browser Back support make common actions easy to reach.
+- **Keep your context.** Mailboxes, search terms, agent filters and labels survive a reload in the URL fragment. Drafts, labels and preferences persist in SQLite.
+- **See your sources.** The sidebar shows discovered history counts for each agent. Source details distinguish missing executables and partial discovery.
+- **Send when it makes sense.** Codex sending supports per-conversation queues, scheduled delivery, explicit approvals and recovery states.
+- **Use the native terminal.** Resume a conversation in its installed CLI, with one controlling browser tab and automatic sending paused for that chat.
+- **Choose your environment.** Light and dark themes, compact density, mobile navigation and locally served fonts are included.
 
-See [product direction](docs/product-direction.md) for confirmed requirements and open decisions, and [CONTEXT.md](CONTEXT.md) for the project glossary.
+![Conversation reading alongside the session list](docs/images/workspace-reader.png)
 
-## Run the graphical app
+*Screenshots use synthetic test data. No sample conversations are inserted into your workspace.*
 
-Build requirements: Rust stable, a C compiler for bundled SQLite, Node.js 22 and npm. Node is only needed to build the frontend.
+## Run locally
 
-~~~sh
+Requirements: Linux/WSL, Git, Node.js 22, npm, a C compiler, Python 3 for tests, and [Rustup](https://rust-lang.org/tools/install/). The repository pins Rust 1.99.0. Node is needed to build the frontend; the release binary embeds it.
+
+```sh
+git clone --branch experimental/relai-workspace https://github.com/boussecsou/relai.git
+cd relai
 npm ci --prefix apps/web
 npm run build --prefix apps/web
-cargo build --release
-RELAI_DATA_DIR=.relai-data ./target/release/relai
-~~~
+cargo build --release --locked
+RELAI_PORT=4192 RELAI_DATA_DIR=.relai-experimental-data ./target/release/relai
+```
 
-Open **http://127.0.0.1:4179**. The service binds to loopback only. The release binary embeds the UI. Its default data directory is XDG_DATA_HOME/relai (or ~/.local/share/relai); RELAI_DATA_DIR overrides it. The debug build defaults to .relai-data in the working directory. Keep the configured data directory for drafts, labels and preferences. An empty data directory creates an empty Inbox without examples or running sessions.
+Open **http://127.0.0.1:4192**. This example uses a separate data directory and port so the experiment can run beside an existing Relai instance. New data directories start with an empty Inbox. Passive discovery may populate Sessions; browsing starts no agent.
 
-Sessions uses CODEX_HOME, CLAUDE_CONFIG_DIR, XDG_DATA_HOME / OPENCODE_DB and PI_CODING_AGENT_SESSION_DIR. Configure roots in **Sources and discovery → Configure sources**. RELAI_SESSION_ROOTS accepts a JSON array of objects with tool and absolute path; by default it extends native roots. RELAI_DISCOVERY_ISOLATED=1 uses only these roots. RELAI_PORT changes the port. Multiple Codex roots can be selected when composing; their existing authentication, model and native policies apply. RELAI_CODEX_BIN optionally selects an executable.
+The service binds to loopback. Keep its data directory for your drafts and organization. A harness may use a remote model provider according to its own configuration.
 
-Imported histories appear in **Sessions**; only returns from managed work enter **Inbox**. Compose opens as a centered modal with a blurred backdrop, keyboard focus containment, persistent drafts and an expanded view. IBM Plex Sans Regular and Plex Mono are served locally under the included OFL license. Agent filters stay visible in every mailbox, including empty results. Inbox categories separate All, Needs attention and Replies. Send acknowledges native acceptance separately from completion. Queued prompts run FIFO within a session; independent sessions may share a folder. An error suspends only that session's queue. Stop interrupts a managed turn. Activity and Changes expose native progress and diffs; approval/question cards require explicit responses.
+### Development
 
-**Native terminal:** Open a conversation, then choose **Open terminal**. A real PTY runs the installed CLI. Codex 0.159.x shares Relai’s existing app-server through a private Unix WebSocket bridge; Claude resumes its native ID with per-invocation hooks; OpenCode uses an authenticated local server plus `attach` to the exact native ID. Pi is available only when installed. Closing the panel or browser leaves the process running. One browser tab controls input; others observe and can explicitly take control. **Close terminal process** closes that CLI; **Stop** in Codex Activity interrupts its managed turn.
-
-Automatic delivery for that chat pauses while terminal mode is active. Due schedules become queued; other chats continue. Use **Return to automatic sending** when the native turn has finished. This closes the CLI before releasing the queue. Terminal ownership survives a service restart until explicitly released. Screen buffers and output channels are bounded; reconnect restores the current screen, while native conversation history stays on disk. Reconnect does not restore the entire terminal scrollback. Claude hooks have native coverage limits and fall back to CLI prompts; OpenCode permission races are resolved by the native API. Unsupported OpenCode store layouts are rejected rather than resumed in another store. See the [terminal contract](docs/sdd/0006-native-terminal.md).
-
-Schedules require a future local date and time, stored as a UTC instant with its IANA time zone. Keep the service running for execution. After downtime, missed schedules require **Send now**, **Reschedule** or **Cancel**. Lost acknowledgement or interrupted delivery becomes **Delivery uncertain**, with native verification and an explicit duplicate-risk confirmation before resending. Cancel restores a draft. Database migrations preserve existing drafts and labels; only one process may own a data directory.
-
-Search supports `in:inbox`, `in:sent`, `in:drafts`, `in:queued`, `in:scheduled`, `in:sessions`, `in:starred`, `in:archived`, plus `inbox:term` and the French alias `envoyer:term`. Quoted phrases and ordinary terms combine with AND. Filters include `agent:`, `folder:`, `branch:`, `label:`, `is:unread` and `is:starred`. Contradictory scopes and malformed quotes show errors. Native schema mismatches and unavailable histories produce partial discovery or reading errors. JSONL reading caps histories at 64 MiB and records at 1 MiB.
-
-For frontend development, run the service on 4179 and npm run dev --prefix apps/web on 4178. Rebuild the frontend before compiling a release binary.
-
-## Verification
-
-~~~sh
-cargo test -- --nocapture
-npm run check --prefix apps/web
+```sh
+# Terminal 1 — build the UI once before compiling the service
 npm run build --prefix apps/web
-cargo build
-npx --prefix apps/web playwright install chromium
-npm run test:e2e --prefix apps/web
-npm run test:delivery --prefix apps/web
-npm run test:messaging --prefix apps/web
-npm run test:terminal --prefix apps/web
-npm run test:permissions --prefix apps/web
-npm run test:opencode --prefix apps/web
-RELAI_UI_URL=http://127.0.0.1:4179 npm run test:filters --prefix apps/web
-~~~
+cargo run --locked
 
-The passive browser suite uses port 4181 and disposable histories. The delivery suite uses 4182 and a fake app-server to test FIFO, concurrent sessions, acknowledgements, approvals/questions, stop, schedules, crashes and recovery. The terminal suite uses 4185 to verify PTY input, two-tab control, screen restoration, responsive layouts and paused scheduled delivery. The native permission suite uses 4187 and a disposable Claude CLI fixture. The OpenCode suite uses 4188 and an authenticated HTTP/SSE plus CLI fixture. The filter suite checks four agents across eight views with empty results. The messaging browser suite uses 4184 to exercise composition, folder navigation, search, approval, scheduling, dark/light responsive layouts and keyboard tabs. RELAI_CHROMIUM selects an existing Chromium executable. The 10,000-row Rust test and 25-session fixture run measure local behavior, not universal performance.
+# Terminal 2 — live frontend with the API proxied to port 4179
+npm run dev --prefix apps/web
+```
 
-`npm run test:native --prefix apps/web` is an **opt-in real Codex smoke test** on 4183: it uses your configured model/authentication, may incur provider usage, creates a new native chat in a temporary folder and sends two text-only prompts. It verifies new-thread delivery and continuation of the same native ID. Do not run it against unrelated existing chats.
+Open http://127.0.0.1:4178. Rebuild the frontend before building a release binary. Source configuration, search syntax, native terminal behavior and delivery recovery are covered in the [operating guide](docs/running-relai.md).
 
-See [Codex delivery and verification](docs/research/codex-delivery.md) for the protocol, recovery contract and remaining verification limits.
+### Keyboard
 
-See the [UI revision](docs/sdd/0005-inbox-ui-ux.md), [catalogue decision](docs/adr/0003-passive-catalogue-and-blank-inbox.md) and [research](docs/research/gui-and-session-discovery.md).
+| Action | Shortcut |
+| --- | --- |
+| Compose | `C` |
+| Search | `Ctrl/⌘ K` |
+| Commands | `?` or `Ctrl/⌘ Shift P` |
+| Reply in a conversation | `R` |
+| Previous / next conversation | `K` / `J` |
+| Close the current surface | `Esc` |
+| Leave terminal input for its toolbar | `Ctrl Esc` |
 
-## Security
+Single-key shortcuts are disabled while editing or using the native terminal. The command palette supports arrows, Enter and Escape.
 
-Please report vulnerabilities privately as described in [SECURITY.md](SECURITY.md). Never post credentials, private messages, or customer data in issues or pull requests.
+## Verify
 
-## License
+```sh
+npm ci --prefix apps/web
+(cd apps/web && npx playwright install --with-deps chromium)
+bash scripts/check.sh
+```
 
-Apache License 2.0. See [LICENSE](LICENSE).
+This runs the credential preflight, formatting, TypeScript, frontend build, Rust formatting/Clippy/tests, the native build and eight browser/protocol suites. Tests use disposable histories and simulated harnesses. The optional `test:native` suite uses real Codex credentials and provider usage; it is excluded from the default checks and CI.
+
+The new workspace suite covers URL restoration, browser navigation, command selection, focus recovery, split reading, both themes, 320–1920px reflow and automated axe checks. See [validation details and limits](docs/experimental-workspace.md).
+
+## Repository map
+
+| Path | Responsibility |
+| --- | --- |
+| `apps/web/src/components` | Workspace navigation, commands, empty states and rendering primitives |
+| `apps/web/src/lib` | Shared API boundary, domain types, formatting and URL state |
+| `apps/web/src/main.tsx` | Workspace orchestration and persistent composition |
+| `apps/web/src/Messaging.tsx` | Delivery, approvals, scheduling and folder selection |
+| `crates/relai/src` | Local HTTP service, SQLite, discovery and harness supervision |
+| `apps/web/tests` | Browser and protocol fixtures |
+| `scripts` | Reproducible checks and publication preflight |
+| `docs` | Decisions, specifications, operating guide and experimental notes |
+| `design` | Preserved historical prototypes; separate from the supported app |
+
+## Current boundaries
+
+Graphical sending supports **Codex CLI 0.159.x**. Other versions are rejected by the adapter rather than assumed compatible. Claude Code, OpenCode and Pi histories can be discovered; their installed CLIs can be opened where supported. Their graphical sending adapters remain future work.
+
+This edition does not add cloud synchronization, Windows-native discovery, MCP, packaging or a background service installer. Closing the browser leaves work running while the local engine remains active. Run real-agent checks before relying on a new CLI version.
+
+[Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Product vocabulary](CONTEXT.md) · [Architecture and decisions](docs/experimental-workspace.md)
+
+Apache License 2.0. Bundled fonts retain their respective Open Font Licenses.
