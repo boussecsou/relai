@@ -108,11 +108,11 @@ async function submit(d, extra = {}) {
 async function delivery(id) {
   return (await api("deliveries/" + id)).delivery;
 }
-async function complete(id) {
+async function complete(id, timeout = 12000) {
   return poll(async () => {
     const d = await delivery(id);
     return d.execution === "completed" && d;
-  });
+  }, timeout);
 }
 async function action(d, action, extra = {}) {
   return api("deliveries/" + d.id + "/actions", "POST", {
@@ -268,7 +268,8 @@ try {
       submit(await draft("load session " + i)),
     ),
   );
-  await Promise.all(bulk.map((d) => complete(d.id)));
+  // Measure throughput without imposing a workstation-specific 12s budget.
+  await Promise.all(bulk.map((d) => complete(d.id, 60000)));
   console.log(
     "25 independent sessions completed in " +
       (Date.now() - parallelStart) +
