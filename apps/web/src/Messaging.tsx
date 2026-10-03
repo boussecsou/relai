@@ -1,29 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   Folder,
   ChevronLeft,
   ChevronRight,
   X,
-  Maximize2,
-  Minimize2,
   Clock,
   Send,
   StopCircle,
 } from "lucide-react";
-export type DraftData = {
-  id: string;
-  sessionId: string | null;
-  tool: string;
-  source?: string;
-  branch?: string;
-  cwd: string;
-  title: string;
-  markdown: string;
-  labels: string[];
-  ticket: string;
-  revision: number;
-  modified: number;
-};
+import type { Draft as DraftData, Session } from "./lib/types";
+export type { Draft as DraftData } from "./lib/types";
+import { api as request } from "./lib/api";
 export type Delivery = {
   id: string;
   key: string;
@@ -44,35 +31,11 @@ export type Delivery = {
 export type MailRow = {
   id: string;
   kind: "session" | "draft" | "delivery";
-  session?: any;
+  session?: Session;
   data?: DraftData | Delivery;
   modified: number;
   preview?: string;
 };
-export async function request<T>(
-  path: string,
-  method = "GET",
-  body?: unknown,
-): Promise<T> {
-  const options: RequestInit = {
-    method,
-    headers: body === undefined ? {} : { "Content-Type": "application/json" },
-    body: body === undefined ? undefined : JSON.stringify(body),
-  };
-  let r = await fetch("/api/v1/" + path, options);
-  if (r.status === 401) {
-    await fetch("/api/v1/bootstrap");
-    r = await fetch("/api/v1/" + path, options);
-  }
-  if (!r.ok) {
-    let text = "The local service is unavailable.";
-    try {
-      text = (await r.json()).error || text;
-    } catch {}
-    throw new Error(text);
-  }
-  return r.json();
-}
 export const stateName = (s: string) =>
   ({
     waiting_approval: "Needs approval",

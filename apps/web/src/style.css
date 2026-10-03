@@ -6,30 +6,30 @@
 }
 :root {
   color-scheme: dark;
-  --bg: #161719;
-  --surface: #1d1f22;
-  --raised: #25282d;
-  --hover: #292c31;
-  --text: #ecedef;
-  --muted: #a5aab2;
-  --line: #34373d;
-  --accent: #a1c9c0;
-  --accent-bg: #243733;
+  --bg: #141a19;
+  --surface: #1b2220;
+  --raised: #242d2a;
+  --hover: #2a3530;
+  --text: #edf2ef;
+  --muted: #a6b5ad;
+  --line: #34413a;
+  --accent: #b5e6cb;
+  --accent-bg: #2c4437;
   --lavender: #c4b7e4;
   --peach: #e0bca5;
   --shadow: 0 20px 80px #0004;
 }
 [data-theme="light"] {
   color-scheme: light;
-  --bg: #f6f6f5;
+  --bg: #eff2ed;
   --surface: #fff;
-  --raised: #f0f1f2;
-  --hover: #e9ebed;
-  --text: #25272b;
-  --muted: #626873;
-  --line: #dedfe2;
-  --accent: #386c63;
-  --accent-bg: #e7f0ed;
+  --raised: #f2f5f0;
+  --hover: #e9efe7;
+  --text: #21362a;
+  --muted: #5b6e60;
+  --line: #dce4d9;
+  --accent: #2c6545;
+  --accent-bg: #e3efdf;
   --lavender: #71628f;
   --peach: #825638;
   --shadow: 0 20px 80px #0002;
@@ -44,10 +44,7 @@ body {
     15px/1.5 "IBM Plex Sans",
     system-ui,
     sans-serif;
-  background:
-    radial-gradient(ellipse at 5% 5%, #448b852b, transparent 45%),
-    radial-gradient(ellipse at 100% 100%, #b3897026, transparent 42%),
-    radial-gradient(ellipse at 90% 0%, #968abc24, transparent 35%), var(--bg);
+  background: var(--bg);
 }
 button,
 input,
@@ -493,7 +490,6 @@ kbd {
 }
 .activity-status {
   margin-left: auto;
-  opacity: 0.8;
 }
 .session-row > time,
 .draft-row > time {
@@ -1879,43 +1875,6 @@ summary:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
-@media (min-width: 1000px) and (max-width: 1279px) {
-  .shell {
-    grid-template-columns: 72px minmax(0, 1fr);
-  }
-  .sidebar {
-    padding: 16px 8px;
-  }
-  .sidebar .nav {
-    justify-content: center;
-    padding: 10px;
-  }
-  .sidebar .nav > span:not(.label-dot),
-  .sidebar .section-label,
-  .sidebar .sidebar-empty,
-  .sidebar .sidebar-bottom > .small,
-  .sidebar .label-list {
-    display: none;
-  }
-  .sidebar .compose-button {
-    font-size: 0;
-    padding: 12px;
-    justify-content: center;
-  }
-  .sidebar .nav {
-    font-size: 0;
-  }
-  .compose-layout {
-    grid-template-columns: minmax(0, 1fr) 480px;
-  }
-  .brand-sub {
-    display: none;
-  }
-  .session-row {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-}
 @media (max-width: 999px) {
   .compose-layout {
     grid-template-columns: minmax(0, 1fr);
@@ -2017,15 +1976,6 @@ pre,
   font-size: 13px;
   border-top: 1px solid var(--line);
   margin-top: 12px;
-}
-@media (min-width: 1000px) and (max-width: 1279px) {
-  .nav-divider {
-    padding: 0;
-    margin: 12px 0;
-  }
-  .nav-divider span {
-    display: none;
-  }
 }
 [hidden] {
   display: none !important;

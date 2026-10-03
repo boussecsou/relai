@@ -61,11 +61,6 @@ try {
           .isVisible())
       )
         await menu.click();
-      if (["Starred", "Archived"].includes(view)) {
-        const more = page.getByRole("button", { name: "More", exact: true });
-        if ((await more.getAttribute("aria-expanded")) === "false")
-          await more.click();
-      }
       await page.getByRole("button", { name: view, exact: true }).click();
       for (const agent of ["Codex", "Claude Code", "OpenCode", "Pi"]) {
         await filter.selectOption(agent);

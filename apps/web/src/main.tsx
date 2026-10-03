@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { createRoot } from "react-dom/client";
 import {
-  Inbox,
   Send,
   FileText,
-  Clock,
   Calendar,
   MessagesSquare,
   Star,
@@ -27,10 +25,13 @@ import {
   Settings2,
   Trash2,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-import { marked } from "marked";
-import DOMPurify from "dompurify";
 import "./style.css";
+import "./workspace.css";
+import { Sidebar, views } from "./components/Sidebar";
+import { CommandPalette } from "./components/CommandPalette";
+import { EmptyState } from "./components/EmptyState";
+import { readLocation, writeLocation } from "./lib/navigation";
+import { Command, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import {
   FolderPicker,
   ScheduleFields,
@@ -44,163 +45,32 @@ const TerminalPanel = React.lazy(() =>
   import("./TerminalPanel").then((m) => ({ default: m.TerminalPanel })),
 );
 import { Maximize2, Minimize2 } from "lucide-react";
-type Label = { id: string; name: string; color: string };
-type Annotations = {
-  labels: string[];
-  starred: boolean;
-  archived: boolean;
-  unread: boolean;
-  ticket: string;
-};
-type Session = {
-  id: string;
-  nativeId: string;
-  tool: string;
-  title: string;
-  cwd: string;
-  branch: string;
-  modified: number;
-  parentId: string;
-  archivedNative: boolean;
-  sourceAvailable: boolean;
-  preview?: string;
-  state?: string;
-  managed?: boolean;
-  capabilities?: { send: boolean; reason: string };
-  annotations: Annotations;
-};
-type Draft = {
-  source?: string;
-  branch?: string;
-  id: string;
-  sessionId: string | null;
-  tool: string;
-  cwd: string;
-  title: string;
-  markdown: string;
-  labels: string[];
-  ticket: string;
-  revision: number;
-  modified: number;
-};
-type Message = {
-  id: string;
-  role: string;
-  text: string;
-  time: number;
-  activity: boolean;
-};
-type Coverage = {
-  tool: string;
-  root: string;
-  installed: boolean;
-  status: string;
-  count: number;
-  errors: number;
-  detail: string;
-  updated: number;
-};
-type Page = { items: Session[]; total: number; offset: number; limit: number };
-type Discovery = {
-  scanning: boolean;
-  sources: Coverage[];
-  indexing: boolean;
-  indexErrors: number;
-};
-class ApiError extends Error {
-  constructor(
-    public status: number,
-    message: string,
-  ) {
-    super(message);
-  }
-}
-async function api<T>(
-  path: string,
-  method = "GET",
-  body?: unknown,
-): Promise<T> {
-  const options: RequestInit = {
-    method,
-    headers: body !== undefined ? { "Content-Type": "application/json" } : {},
-    body: body === undefined ? undefined : JSON.stringify(body),
-  };
-  let response = await fetch("/api/v1/" + path, options);
-  if (response.status === 401 && path !== "bootstrap") {
-    await fetch("/api/v1/bootstrap");
-    response = await fetch("/api/v1/" + path, options);
-  }
-  if (!response.ok) {
-    let message = "The local service is unavailable.";
-    try {
-      message = (await response.json()).error || message;
-    } catch {}
-    throw new ApiError(response.status, message);
-  }
-  return response.json();
-}
-const date = (time: number) =>
-  time
-    ? new Intl.DateTimeFormat("en", {
-        day: "2-digit",
-        month: "short",
-        hour: "2-digit",
-        minute: "2-digit",
-      }).format(time)
-    : "Unknown date";
-const folder = (cwd: string) =>
-  cwd.split("/").filter(Boolean).slice(-2).join("/") || "Unknown folder";
-function IconButton({
-  icon: Icon,
-  label,
-  onClick,
-  disabled = false,
-  pressed,
-}: {
-  icon: LucideIcon;
-  label: string;
-  onClick: () => void;
-  disabled?: boolean;
-  pressed?: boolean;
-}) {
-  return (
-    <button
-      className="icon"
-      aria-label={label}
-      title={label}
-      onClick={onClick}
-      disabled={disabled}
-      aria-pressed={pressed}
-    >
-      <Icon size={18} />
-    </button>
-  );
-}
-function MarkdownView({ text }: { text: string }) {
-  return (
-    <div
-      className="prose"
-      dangerouslySetInnerHTML={{
-        __html: DOMPurify.sanitize(
-          marked.parse(text, { async: false }) as string,
-          { FORBID_TAGS: ["img"], FORBID_ATTR: ["style"] },
-        ),
-      }}
-    />
-  );
-}
+import type {
+  Label,
+  Annotations,
+  Session,
+  Draft,
+  Message,
+  Page,
+  Discovery,
+} from "./lib/types";
+import { api, ApiError } from "./lib/api";
+import { date, folder } from "./lib/format";
+import { IconButton, MarkdownView } from "./components/primitives";
 const RichEditor = React.lazy(() => import("./RichEditor"));
-const views: [string, string, LucideIcon][] = [
-  ["inbox", "Inbox", Inbox],
-  ["sent", "Sent", Send],
-  ["drafts", "Drafts", FileText],
-  ["queued", "Queued", Clock],
-  ["scheduled", "Scheduled", Calendar],
-  ["sessions", "Sessions", MessagesSquare],
-];
 function App() {
+  const initialLocation = useRef(readLocation()).current;
+  const [hasLoadedMailbox, setHasLoadedMailbox] = useState(false);
+  const [commandsOpen, setCommandsOpen] = useState(false);
+  const [focusReader, setFocusReader] = useState(false);
+  const [narrow, setNarrow] = useState(
+    () => window.matchMedia("(max-width: 720px)").matches,
+  );
+  const sidebarRef = useRef<HTMLElement>(null);
+  const locationView = useRef(initialLocation.view);
+
   const [mailRows, setMailRows] = useState<MailRow[]>([]),
-    [scope, setScope] = useState("inbox");
+    [scope, setScope] = useState(initialLocation.view);
   const [deliveryDetail, setDeliveryDetail] = useState<Delivery | null>(null);
   const [expanded, setExpanded] = useState(false),
     [submitting, setSubmitting] = useState(false),
@@ -217,11 +87,11 @@ function App() {
   const [ready, setReady] = useState(false),
     [error, setError] = useState(""),
     [toast, setToast] = useState("");
-  const [view, setView] = useState("inbox"),
-    [labelFilter, setLabelFilter] = useState(""),
-    [tool, setTool] = useState(""),
-    [q, setQ] = useState(""),
-    [search, setSearch] = useState("");
+  const [view, setView] = useState(initialLocation.view),
+    [labelFilter, setLabelFilter] = useState(initialLocation.label),
+    [tool, setTool] = useState(initialLocation.tool),
+    [q, setQ] = useState(initialLocation.q),
+    [search, setSearch] = useState(initialLocation.q);
   const [page, setPage] = useState<Page>({
       items: [],
       total: 0,
@@ -240,8 +110,7 @@ function App() {
     [drafts, setDrafts] = useState<Draft[]>([]);
   const [theme, setTheme] = useState("dark"),
     [compact, setCompact] = useState(false),
-    [mobile, setMobile] = useState(false),
-    [more, setMore] = useState(false);
+    [mobile, setMobile] = useState(false);
   const [session, setSession] = useState<Session | null>(null),
     [messages, setMessages] = useState<Message[]>([]),
     [before, setBefore] = useState(0),
@@ -285,6 +154,61 @@ function App() {
       if (element?.open) element.close();
     };
   }, [hasDraft]);
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 720px)");
+    const update = () => {
+      setNarrow(media.matches);
+      if (!media.matches) setMobile(false);
+    };
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+  useEffect(() => {
+    if (!mobile || !narrow) return;
+    const trigger = document.querySelector<HTMLButtonElement>(
+      '[aria-label="Open navigation"]',
+    );
+    sidebarRef.current?.querySelector<HTMLButtonElement>("button")?.focus();
+    return () => trigger?.focus();
+  }, [mobile, narrow]);
+  useEffect(() => {
+    writeLocation(
+      view,
+      search,
+      tool,
+      labelFilter,
+      locationView.current !== view,
+    );
+    locationView.current = view;
+    document.title = `${session?.title || views.find(([key]) => key === view)?.[1] || "Workspace"} — Relai`;
+  }, [view, search, tool, labelFilter, session?.title]);
+  useEffect(() => {
+    const restore = () => {
+      void closeDraft().then((closed) => {
+        if (!closed) {
+          writeLocation(view, search, tool, labelFilter, false);
+          return;
+        }
+        const next = readLocation();
+        locationView.current = next.view;
+        historyGeneration.current++;
+        setView(next.view);
+        setScope(next.view);
+        setQ(next.q);
+        setSearch(next.q);
+        setTool(next.tool);
+        setLabelFilter(next.label);
+        setSession(null);
+        setDeliveryDetail(null);
+        setTerminalView(false);
+        setOffset(0);
+        setSelection(new Set());
+        setTriage("all");
+      });
+    };
+    window.addEventListener("popstate", restore);
+    return () => window.removeEventListener("popstate", restore);
+  });
   const nativeCatalogue =
     ["sessions", "starred", "archived"].includes(scope) || !!labelFilter;
   const catalogue = nativeCatalogue || scope === "inbox";
@@ -402,12 +326,16 @@ function App() {
             (p as typeof p & { triageCounts?: Record<string, number> })
               .triageCounts || {},
           );
+          setHasLoadedMailbox(true);
           setMailRows(p.items);
           setScope(p.scope);
           setPage({
             ...p,
             items: p.items
-              .filter((r) => r.kind === "session" && r.session)
+              .filter(
+                (r): r is MailRow & { session: Session } =>
+                  r.kind === "session" && !!r.session,
+              )
               .map((r) => ({
                 ...r.session,
                 modified: r.modified,
@@ -793,6 +721,16 @@ function App() {
     const listener = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement;
       if (target.closest(".terminal-panel")) return;
+      if (
+        (e.ctrlKey || e.metaKey) &&
+        e.shiftKey &&
+        e.key.toLowerCase() === "p" &&
+        !target.closest("dialog")
+      ) {
+        e.preventDefault();
+        setCommandsOpen(true);
+        return;
+      }
       const editing = target.closest(
         "input,textarea,select,[contenteditable=true],dialog",
       );
@@ -807,6 +745,7 @@ function App() {
         else if (session) back();
         else setMobile(false);
       }
+      if (e.key === "?") setCommandsOpen(true);
       if (e.key.toLowerCase() === "c") void compose();
       if (e.key.toLowerCase() === "r" && session) void compose(session);
       if (session && ["j", "k"].includes(e.key)) {
@@ -1105,7 +1044,14 @@ function App() {
       <div className="list-scroll" ref={scrollRef} aria-busy={loading}>
         {catalogue && page.items.length > 0 ? (
           page.items.map((s) => (
-            <div className="session-row" key={s.id}>
+            <div
+              className={
+                "session-row " +
+                (session?.id === s.id ? "selected " : "") +
+                (s.annotations.unread ? "unread" : "")
+              }
+              key={s.id}
+            >
               <input
                 type="checkbox"
                 aria-label={"Select " + s.title}
@@ -1126,7 +1072,11 @@ function App() {
                   void annotate(s, { starred: !s.annotations.starred })
                 }
               />
-              <button className="row-main" onClick={() => void read(s)}>
+              <button
+                className="row-main"
+                aria-current={session?.id === s.id ? "true" : undefined}
+                onClick={() => void read(s)}
+              >
                 <span className="row-title">
                   {s.title}
                   {labelChips(s.annotations.labels)}
@@ -1199,73 +1149,28 @@ function App() {
             }}
           />
         ) : (
-          <div className="empty">
-            <div className="empty-icon">
-              {nativeCatalogue ? (
-                <MessagesSquare size={26} />
-              ) : scope === "drafts" ? (
-                <FileText size={26} />
-              ) : (
-                <Inbox size={26} />
-              )}
-            </div>
-            <h2>
-              {search || tool || (scope === "inbox" && triage !== "all")
-                ? "No results"
-                : nativeCatalogue
-                  ? loading
-                    ? "Searching…"
-                    : "No conversations here"
-                  : scope === "inbox"
-                    ? "Your Inbox is clear"
-                    : scope === "drafts"
-                      ? "Your ideas start here"
-                      : scope === "sent"
-                        ? "No Relais sent yet"
-                        : scope === "queued"
-                          ? "Nothing queued"
-                          : "Nothing scheduled"}
-            </h2>
-            <p>
-              {tool || search || (scope === "inbox" && triage !== "all")
-                ? "Try another agent or clear the filters."
-                : nativeCatalogue
-                  ? search
-                    ? "Try another term or remove a filter."
-                    : "Detected histories will appear here."
-                  : scope === "inbox"
-                    ? "New agent returns will appear here. Detected histories stay in Sessions."
-                    : scope === "drafts"
-                      ? "Write a Relai, choose a recipient and come back to it anytime."
-                      : "Your outgoing Relais will appear here when you send, queue or schedule them."}
-            </p>
-            <div className="empty-actions">
-              {nativeCatalogue ? (
-                <button
-                  className="secondary"
-                  onClick={() => setDialog("sources")}
-                >
-                  Check sources
-                </button>
-              ) : (
-                <>
-                  <button className="primary" onClick={() => void compose()}>
-                    <Plus size={16} />
-                    Compose a Relai
-                  </button>
-                  {scope === "inbox" && (
-                    <button
-                      className="secondary"
-                      onClick={() => void navigate("sessions")}
-                    >
-                      View sessions
-                      <ChevronRight size={16} />
-                    </button>
-                  )}
-                </>
-              )}
-            </div>
-          </div>
+          <EmptyState
+            scope={scope}
+            loading={loading && !hasLoadedMailbox}
+            filtered={
+              !!(
+                search ||
+                tool ||
+                labelFilter ||
+                (scope === "inbox" && triage !== "all")
+              )
+            }
+            onCompose={() => void compose()}
+            onSessions={() => void navigate("sessions")}
+            onSources={() => setDialog("sources")}
+            onClear={() => {
+              setQ("");
+              setTool("");
+              setLabelFilter("");
+              setTriage("all");
+              setOffset(0);
+            }}
+          />
         )}
       </div>
       <div className="list-bottom">
@@ -1297,15 +1202,20 @@ function App() {
             void navigate("inbox");
           }}
         >
-          <span className="brand-mark">r</span>relai
-          <span className="brand-sub">your local workspace</span>
+          <span className="brand-mark" aria-hidden="true">
+            ↗
+          </span>
+          relai
+          <span className="brand-sub">
+            WORKSPACE <span>EXPERIMENTAL</span>
+          </span>
         </a>
         <label className="search">
           <Search size={17} />
           <input
             ref={searchRef}
             aria-label="Search mailboxes and sessions"
-            placeholder="Search: inbox: auth, in:sent bug…"
+            placeholder="Search conversations, prompts, folders…"
             value={q}
             onChange={(e) => {
               setQ(e.target.value);
@@ -1314,13 +1224,18 @@ function App() {
           <kbd>⌘ K</kbd>
         </label>
         <IconButton
+          icon={Command}
+          label="Open commands"
+          onClick={() => setCommandsOpen(true)}
+        />
+        <IconButton
           icon={theme === "dark" ? Sun : Moon}
           label={theme === "dark" ? "Light theme" : "Dark theme"}
           onClick={() => void preferences(theme === "dark" ? "light" : "dark")}
         />
         <button className="local-pill" onClick={() => setDialog("sources")}>
-          <span className="dot" />
-          Local
+          <span className={"dot " + (error ? "offline" : "")} />
+          {error ? "Check connection" : "Local engine"}
         </button>
       </header>
       {mobile && (
@@ -1330,115 +1245,69 @@ function App() {
           onClick={() => setMobile(false)}
         />
       )}
-      <aside className={mobile ? "sidebar open" : "sidebar"}>
-        <button className="compose-button" onClick={() => void compose()}>
-          <Plus size={19} />
-          Compose a Relai
-        </button>
-        <nav aria-label="Mailboxes and conversations">
-          {views.map(([key, name, Icon]) => (
-            <React.Fragment key={key}>
-              {key === "sessions" && (
-                <div className="nav-divider">
-                  <span>Conversations</span>
-                </div>
-              )}
-              <button
-                key={key}
-                aria-label={name}
-                className={
-                  "nav " + (scope === key && !labelFilter ? "active" : "")
-                }
-                onClick={() => void navigate(key)}
-              >
-                <Icon size={18} />
-                <span>{name}</span>
-                {key === "drafts" && drafts.length > 0 ? (
-                  <span className="count">{drafts.length}</span>
-                ) : null}
-              </button>
-            </React.Fragment>
-          ))}
-          <button
-            className="nav muted"
-            aria-expanded={more}
-            onClick={() => setMore(!more)}
-          >
-            <ChevronRight size={17} className={more ? "rotate" : ""} />
-            More
+      <aside
+        ref={sidebarRef}
+        className={mobile ? "sidebar open" : "sidebar"}
+        inert={narrow && !mobile}
+        role={narrow && mobile ? "dialog" : undefined}
+        aria-modal={narrow && mobile ? true : undefined}
+        aria-label="Workspace navigation"
+        onKeyDown={(event) => {
+          if (!narrow || !mobile) return;
+          if (event.key === "Escape") {
+            setMobile(false);
+            document
+              .querySelector<HTMLButtonElement>(
+                '[aria-label="Open navigation"]',
+              )
+              ?.focus();
+          }
+          if (event.key === "Tab") {
+            const buttons = Array.from(
+              event.currentTarget.querySelectorAll<HTMLButtonElement>(
+                "button:not(:disabled)",
+              ),
+            );
+            const first = buttons[0],
+              last = buttons.at(-1);
+            if (event.shiftKey && document.activeElement === first) {
+              event.preventDefault();
+              last?.focus();
+            }
+            if (!event.shiftKey && document.activeElement === last) {
+              event.preventDefault();
+              first?.focus();
+            }
+          }
+        }}
+      >
+        {narrow && (
+          <button className="nav" onClick={() => setMobile(false)}>
+            <X size={18} />
+            Close navigation
           </button>
-          {more && (
-            <>
-              {[
-                ["starred", "Starred", Star],
-                ["archived", "Archived", Archive],
-              ].map(([key, name, Icon]) => {
-                const I = Icon as LucideIcon;
-                return (
-                  <button
-                    key={String(key)}
-                    className={"nav " + (scope === key ? "active" : "")}
-                    onClick={() => void navigate(String(key))}
-                  >
-                    <I size={18} />
-                    {String(name)}
-                  </button>
-                );
-              })}
-            </>
-          )}
-        </nav>
-        <div className="section-label">
-          <span>Labels</span>
-          <IconButton
-            icon={Plus}
-            label="Create label"
-            onClick={() => {
-              setLabelEdit({ id: "", name: "", color: "teal" });
-              setDialog("label");
-            }}
-          />
-        </div>
-        <div className="label-list">
-          {labels.length ? (
-            labels.map((l) => (
-              <div className="label-nav" key={l.id}>
-                <button
-                  className={"nav " + (labelFilter === l.id ? "active" : "")}
-                  onClick={() => void navigate("sessions", l.id)}
-                >
-                  <span className={"label-dot " + l.color} />
-                  {l.name}
-                </button>
-                <IconButton
-                  icon={Settings2}
-                  label={"Edit " + l.name}
-                  onClick={() => {
-                    setLabelEdit(l);
-                    setDialog("label");
-                  }}
-                />
-              </div>
-            ))
-          ) : (
-            <p className="sidebar-empty">Organize at your own pace.</p>
-          )}
-        </div>
-        <div className="sidebar-bottom">
-          <button
-            className="nav"
-            aria-label="Sources and discovery"
-            onClick={() => setDialog("sources")}
-          >
-            <Settings2 size={17} />
-            Sources
-          </button>
-          <span className="small muted">
-            {discovery.scanning
-              ? "Discovering…"
-              : "Native histories · passive discovery"}
-          </span>
-        </div>
+        )}
+        <Sidebar
+          scope={scope}
+          labelFilter={labelFilter}
+          labels={labels}
+          draftCount={drafts.length}
+          discovery={discovery}
+          onNavigate={(next, label) => void navigate(next, label)}
+          onCompose={() => void compose()}
+          onLabel={(label) => {
+            setLabelEdit(label);
+            setDialog("label");
+          }}
+          onSources={() => {
+            setMobile(false);
+            setDialog("sources");
+          }}
+          onCommands={() => {
+            setMobile(false);
+            setCommandsOpen(true);
+          }}
+        />
       </aside>
       <main className="workspace" id="workspace" tabIndex={-1}>
         {error && (
@@ -1446,8 +1315,19 @@ function App() {
             {error}
             <button
               onClick={() => {
-                loadMeta()
-                  .then(() => setError(""))
+                api("bootstrap")
+                  .then(() =>
+                    Promise.all([
+                      loadMeta(),
+                      api<{ theme: string; compact: boolean }>("preferences"),
+                    ]),
+                  )
+                  .then(([, prefs]) => {
+                    setTheme(prefs.theme);
+                    setCompact(prefs.compact);
+                    setReady(true);
+                    setError("");
+                  })
                   .catch(alert);
                 setReload((n) => n + 1);
               }}
@@ -1863,234 +1743,267 @@ function App() {
             }}
           />
         ) : session ? (
-          <section className="reader" aria-label="Conversation history">
-            <div className="pane-heading">
-              <button className="back" onClick={back}>
-                <ChevronLeft size={18} />
-                Back to {title}
-              </button>
-              <div className="actions">
-                <IconButton
-                  icon={Star}
-                  label={
-                    session.annotations.starred
-                      ? "Unstar conversation"
-                      : "Star conversation"
-                  }
-                  pressed={session.annotations.starred}
-                  onClick={() =>
-                    void annotate(session, {
-                      starred: !session.annotations.starred,
-                    })
-                  }
-                />
-                <IconButton
-                  icon={Archive}
-                  label={session.annotations.archived ? "Restore" : "Archive"}
-                  onClick={() =>
-                    void annotate(session, {
-                      archived: !session.annotations.archived,
-                    })
-                  }
-                />
-              </div>
-            </div>
-            {!session.sourceAvailable && (
-              <div className="banner error">
-                The native file is unavailable. Its metadata is preserved.
-              </div>
-            )}
-            <div className="reader-heading">
-              <span className="eyebrow">Local history</span>
-              <h1>{session.title}</h1>
-              <div className="context">
-                <span className="tool-badge">{session.tool}</span>
-                <span title={session.cwd}>
-                  <Folder size={14} />
-                  {session.cwd || "Unknown folder"}
-                </span>
-                {session.branch && (
-                  <span>
-                    <GitBranch size={14} />
-                    {session.branch}
-                  </span>
-                )}
-                <span>
-                  {session.managed
-                    ? stateName(session.state || "unknown")
-                    : "External activity unknown"}
-                </span>
-              </div>
-              <div className="reader-meta">
-                {chooseLabels(
-                  session.annotations.labels,
-                  (labels) => void annotate(session, { labels }),
-                )}
-                <label>
-                  Ticket
-                  <input
-                    value={session.annotations.ticket}
-                    placeholder="Optional"
-                    onChange={(e) =>
-                      setSession({
-                        ...session,
-                        annotations: {
-                          ...session.annotations,
-                          ticket: e.target.value,
-                        },
-                      })
+          <div
+            className={
+              "reading-layout " +
+              (focusReader || terminalView ? "reader-focused" : "")
+            }
+          >
+            <div className="reading-list">{listContent}</div>
+            <section className="reader" aria-label="Conversation history">
+              <div className="pane-heading">
+                <button className="back" onClick={back}>
+                  <ChevronLeft size={18} />
+                  Back to {title}
+                </button>
+                <div className="actions">
+                  <IconButton
+                    icon={focusReader ? PanelLeftOpen : PanelLeftClose}
+                    label={
+                      focusReader
+                        ? "Show conversation list"
+                        : "Focus conversation"
                     }
-                    onBlur={() =>
+                    pressed={focusReader}
+                    onClick={() => setFocusReader(!focusReader)}
+                  />
+                  <IconButton
+                    icon={Star}
+                    label={
+                      session.annotations.starred
+                        ? "Unstar conversation"
+                        : "Star conversation"
+                    }
+                    pressed={session.annotations.starred}
+                    onClick={() =>
                       void annotate(session, {
-                        ticket: session.annotations.ticket,
+                        starred: !session.annotations.starred,
                       })
                     }
                   />
-                </label>
+                  <IconButton
+                    icon={Archive}
+                    label={session.annotations.archived ? "Restore" : "Archive"}
+                    onClick={() =>
+                      void annotate(session, {
+                        archived: !session.annotations.archived,
+                      })
+                    }
+                  />
+                </div>
               </div>
-              {session.parentId && (
-                <p className="small muted">
-                  Related conversation / child agent
-                </p>
+              {!session.sourceAvailable && (
+                <div className="banner error">
+                  The native file is unavailable. Its metadata is preserved.
+                </div>
               )}
-            </div>
-            <ConversationActivity
-              key={session.id}
-              sessionId={session.id}
-              onOpenDelivery={(d) => {
-                setDeliveryDetail(d);
-                setSession(null);
-              }}
-              onUpdate={() => {
-                const sid = session.id,
-                  generation = historyGeneration.current;
-                void api<{ items: Message[]; before: number }>(
-                  "sessions/" + sid + "/messages",
-                )
-                  .then((r) => {
-                    if (generation !== historyGeneration.current) return;
-                    setMessages((previous) => {
-                      const updates = new Map(r.items.map((m) => [m.id, m]));
-                      const ids = new Set(previous.map((m) => m.id));
-                      return [
-                        ...previous.map((m) => updates.get(m.id) || m),
-                        ...r.items.filter((m) => !ids.has(m.id)),
-                      ];
-                    });
-                  })
-                  .catch(() => {});
-              }}
-            />
-            <div
-              className="conversation-tabs"
-              onKeyDown={(e) => {
-                if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key))
-                  return;
-                e.preventDefault();
-                const next =
-                  e.key === "Home"
-                    ? false
-                    : e.key === "End"
-                      ? true
-                      : !terminalView;
-                setTerminalView(next);
-                e.currentTarget
-                  .querySelectorAll<HTMLButtonElement>("button")
-                  [next ? 1 : 0]?.focus();
-              }}
-              role="tablist"
-              aria-label="Conversation view"
-            >
-              <button
-                role="tab"
-                tabIndex={!terminalView ? 0 : -1}
-                aria-selected={!terminalView}
-                onClick={() => setTerminalView(false)}
+              <div className="reader-heading">
+                <span className="eyebrow">Local history</span>
+                <h1>{session.title}</h1>
+                <div className="context">
+                  <span className="tool-badge">{session.tool}</span>
+                  <span title={session.cwd}>
+                    <Folder size={14} />
+                    {session.cwd || "Unknown folder"}
+                  </span>
+                  {session.branch && (
+                    <span>
+                      <GitBranch size={14} />
+                      {session.branch}
+                    </span>
+                  )}
+                  <span>
+                    {session.managed
+                      ? stateName(session.state || "unknown")
+                      : "External activity unknown"}
+                  </span>
+                </div>
+                <div className="reader-meta">
+                  {chooseLabels(
+                    session.annotations.labels,
+                    (labels) => void annotate(session, { labels }),
+                  )}
+                  <label>
+                    Ticket
+                    <input
+                      value={session.annotations.ticket}
+                      placeholder="Optional"
+                      onChange={(e) =>
+                        setSession({
+                          ...session,
+                          annotations: {
+                            ...session.annotations,
+                            ticket: e.target.value,
+                          },
+                        })
+                      }
+                      onBlur={() =>
+                        void annotate(session, {
+                          ticket: session.annotations.ticket,
+                        })
+                      }
+                    />
+                  </label>
+                </div>
+                {session.parentId && (
+                  <p className="small muted">
+                    Related conversation / child agent
+                  </p>
+                )}
+              </div>
+              <ConversationActivity
+                key={session.id}
+                sessionId={session.id}
+                onOpenDelivery={(d) => {
+                  setDeliveryDetail(d);
+                  setSession(null);
+                }}
+                onUpdate={() => {
+                  const sid = session.id,
+                    generation = historyGeneration.current;
+                  void api<{ items: Message[]; before: number }>(
+                    "sessions/" + sid + "/messages",
+                  )
+                    .then((r) => {
+                      if (generation !== historyGeneration.current) return;
+                      setMessages((previous) => {
+                        const updates = new Map(r.items.map((m) => [m.id, m]));
+                        const ids = new Set(previous.map((m) => m.id));
+                        return [
+                          ...previous.map((m) => updates.get(m.id) || m),
+                          ...r.items.filter((m) => !ids.has(m.id)),
+                        ];
+                      });
+                    })
+                    .catch(() => {});
+                }}
+              />
+              <div
+                className="conversation-tabs"
+                onKeyDown={(e) => {
+                  if (
+                    !["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)
+                  )
+                    return;
+                  e.preventDefault();
+                  const next =
+                    e.key === "Home"
+                      ? false
+                      : e.key === "End"
+                        ? true
+                        : !terminalView;
+                  setTerminalView(next);
+                  e.currentTarget
+                    .querySelectorAll<HTMLButtonElement>("button")
+                    [next ? 1 : 0]?.focus();
+                }}
+                role="tablist"
+                aria-label="Conversation view"
               >
-                Markdown
-              </button>
-              <button
-                role="tab"
-                tabIndex={terminalView ? 0 : -1}
-                aria-selected={terminalView}
-                onClick={() => setTerminalView(true)}
-              >
-                Open terminal
-              </button>
-            </div>
-            {terminalView && (
-              <React.Suspense fallback={<p role="status">Loading terminal…</p>}>
-                <TerminalPanel
-                  key={session.id}
-                  sessionId={session.id}
-                  agent={session.tool}
-                  onRelease={() => {
-                    setTerminalView(false);
-                    setReload((n) => n + 1);
-                  }}
-                />
-              </React.Suspense>
-            )}
-            <div className="history" hidden={terminalView}>
-              {before > 0 && (
                 <button
-                  className="secondary load-older"
-                  onClick={() => void older()}
-                  disabled={historyLoading}
+                  role="tab"
+                  tabIndex={!terminalView ? 0 : -1}
+                  aria-selected={!terminalView}
+                  onClick={() => setTerminalView(false)}
                 >
-                  Load older messages
+                  Markdown
                 </button>
+                <button
+                  role="tab"
+                  tabIndex={terminalView ? 0 : -1}
+                  aria-selected={terminalView}
+                  onClick={() => setTerminalView(true)}
+                >
+                  Open terminal
+                </button>
+              </div>
+              {terminalView && (
+                <React.Suspense
+                  fallback={<p role="status">Loading terminal…</p>}
+                >
+                  <TerminalPanel
+                    key={session.id}
+                    sessionId={session.id}
+                    agent={session.tool}
+                    onRelease={() => {
+                      setTerminalView(false);
+                      setReload((n) => n + 1);
+                    }}
+                  />
+                </React.Suspense>
               )}
-              {historyLoading && <p className="muted">Loading history…</p>}
-              {historyError && (
-                <div className="banner error" role="alert">
-                  {historyError}
-                  <button onClick={() => void read(session)}>Retry</button>
-                </div>
-              )}
-              {!historyLoading && !historyError && !messages.length && (
-                <div className="empty">
-                  <MessagesSquare size={26} />
-                  <h2>No readable messages</h2>
-                  <p>Metadata remains available.</p>
-                </div>
-              )}
-              {messages.map((m) =>
-                m.activity ? (
-                  <details className="activity" key={m.id}>
-                    <summary>Agent activity</summary>
-                    <pre>{m.text}</pre>
-                  </details>
-                ) : (
-                  <article className={"message " + m.role} key={m.id}>
-                    <div className="message-meta">
-                      <span>{m.role === "user" ? "You" : session.tool}</span>
-                      <time>{date(m.time)}</time>
-                    </div>
-                    <MarkdownView text={m.text} />
-                  </article>
-                ),
-              )}
-            </div>
-            <div className="reader-footer">
-              <span className="small muted">
-                {session.managed
-                  ? "Native history · continued in Relai"
-                  : "Native history · external activity unknown"}
-              </span>
-              <button className="primary" onClick={() => void compose(session)}>
-                <ArrowUpRight size={16} />
-                Reply
-              </button>
-            </div>
-          </section>
+              <div className="history" hidden={terminalView}>
+                {before > 0 && (
+                  <button
+                    className="secondary load-older"
+                    onClick={() => void older()}
+                    disabled={historyLoading}
+                  >
+                    Load older messages
+                  </button>
+                )}
+                {historyLoading && <p className="muted">Loading history…</p>}
+                {historyError && (
+                  <div className="banner error" role="alert">
+                    {historyError}
+                    <button onClick={() => void read(session)}>Retry</button>
+                  </div>
+                )}
+                {!historyLoading && !historyError && !messages.length && (
+                  <div className="empty">
+                    <MessagesSquare size={26} />
+                    <h2>No readable messages</h2>
+                    <p>Metadata remains available.</p>
+                  </div>
+                )}
+                {messages.map((m) =>
+                  m.activity ? (
+                    <details className="activity" key={m.id}>
+                      <summary>Agent activity</summary>
+                      <pre>{m.text}</pre>
+                    </details>
+                  ) : (
+                    <article className={"message " + m.role} key={m.id}>
+                      <div className="message-meta">
+                        <span>{m.role === "user" ? "You" : session.tool}</span>
+                        <time>{date(m.time)}</time>
+                      </div>
+                      <MarkdownView text={m.text} />
+                    </article>
+                  ),
+                )}
+              </div>
+              <div className="reader-footer">
+                <span className="small muted">
+                  {session.managed
+                    ? "Native history · continued in Relai"
+                    : "Native history · external activity unknown"}
+                </span>
+                <button
+                  className="primary"
+                  onClick={() => void compose(session)}
+                >
+                  <ArrowUpRight size={16} />
+                  Reply
+                </button>
+              </div>
+            </section>
+          </div>
         ) : (
           listContent
         )}
       </main>
       <footer className="footer">
-        <span>Your workspace, on your machine.</span>
-        <span>Runs continue while the local engine is running</span>
+        <span>
+          <span className="dot" />
+          {error ? "Connection needs attention" : "Local workspace"}
+          <span className="footer-divider">/</span>Experimental edition
+        </span>
+        <span>
+          <kbd>C</kbd> compose <span className="footer-divider">·</span>
+          <kbd>⌘ K</kbd> search <span className="footer-divider">·</span>
+          <kbd>?</kbd> commands
+        </span>
       </footer>
       <dialog
         ref={dialogRef}
@@ -2314,6 +2227,53 @@ function App() {
           </div>
         )}
       </dialog>
+      {commandsOpen && (
+        <CommandPalette
+          onClose={() => setCommandsOpen(false)}
+          commands={[
+            {
+              id: "compose",
+              label: "Compose a Relai",
+              detail: "Start a conversation or continue existing work",
+              icon: Plus,
+              shortcut: "C",
+              run: () => void compose(),
+            },
+            ...views.map(([id, label, icon]) => ({
+              id,
+              label,
+              detail: "Go to " + label.toLowerCase(),
+              icon,
+              run: () => void navigate(id),
+            })),
+            {
+              id: "search",
+              label: "Search your workspace",
+              detail: "Use agent:, folder:, in: or a phrase in quotes",
+              icon: Search,
+              shortcut: "⌘ K",
+              run: () => searchRef.current?.focus(),
+            },
+            {
+              id: "sources",
+              label: "Sources and discovery",
+              detail: "Connect and inspect your local agent histories",
+              icon: Settings2,
+              run: () => setDialog("sources"),
+            },
+            {
+              id: "theme",
+              label:
+                theme === "dark"
+                  ? "Switch to light theme"
+                  : "Switch to dark theme",
+              detail: "Set the workspace appearance",
+              icon: theme === "dark" ? Sun : Moon,
+              run: () => void preferences(theme === "dark" ? "light" : "dark"),
+            },
+          ]}
+        />
+      )}
       {toast && (
         <div className="toast" role="status">
           {toast}

@@ -13,7 +13,10 @@
     "test:terminal": "node tests/terminal.mjs",
     "test:permissions": "node tests/native-permissions.mjs",
     "test:filters": "node tests/agent-filter.mjs",
-    "test:opencode": "node tests/opencode-terminal.mjs"
+    "test:opencode": "node tests/opencode-terminal.mjs",
+    "test:workspace": "node tests/workspace.mjs",
+    "lint": "prettier --check src tests vite.config.ts index.html",
+    "format": "prettier --write src tests vite.config.ts index.html"
   },
   "dependencies": {
     "@tiptap/extension-table": "^3.0.0",
@@ -33,6 +36,7 @@
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.63.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

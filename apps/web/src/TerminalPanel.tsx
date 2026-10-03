@@ -5,16 +5,13 @@ import { SearchAddon } from "@xterm/addon-search";
 import { WebLinksAddon } from "@xterm/addon-web-links";
 import "@xterm/xterm/css/xterm.css";
 
-async function request(sessionId: string, action?: string) {
-  const response = await fetch(`/api/v1/sessions/${sessionId}/terminal`, {
-    method: action ? "POST" : "GET",
-    headers: { "Content-Type": "application/json" },
-    body: action ? JSON.stringify({ action }) : undefined,
-  });
-  const result = await response.json();
-  if (!response.ok) throw new Error(result.error || "Terminal is unavailable.");
-  return result;
-}
+import { api } from "./lib/api";
+const request = (sessionId: string, action?: string) =>
+  api(
+    `sessions/${encodeURIComponent(sessionId)}/terminal`,
+    action ? "POST" : "GET",
+    action ? { action } : undefined,
+  );
 
 export function TerminalPanel({
   sessionId,
