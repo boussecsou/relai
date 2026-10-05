@@ -1,3 +1,5 @@
+> **Contexte actuel (5 octobre 2026)** : lire [docs/context/RESUME.md](docs/context/RESUME.md) avant de poursuivre. La dernière maquette et les décisions UX sont sauvegardées sur `feat/relai-v1-workspace-and-context`. Certaines règles historiques ci-dessous ont été remplacées ; le guide précise les références actuelles.
+
 # Relai
 
 Relai organise les échanges entre un utilisateur et les sessions de ses outils de coding IA.

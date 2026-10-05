@@ -1,0 +1,23 @@
+﻿Title,Status,Scope,Rationale,Evidence
+Compose relai et interface anglaise,Confirmée,UI,Libellé exact demandé ; slogan conservé,pages/01-decisions.md
+Gmail compact et Projects,Confirmée,Navigation,"Organisation familière, densité sobre",assets/relai-design/UX-NOTES.md
+Couleurs agents et dégradés discrets,Confirmée,Visuel,Identifier agent avec nom et couleur,assets/relai-design/UX-NOTES.md
+Plusieurs Relais par session native,Confirmée,Modèle produit,Titre Relai indépendant du nom natif,pages/00-vision-glossaire.md
+Deux accès Existing/New session,Confirmée,Composition,"Agent et chemin local, sans wizard ni GitHub requis",pages/SDD-001-composition.md
+Fenêtre et brouillons multiples,Confirmée,Composition,Minimiser agrandir fermer sans perte,assets/relai-design/CHANGELOG-UI.md
+Reply fixe et pop-out conversation,Confirmée,Conversation,Actions accessibles sans parcourir tout le thread,pages/SDD-005-ui-ux.md
+Dark mode et indicateur non-lu,Confirmée,Thèmes,Sélection visible et point discret,pages/SDD-005-ui-ux.md
+"Ordinateur prioritaire, mobile conservé",Confirmée,Périmètre,Mobile non prioritaire à ce stade,assets/relai-design/UX-NOTES.md
+Documenter tous les choix et modifications,Confirmée,Documentation,Demande explicite de conservation dans les notes et Notion,pages/09-notion-schema-import.md
+"Trait bleu épais, Forward, emoji, nouveau Focus",Rejetée,UI,Exclusions explicites à ne pas réintroduire,pages/01-decisions.md
+Your workspace in focus,Rejetée,Texte,Phrase jugée gênante,pages/01-decisions.md
+Rust React SQLite et Git CLI,Retenue dans le dépôt,Architecture,Choix documenté dans ADR-002,sources/repository-docs/adr/0002-native-local-service.md
+Adaptateur natif par agent,Retenue dans le dépôt,Architecture,Interfaces différentes et capacités déclarées,sources/repository-docs/product-direction.md
+IBM Plex Lucide et Markdown filtré,Réalisation de l’audit,UI,Lisibilité et rendu riche dans HTML autonome,assets/relai-design/CHANGELOG-UI.md
+Navigation contextuelle et export drafts,Réalisation de l’audit,UX,Restaurer contexte et conserver le travail,assets/relai-design/CHANGELOG-UI.md
+Git décrit dossier/worktree partagé,Réalisation de l’audit,Git,Ne pas attribuer les changements automatiquement,assets/relai-design/UX-NOTES.md
+Panneau modèle effort modes skills,Proposée,Réglages,"Messaging simple, réglages selon capacités et scope",pages/SDD-006-session-controls.md
+Héritage natif et overrides explicites,Proposée,Configuration,Éviter seconde source de vérité,pages/SDD-006-session-controls.md
+Terminal secondaire et propriété explicite,Proposée,Runtime,Historique ne prouve pas contrôle live,pages/SDD-007-agent-connectors.md
+ACP partiel et tests de contrat,Proposée,Compatibilité,Mutualiser sans promettre universalisme,pages/SDD-007-agent-connectors.md
+Intégration agents et terminal dans index.html,Demandée et réalisée en simulation,UI,Demande utilisateur ; aucune branche créée ni moteur natif exécuté,assets/relai-design/UX-NOTES.md

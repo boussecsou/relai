@@ -1,0 +1,41 @@
+﻿Title,Type,Status,Date,File,Source
+"Vision, périmètre et glossaire",Produit,Décisions confirmées,2026-10-04,pages/00-vision-glossaire.md,Consolidation de la conversation et des documents conservés
+Registre des décisions et exclusions,ADR / UX,Consolidé,2026-10-04,pages/01-decisions.md,Consolidation de la conversation et des documents conservés
+SDD-001 — Composer un Relai,SDD,Direction confirmée ; backend à construire,2026-10-04,pages/SDD-001-composition.md,Consolidation de la conversation et des documents conservés
+"SDD-002 — Inbox, organisation et sessions",SDD,Direction confirmée ; données simulées,2026-10-04,pages/SDD-002-inbox-sessions.md,Consolidation de la conversation et des documents conservés
+"SDD-003 — États, erreurs et reprise",SDD,Direction et contrat proposés,2026-10-04,pages/SDD-003-recovery.md,Consolidation de la conversation et des documents conservés
+"SDD-004 — Service local, API et distribution",SDD,Architecture retenue dans le dépôt ; détails ouverts,2026-10-04,pages/SDD-004-local-service.md,Consolidation de la conversation et des documents conservés
+SDD-005 — Interface complète et thèmes,SDD / UX,Implémenté dans la maquette,2026-10-04,pages/SDD-005-ui-ux.md,Consolidation de la conversation et des documents conservés
+"SDD-006 — Modèle, effort, modes et skills",SDD,UI intégrée en simulation ; backend proposé,2026-10-04,pages/SDD-006-session-controls.md,Consolidation de la conversation et des documents conservés
+"SDD-007 — Connecteurs, terminaux et compatibilité",SDD,UI intégrée en simulation ; backend proposé,2026-10-04,pages/SDD-007-agent-connectors.md,Consolidation de la conversation et des documents conservés
+"Recherche, sources et conclusions",Recherche,Sources consultées ; runtime non vérifié,2026-10-04,pages/06-research-conclusions.md,Consolidation de la conversation et des documents conservés
+"Vérifications, limites et état de livraison",Validation,Maquettes testées ; intégrations simulées,2026-10-04,pages/07-validation-limites.md,Consolidation de la conversation et des documents conservés
+Questions ouvertes et prochaines validations,Roadmap,À décider / à vérifier,2026-10-04,pages/08-questions-roadmap.md,Consolidation de la conversation et des documents conservés
+Organisation Notion et guide d’import,Configuration documentaire,Préparé localement ; non publié,2026-10-04,pages/09-notion-schema-import.md,Consolidation de la conversation et des documents conservés
+CONTEXT,Source originale,Historique,,sources/CONTEXT.md,Copie verbatim ; date interne conservée
+CONTRIBUTING,Source originale,Historique,,sources/CONTRIBUTING.md,Copie verbatim ; date interne conservée
+README,Source originale,Historique,,sources/README.md,Copie verbatim ; date interne conservée
+SECURITY,Source originale,Historique,,sources/SECURITY.md,Copie verbatim ; date interne conservée
+README,Source originale,Historique,,sources/repository-design/README.md,Copie verbatim ; date interne conservée
+0001-browser-interface,Source originale,Historique,,sources/repository-docs/adr/0001-browser-interface.md,Copie verbatim ; date interne conservée
+0002-native-local-service,Source originale,Historique,,sources/repository-docs/adr/0002-native-local-service.md,Copie verbatim ; date interne conservée
+product-direction,Source originale,Historique,,sources/repository-docs/product-direction.md,Copie verbatim ; date interne conservée
+local-service-api-mcp,Source originale,Historique,,sources/repository-docs/research/local-service-api-mcp.md,Copie verbatim ; date interne conservée
+local-session-discovery,Source originale,Historique,,sources/repository-docs/research/local-session-discovery.md,Copie verbatim ; date interne conservée
+scalability-and-modularity,Source originale,Historique,,sources/repository-docs/research/scalability-and-modularity.md,Copie verbatim ; date interne conservée
+0001-compose-message,Source originale,Historique,,sources/repository-docs/sdd/0001-compose-message.md,Copie verbatim ; date interne conservée
+0002-inbox-organization,Source originale,Historique,,sources/repository-docs/sdd/0002-inbox-organization.md,Copie verbatim ; date interne conservée
+0003-errors-and-recovery,Source originale,Historique,,sources/repository-docs/sdd/0003-errors-and-recovery.md,Copie verbatim ; date interne conservée
+0004-local-installation-and-api,Source originale,Historique,,sources/repository-docs/sdd/0004-local-installation-and-api.md,Copie verbatim ; date interne conservée
+0005-inbox-ui-ux,Source originale,Historique,,sources/repository-docs/sdd/0005-inbox-ui-ux.md,Copie verbatim ; date interne conservée
+CHANGELOG-UI,Source originale,Document original conservé,,assets/relai-design/CHANGELOG-UI.md,Copie verbatim ; date interne conservée
+DESIGN-NOTES,Source originale,Document original conservé,,assets/relai-design/DESIGN-NOTES.md,Copie verbatim ; date interne conservée
+README,Source originale,Document original conservé,,assets/relai-design/README.md,Copie verbatim ; date interne conservée
+UX-NOTES,Source originale,Document original conservé,,assets/relai-design/UX-NOTES.md,Copie verbatim ; date interne conservée
+AUDIT-UI-UX,Source originale,Document original conservé,,assets/relai-design/audit/AUDIT-UI-UX.md,Copie verbatim ; date interne conservée
+UX-NOTES-before-implementation,Source originale,Historique,,assets/relai-design/audit/UX-NOTES-before-implementation.md,Copie verbatim ; date interne conservée
+DESIGN-NOTES,Source originale,Document original conservé,,assets/relai-design/audit/before-terminal-integration/DESIGN-NOTES.md,Copie verbatim ; date interne conservée
+README,Source originale,Document original conservé,,assets/relai-design/terminal-concepts/README.md,Copie verbatim ; date interne conservée
+TERMINAL-INTEGRATION,Source originale,Document original conservé,,assets/relai-design/terminal-concepts/TERMINAL-INTEGRATION.md,Copie verbatim ; date interne conservée
+UX-DECISIONS,Source originale,Document original conservé,,assets/relai-design/terminal-concepts/UX-DECISIONS.md,Copie verbatim ; date interne conservée
+marked-LICENSE,Source originale,Document original conservé,,assets/relai-design/vendor/marked-LICENSE.md,Copie verbatim ; date interne conservée

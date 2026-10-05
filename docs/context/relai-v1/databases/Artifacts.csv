@@ -1,0 +1,242 @@
+﻿Title,Type,File,Current,SHA256,Bytes
+CHANGELOG-UI.md,Documentation,assets/relai-design/CHANGELOG-UI.md,Support ; voir README,c82f5ab887683c6a98c224d06f7a6c8ab08a908ed335afda54bdf9038dc761ba,8413
+DESIGN-NOTES.md,Documentation,assets/relai-design/DESIGN-NOTES.md,Support ; voir README,7ec0b4dc7204bae39c90d332b07527f425622ab39ed10b39db2d77c5324af79b,5079
+README.md,Documentation,assets/relai-design/README.md,Support ; voir README,7812d4f9ea5110f588a31ef18e2e19535aa60a6e2331864b3e2ee56f245dc9ea,4642
+UX-NOTES.md,Documentation,assets/relai-design/UX-NOTES.md,Support ; voir README,4371c39a15bb814a2a7b7f3964d8e276cb63c1593889379053fb6a9594d8d45a,10701
+agent-picker-dark.png,Capture,assets/relai-design/agent-picker-dark.png,Support ; voir README,cf5853295abe02ef6f453b9317ea06c637b2cbca68b9c197e5ce5199763ced7b,199631
+agent-picker.png,Capture,assets/relai-design/agent-picker.png,Support ; voir README,ac1d22a9e34eac8a3f3d2a0c64dadad6063c85db0936ea7ed797bdbea8c7fd3e,159751
+app-icons.json,Preuve / données,assets/relai-design/app-icons.json,Support ; voir README,cf47922333966b19215b7fee6b0647d1262cf27b7c18e6ea23dfcb6fe473e261,18394
+app-shell.html,HTML,assets/relai-design/app-shell.html,Support ; voir README,2d1a4cb7567ac632dae8bb9270256e62c6ef71005e3ab56c26fcb557cb5fa881,7543
+app.css,Source / ressource,assets/relai-design/app.css,Support ; voir README,a9a3e03cec762209375313324b90857becaf0126504ed49f27b444f9c7581daa,41422
+app.js,Source / ressource,assets/relai-design/app.js,Support ; voir README,92f2a1dbc32fccf76b762069c9d2a2c72fae11667f669527b264c7c1ca9f8bb5,81513
+AUDIT-UI-UX.md,Documentation,assets/relai-design/audit/AUDIT-UI-UX.md,Support ; voir README,866c4e5067db0bc0494ca2887aec36050070e483119c1205c63747322ef74301,19586
+UX-NOTES-before-implementation.md,Documentation,assets/relai-design/audit/UX-NOTES-before-implementation.md,Historique,ee5ee802a5ba3dfd6119e42e5a47dc990db1c47daa4b94ae280e0e7bc3b7e46d,5372
+before-audit-implementation.html,HTML,assets/relai-design/audit/before-audit-implementation.html,Historique,860f426df01ce41d49ca6379ab1b2c811d3691616338d786c677d6379aad5574,910684
+DESIGN-NOTES.md,Documentation,assets/relai-design/audit/before-terminal-integration/DESIGN-NOTES.md,Historique,ad9a4ea256b8ae3abd4e7dade8f2c64ebe4cf757d8a3c5b19ccf3f76ec1f7382,4102
+app-shell.html,HTML,assets/relai-design/audit/before-terminal-integration/app-shell.html,Historique,04f763d6ab07675d4196ea6c526530bbdc0cb9440a0f767fbaabb8f986aa8572,6927
+app.css,Source / ressource,assets/relai-design/audit/before-terminal-integration/app.css,Historique,a9a3e03cec762209375313324b90857becaf0126504ed49f27b444f9c7581daa,41422
+app.js,Source / ressource,assets/relai-design/audit/before-terminal-integration/app.js,Historique,731be29e94a19fe60d61706e31bf814326eca2a180874e99bcfb5e03a802ed2b,80715
+build-preview.py,Source / ressource,assets/relai-design/audit/before-terminal-integration/build-preview.py,Historique,0a2273fffb34489f42a6b0dced55c2ee7650d360895c7e7be1b06c02738f96e3,1796
+index.html,HTML,assets/relai-design/audit/before-terminal-integration/index.html,Historique,4af621230ab1d34eccfe55008330b6024236be3142b4d7cfbf2eb536aab8df44,990555
+dark-agents-picker.png,Capture,assets/relai-design/audit/dark-agents-picker.png,Support ; voir README,ea9a5839e51dc8023cf0f0a12b18128cdfc00487c7329eb04ec5c41137cbfeeb,190046
+dark-compose-existing.png,Capture,assets/relai-design/audit/dark-compose-existing.png,Support ; voir README,fc14fe07f88d278961d016152e1374dc973e21b42757d817bab4d3164fd2a903,180966
+dark-compose-mobile.png,Capture,assets/relai-design/audit/dark-compose-mobile.png,Support ; voir README,0a69275e9f904f3cf967a05da1e7804fcb8d3e365d54425a21c0d17f52c4e0e4,65171
+dark-compose-new.png,Capture,assets/relai-design/audit/dark-compose-new.png,Support ; voir README,d36213918fa94c52ba9c65a340a58ef2bde285ad78863278eb10f1ef886527bf,173769
+dark-conversation-mobile.png,Capture,assets/relai-design/audit/dark-conversation-mobile.png,Support ; voir README,c3ee2d25b0c7644c7bd545f83164f608939c9132e13a15b09adf408b74de1d35,96639
+dark-conversation.png,Capture,assets/relai-design/audit/dark-conversation.png,Support ; voir README,f5d0a61998414fb0ed3fb289eba35c27f54241955f0b198d9556dd4934bdf6ca,182445
+dark-drafts.png,Capture,assets/relai-design/audit/dark-drafts.png,Support ; voir README,d960e7454cedbabaed55a6df9abea71e1b1286d57adc29245efad8dc5dd2eebb,66834
+dark-folders-picker.png,Capture,assets/relai-design/audit/dark-folders-picker.png,Support ; voir README,23abf95bf4188e622470e91dba4f23460846860cc7f7baecef7674664f8ace61,193631
+dark-inbox-320.png,Capture,assets/relai-design/audit/dark-inbox-320.png,Support ; voir README,e4516919f01f4e3a63977bbb1db904860a2cc361ab8c0f67e4c3817ce0172892,83688
+dark-inbox-390.png,Capture,assets/relai-design/audit/dark-inbox-390.png,Support ; voir README,039c8ab3ded3b7bc718bdcdfce93d2de10e3dee9d96814ad20a5419cc9266af5,90481
+dark-inbox-768.png,Capture,assets/relai-design/audit/dark-inbox-768.png,Support ; voir README,b9a8dde5ceacf428e66a7dfc094d00e37f1d355e22537d415a009baaf4432a5b,103086
+dark-inbox.png,Capture,assets/relai-design/audit/dark-inbox.png,Support ; voir README,31e6d380930c1ced2bbcca5ce106d2aa5b6b3bea1ca1ff42e2cebe9b2f66f71a,148282
+dark-pending.png,Capture,assets/relai-design/audit/dark-pending.png,Support ; voir README,063e0d35d1a8a42957cb580246c479cffb53b2bd9c21dba93b5e2bdf59a2360a,72525
+dark-reply-mobile.png,Capture,assets/relai-design/audit/dark-reply-mobile.png,Support ; voir README,1795adfe9fc2dc300a2fc6f5e5a6006f59dd93bc89ea4c9663dca42cbff5f914,85558
+dark-reply.png,Capture,assets/relai-design/audit/dark-reply.png,Support ; voir README,90966ae08607179841ab3fb0416fced99bd4e0f480f0170afc4d685af28bbf76,185155
+dark-sent.png,Capture,assets/relai-design/audit/dark-sent.png,Support ; voir README,10e1696ea1015ba8261778e2a2c6603121013ff352e4c564d0b250c9d6fa33ec,63883
+dark-sessions-picker.png,Capture,assets/relai-design/audit/dark-sessions-picker.png,Support ; voir README,e6944b202a2edb0d060eb145ba88740115c082d8653e6635f9082c096423c8a1,188540
+dark-sessions.png,Capture,assets/relai-design/audit/dark-sessions.png,Support ; voir README,0762a42a64984d308cb1c862bc1e51600000b8629e0c0c0412f112cfcdbe7493,97333
+dark-settings-agents.png,Capture,assets/relai-design/audit/dark-settings-agents.png,Support ; voir README,c881a315201c46f5c81aab1af69ac7cc8eadf351e18bbbe4893b323e42d128d3,152393
+dark-settings-appearance.png,Capture,assets/relai-design/audit/dark-settings-appearance.png,Support ; voir README,c6068291d8e5b387d48d1c62fa88e386f85905fa93ee401a6e6b227ba17e2ef8,145276
+dark-settings-folders.png,Capture,assets/relai-design/audit/dark-settings-folders.png,Support ; voir README,4cdd439d0583642bdc739ea7cdbd78c7cc2756645bdd025d6da5d240a6d027d9,149701
+dark-settings-shortcuts.png,Capture,assets/relai-design/audit/dark-settings-shortcuts.png,Support ; voir README,369a210973ad6fb0c984fadc2debbb6dd402bb1a23987f2ae3f1246a16eacb93,146713
+dark-starred.png,Capture,assets/relai-design/audit/dark-starred.png,Support ; voir README,fcf5b3341fb7e00483f3036b0115a16a5c55eae30f0e86b8374fb99d118bc95a,91492
+final-validation.json,Preuve / données,assets/relai-design/audit/final-validation.json,Support ; voir README,1708ce1b169ac6ec2892b01902070e0e2a5b8ce5b03966fdc88e26986d4e451a,1977
+implementation-tests.json,Preuve / données,assets/relai-design/audit/implementation-tests.json,Support ; voir README,9b4bac5aab1710ad037251c01854078e1138b82c12b9b1e512e8c713c19b3970,936
+dark-compose-existing.png,Capture,assets/relai-design/audit/implemented/dark-compose-existing.png,Support ; voir README,92cb3d13533fe20dedc3304e4898b378394f6963aa4c82764fdbadb2312318e7,213734
+dark-compose-new.png,Capture,assets/relai-design/audit/implemented/dark-compose-new.png,Support ; voir README,dc558a5532478f37ac9a9e25e9e1899c1117902b9c4ab97c5833ef64a3002a8d,211804
+dark-conversation.png,Capture,assets/relai-design/audit/implemented/dark-conversation.png,Support ; voir README,4e3dadf1b2f04b7c18976f4dcffe63dde96b4826d14bcb50ace57061aa2eacef,206118
+dark-folders.png,Capture,assets/relai-design/audit/implemented/dark-folders.png,Support ; voir README,2ea6f748758d30ab6e1b1030fb6ab18147cd3faa8f038d03c115e36f92992841,209350
+dark-inbox.png,Capture,assets/relai-design/audit/implemented/dark-inbox.png,Support ; voir README,7cc0e54638dadd8052061587204711cb74b92e4b2e898512c13b99c825e3aefa,180298
+dark-markdown.png,Capture,assets/relai-design/audit/implemented/dark-markdown.png,Support ; voir README,601a77facbb511a1d7e5378e86db3ca6213f6a862f01e71bb053fe92702fccc3,188848
+dark-narrow-desktop.png,Capture,assets/relai-design/audit/implemented/dark-narrow-desktop.png,Support ; voir README,18035bd682bf7c16705d513b13bd193c01ef9fa8c2370dbb23921f284eda4235,121662
+dark-notes.png,Capture,assets/relai-design/audit/implemented/dark-notes.png,Support ; voir README,985a530392d4b723ef20f5a16dfa3e05401e73e59e250b9eea424eab0a95c0d9,228845
+dark-search.png,Capture,assets/relai-design/audit/implemented/dark-search.png,Support ; voir README,25b7bfba370fc55d082ab764b257551fe6e65e92c67ea603dc8776183ea41903,205746
+dark-selection.png,Capture,assets/relai-design/audit/implemented/dark-selection.png,Support ; voir README,299aded461eb66faa324d0ea624b059d53fd8a0c8b0648f0caf64e5110427b2b,160714
+dark-sessions.png,Capture,assets/relai-design/audit/implemented/dark-sessions.png,Support ; voir README,12d1ae0d59cba0e488052d2e50db9602df193659ea7c39d02d2b313fc054ff0c,130100
+dark-settings.png,Capture,assets/relai-design/audit/implemented/dark-settings.png,Support ; voir README,f53e6dfe15cfca5674a3c56459226b4c8261a468daf3b296577e18e9790f1cad,154178
+light-compose-existing.png,Capture,assets/relai-design/audit/implemented/light-compose-existing.png,Support ; voir README,ecdcde63077c7fa8824c2e43542342fff33caff8be68db635c229b591ec4865f,171230
+light-compose-new.png,Capture,assets/relai-design/audit/implemented/light-compose-new.png,Support ; voir README,036acff42e2be850492619b68d0b514d7443fdb93afe9da13b8b87137b5d9afb,179437
+light-conversation.png,Capture,assets/relai-design/audit/implemented/light-conversation.png,Support ; voir README,9332a2be9bd0fcc860df65f4a911cfe7e1b331512bba415b2d19edcc9347570e,196332
+light-folders.png,Capture,assets/relai-design/audit/implemented/light-folders.png,Support ; voir README,0e51ca619460a23c944d4bb3f8647418da1b970835dee488d7babcbe72c003e3,189482
+light-inbox.png,Capture,assets/relai-design/audit/implemented/light-inbox.png,Support ; voir README,45d748bb13b9052641d4d606e965678e58d705d3ad1c6476930723e0f53a7b52,126735
+light-markdown.png,Capture,assets/relai-design/audit/implemented/light-markdown.png,Support ; voir README,de5992bdcec0f7a4ea92259300f63895d9c1200b1c2ed9ca8eeadadddf773af4,180053
+light-narrow-desktop.png,Capture,assets/relai-design/audit/implemented/light-narrow-desktop.png,Support ; voir README,3fbd01b39dbb72cbc213de6d6296ff293cb67e17fbd50bf76095d02c7166c787,96345
+light-notes.png,Capture,assets/relai-design/audit/implemented/light-notes.png,Support ; voir README,7056eae3577aa57af3d37f1e855c793d97f8e479582b65fa412aa9f47a877cb1,214647
+light-search.png,Capture,assets/relai-design/audit/implemented/light-search.png,Support ; voir README,b44bf433d6c25dc922371998912774073b0f5500e2adc290533eff2ea343b515,195367
+light-selection.png,Capture,assets/relai-design/audit/implemented/light-selection.png,Support ; voir README,6b91d3e799853044f150cfc9c72a5b6cda0548d7a5d49a4d3292fb936985a652,131916
+light-sessions.png,Capture,assets/relai-design/audit/implemented/light-sessions.png,Support ; voir README,f52b2c1041351888f9fe322d0d1d4004fda47069613fa44870a0f60795b0979b,125988
+light-settings.png,Capture,assets/relai-design/audit/implemented/light-settings.png,Support ; voir README,c3e70c6050b83524f166d9a096993ae645953beaa846f04c160b2a2e9ce44ee0,140824
+light-agents-picker.png,Capture,assets/relai-design/audit/light-agents-picker.png,Support ; voir README,0fec6741d7d0bedad664f913d9aa28a7426c12f6c58d52350362153c6513a934,158533
+light-compose-existing.png,Capture,assets/relai-design/audit/light-compose-existing.png,Support ; voir README,160c7f4f5d069359bd00db47c3e0d958f599a0eae899b28872100f76dec40ff4,153318
+light-compose-mobile.png,Capture,assets/relai-design/audit/light-compose-mobile.png,Support ; voir README,a7e97d23563eb7751a3614272a7ad60709d3eff1b4e38f8064b7207f201b1b12,58573
+light-compose-new.png,Capture,assets/relai-design/audit/light-compose-new.png,Support ; voir README,bd5a33500e03f4cf5dfcc11675ea55f534f679450820140e1aab10c56d898e48,149120
+light-conversation-mobile.png,Capture,assets/relai-design/audit/light-conversation-mobile.png,Support ; voir README,202320749886f21ae334435e0f1d3caf17d81c5b1eeaf82215b7a72b0b9213c2,93065
+light-conversation.png,Capture,assets/relai-design/audit/light-conversation.png,Support ; voir README,099b89ef7544bf8e421eb81a701ec15738149ccb75f188f9d2895ac411f824d7,176374
+light-drafts.png,Capture,assets/relai-design/audit/light-drafts.png,Support ; voir README,0dd7561dc75fe2fac77958cbb2607b45b4d2a898ae87c47455158f1f0ff267ae,63876
+light-folders-picker.png,Capture,assets/relai-design/audit/light-folders-picker.png,Support ; voir README,cec4711f8ebcaafb4e928e961585c8e59b264c14b5c750c63896f1834f141e30,166009
+light-inbox-320.png,Capture,assets/relai-design/audit/light-inbox-320.png,Support ; voir README,3f71c1648b7ab437493aadc365031f364f2a033745500d310ad8b536688b897e,60794
+light-inbox-390.png,Capture,assets/relai-design/audit/light-inbox-390.png,Support ; voir README,92a6132927b5d444208acba28775839f239a775c93cba7cd16ff3b98a56763c2,62336
+light-inbox-768.png,Capture,assets/relai-design/audit/light-inbox-768.png,Support ; voir README,037ed86eb831ca6d7bc8345feb0a484a3e66dd3f679e2b44db871a193befb0ab,79744
+light-inbox.png,Capture,assets/relai-design/audit/light-inbox.png,Support ; voir README,1bc221985a7c90ad6faa084affb48c2885daefb0c58abca6e1c30248b484cfae,107922
+light-pending.png,Capture,assets/relai-design/audit/light-pending.png,Support ; voir README,3eaf0605ba446e4b2c231f5e1d4fb8514a61488fb5ab841880e8b6d4d1258f96,69618
+light-reply-mobile.png,Capture,assets/relai-design/audit/light-reply-mobile.png,Support ; voir README,93b784c658c22f96efeaa10631d98628666f609f2849af1eba35ca77a28bb377,79696
+light-reply.png,Capture,assets/relai-design/audit/light-reply.png,Support ; voir README,5438776f2f45e63d75a7f4a62cec5bf31a2aab82bae799f63bcef1edc7e5fe95,175400
+light-sent.png,Capture,assets/relai-design/audit/light-sent.png,Support ; voir README,ea470b22accc423d92cc466963177dc11b4b6aad107517f71334e51e545660cc,61118
+light-sessions-picker.png,Capture,assets/relai-design/audit/light-sessions-picker.png,Support ; voir README,843bf29cc10e11b42d752aa028d5e7510c7ffde6b5c501dc4fbc42ae50a1297e,159450
+light-sessions.png,Capture,assets/relai-design/audit/light-sessions.png,Support ; voir README,31626bf1449f81c31a2b77ce6ce85f5dfabe7da1631610557caf5dfa43ce982a,94270
+light-settings-agents.png,Capture,assets/relai-design/audit/light-settings-agents.png,Support ; voir README,5b0262876e7ac3d1ec4a061c2da388cc6af9a9e8c5c10c3938f7bd42ba22ae1b,135360
+light-settings-appearance.png,Capture,assets/relai-design/audit/light-settings-appearance.png,Support ; voir README,55d5791afe8a0d951d2fa89c46c9c755cd66160c098f688d9deb33caa720ab39,127658
+light-settings-folders.png,Capture,assets/relai-design/audit/light-settings-folders.png,Support ; voir README,a72ed9fffcdf7c79680e110d4e252b6a5e3ffc3a8fde0fe47375b29efa92db76,131198
+light-settings-shortcuts.png,Capture,assets/relai-design/audit/light-settings-shortcuts.png,Support ; voir README,60c462d8408ef29ea2e2988ea7b17d7cad1ed01b11044a25e2ffce5ccb21c56b,128885
+light-starred.png,Capture,assets/relai-design/audit/light-starred.png,Support ; voir README,2df654ed5f2e72a23d41740773d9e8e04bfa224010659c6f29c6411c42afbf61,79104
+measurements.json,Preuve / données,assets/relai-design/audit/measurements.json,Support ; voir README,8133fbd08d40c9c80609ff43eca937b9509c0d3c7b13f7dbcbec2abcc17b4902,15312
+overview-dark.png,Capture,assets/relai-design/audit/terminal-integrated/overview-dark.png,Support ; voir README,c2fca034f6b29481e68c9f6edf57cbeb8b04cd087b28b90b9e3d6f778cbdbf46,258547
+overview-light.png,Capture,assets/relai-design/audit/terminal-integrated/overview-light.png,Support ; voir README,9356703c392b3dabf1075d445ca0569c20cfbdb39b067f8b92ced2ebd8751ec9,233761
+profiles-dark.png,Capture,assets/relai-design/audit/terminal-integrated/profiles-dark.png,Support ; voir README,94bf586850e1e13fa84968cc6997aa93c985c87443cce6a20c85423c5b156f97,240275
+regression.json,Preuve / données,assets/relai-design/audit/terminal-integrated/regression.json,Support ; voir README,246ab1adb4eb2288f613e9d07c351e173c324888fc4fe02d451c0b0ebbd6da48,573
+settings-dark.png,Capture,assets/relai-design/audit/terminal-integrated/settings-dark.png,Support ; voir README,0e900928a33aa262dbf53fb738bc7eaf93d9f34d80d8b9ea6064784d16cd29be,242284
+settings-light.png,Capture,assets/relai-design/audit/terminal-integrated/settings-light.png,Support ; voir README,5e99ab53482b7dc13478c17be37b218736ea0960c3a2af5b38166398aa47f97f,225456
+skills-dark.png,Capture,assets/relai-design/audit/terminal-integrated/skills-dark.png,Support ; voir README,f0f396db78b635aaa0af9510119dddd9f93f5c7373efa857bb5428cfc139a326,230713
+terminal-dark.png,Capture,assets/relai-design/audit/terminal-integrated/terminal-dark.png,Support ; voir README,7c2d63ed07fab237b84704c3c467080d9e965c600e393885159ca7c1e3a5c923,215487
+test-regression.cjs,Source / ressource,assets/relai-design/audit/terminal-integrated/test-regression.cjs,Support ; voir README,ac553bfa719e2d86fa9d56385151914337742b323a81c986c78ada12390a6b46,1793
+test-runtime.cjs,Source / ressource,assets/relai-design/audit/terminal-integrated/test-runtime.cjs,Support ; voir README,351eb648fa6dd0fabf0978238d9726080676315c559cfbb0d2f6037504b63f77,7362
+validation.json,Preuve / données,assets/relai-design/audit/terminal-integrated/validation.json,Support ; voir README,ab6f18aaa6cc553e875e72a4bd692b844be9b096c3b8ea74414c248d559ae5e7,1934
+build-preview.py,Source / ressource,assets/relai-design/build-preview.py,Support ; voir README,5399fbac55573514c3115584195327274f34d0426aa41c48cbc78aec7ccd94cb,1871
+compose-dark-existing.png,Capture,assets/relai-design/compose-dark-existing.png,Support ; voir README,155607438fcfcb1932fa982b3c619482bed0ad281016afce6799046e450994fa,180895
+compose-dark-mobile.png,Capture,assets/relai-design/compose-dark-mobile.png,Support ; voir README,bf502eb20aa30a1ed370efd8cef131b1b516ac9f3d4dab5a93acba7b7ed675a1,65703
+compose-dark.png,Capture,assets/relai-design/compose-dark.png,Support ; voir README,dc558a5532478f37ac9a9e25e9e1899c1117902b9c4ab97c5833ef64a3002a8d,211804
+compose-existing.png,Capture,assets/relai-design/compose-existing.png,Support ; voir README,7b2bf7ab4731a1297c08c4daac8c883f757a5f87e39d441033e86b8f39e8e263,131008
+compose-expanded.png,Capture,assets/relai-design/compose-expanded.png,Support ; voir README,26bf1f280a8eded0995a27da99767e76e884e56dc54a9ddc89e20935a4ba4591,186995
+compose-minimized.png,Capture,assets/relai-design/compose-minimized.png,Support ; voir README,8e34506ccd87bc1eb4b1b5ab91b526a60a842541f70b1cb644e3090ef3f6366d,129156
+compose-mobile.png,Capture,assets/relai-design/compose-mobile.png,Support ; voir README,3689c5473eff8c6511c24fe84d0356b30039fcec1834dc02bc493ddb1574e227,75291
+compose-new.png,Capture,assets/relai-design/compose-new.png,Support ; voir README,036acff42e2be850492619b68d0b514d7443fdb93afe9da13b8b87137b5d9afb,179437
+compose-window.png,Capture,assets/relai-design/compose-window.png,Support ; voir README,ed724eace3bb47bc50643219bf5114f04b0e44c40048be7c7fb96b9137775c16,189779
+conversation-blocks.css,Source / ressource,assets/relai-design/conversation-blocks.css,Support ; voir README,525fa3de64d1cdfe24a0846bf2068d30e52855084039cc3bc3a5584d51ba5dbe,7765
+conversation-blocks.js,Source / ressource,assets/relai-design/conversation-blocks.js,Support ; voir README,eb28272e4ce948dca7c56dab0e23500ce78c4073b883ee1843249faf260471ca,9840
+conversation-dark-mobile.png,Capture,assets/relai-design/conversation-dark-mobile.png,Support ; voir README,12730fd1da5f10712eb62fd04f7d1f88eedf25b38cd0514b1af0d4f5c29b5e90,96637
+conversation-dark.png,Capture,assets/relai-design/conversation-dark.png,Support ; voir README,4e3dadf1b2f04b7c18976f4dcffe63dde96b4826d14bcb50ace57061aa2eacef,206118
+conversation-desktop.png,Capture,assets/relai-design/conversation-desktop.png,Support ; voir README,9332a2be9bd0fcc860df65f4a911cfe7e1b331512bba415b2d19edcc9347570e,196332
+conversation-mobile.png,Capture,assets/relai-design/conversation-mobile.png,Support ; voir README,52229c327e87d4a7e4db09bd9e04dfbd22fe8598fed0ce0b8fddb94391f7f082,95893
+conversation-new-window.png,Capture,assets/relai-design/conversation-new-window.png,Support ; voir README,c3f3aedb53053dd84a6f1d989f588ea5f25485b8f8917c2b4076163b2e72c55a,155409
+conversation-reply-mobile.png,Capture,assets/relai-design/conversation-reply-mobile.png,Support ; voir README,8a19ce64cf2e62fb2881b752478a8d48f092080d2e82cb3a0958bd354483a616,95950
+conversation-reply.png,Capture,assets/relai-design/conversation-reply.png,Support ; voir README,3d0bbec5aedff39ad8e995670c2a2143c649da5a2fe4520b3e268e245e50c970,185202
+conversation-scrolled.png,Capture,assets/relai-design/conversation-scrolled.png,Support ; voir README,5b3f7dd173f68cdabdef63e1d0e387c4c97efd408ce5acec762efadb2846061f,232468
+drafts.png,Capture,assets/relai-design/drafts.png,Support ; voir README,3967a91785fda10671f34c32f576a2e6ff04a864c70e42fca4b0483cd5d37ae4,64447
+enhancements.js,Source / ressource,assets/relai-design/enhancements.js,Support ; voir README,0a5989c81f6851e5030c92ce7e11b5e6bf9e1693338c4c7c2bacf69c965ba43b,11940
+filter-dark.png,Capture,assets/relai-design/filter-dark.png,Support ; voir README,3f846ca575d4347c45d2d909b57049072e3bac8aa80e45ea4b7eba85ba582332,135188
+folder-picker-dark.png,Capture,assets/relai-design/folder-picker-dark.png,Support ; voir README,203740ea7564e6cdaa60c06a988af59ad2e3d42be4fdf62822c0cb959d9f99d0,203360
+folder-picker.png,Capture,assets/relai-design/folder-picker.png,Support ; voir README,90a1a9a0171c9c1b2f22b6563571eca136ee5274380b5fbd431efc98b64a8ff5,167233
+IBM-Plex-OFL.txt,Source / licence,assets/relai-design/fonts/IBM-Plex-OFL.txt,Support ; voir README,d741e57d5f865e294df801f96b7b5161a88b211df65887e4358d271c9fc5fb4f,4362
+IBMPlexMono-Regular.woff2,Source / ressource,assets/relai-design/fonts/IBMPlexMono-Regular.woff2,Support ; voir README,ba204497f16b6d334cee9d1e963a831b73e3a56e1d6300a8489d18df7214b350,49248
+IBMPlexSans.ttf,Source / ressource,assets/relai-design/fonts/IBMPlexSans.ttf,Support ; voir README,6e8034d686da3e4631e0f367303b40e2e0608d6aafd39fb3c6c58aa7ddf5d40a,532740
+gmail-original.html,HTML,assets/relai-design/gmail-original.html,Historique,8b79c0ae9dc8450b878d799bf1635319394284d185f074fd84c71cbd547162a6,19645
+icon-controls.js,Source / ressource,assets/relai-design/icon-controls.js,Support ; voir README,6600f93d76092a2ec19a75820aa18e328297514842174a7bc6c8888d46de7892,3390
+LICENSE,Source / ressource,assets/relai-design/icons/LICENSE,Support ; voir README,b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57,3208
+archive.svg,Source / ressource,assets/relai-design/icons/archive.svg,Support ; voir README,78c732e34e232db63af06a2330b4448045cfdf49b48b59f2d31922df54c7bb17,340
+arrow-down.svg,Source / ressource,assets/relai-design/icons/arrow-down.svg,Support ; voir README,2b641c7a59d39450edfed72067fcc9940a1a316a737346af23b4b9103c0689f2,262
+arrow-left.svg,Source / ressource,assets/relai-design/icons/arrow-left.svg,Support ; voir README,c5f4b88076108eb1a0d95336e1aa7e7bb1419a3a92af96f6247d88cd3456f933,262
+arrow-up-right.svg,Source / ressource,assets/relai-design/icons/arrow-up-right.svg,Support ; voir README,50b2503b9d11881142255466b7e3461d022b919735841c321d72003ac9959fe1,260
+arrow-up.svg,Source / ressource,assets/relai-design/icons/arrow-up.svg,Support ; voir README,8c22c25874c80bb062bef985d207d8f1d4a4d7847237d0a8cf720a3235968518,261
+calendar-days.svg,Source / ressource,assets/relai-design/icons/calendar-days.svg,Support ; voir README,9330eb8d7c4989e97b6361314abbf02953243c602874725c9e58ceca00da3bd7,483
+check.svg,Source / ressource,assets/relai-design/icons/check.svg,Support ; voir README,7f33acc9a77a61659531044525fc008edebe215bf4dcf1c789c8674ad3277db0,239
+chevron-down.svg,Source / ressource,assets/relai-design/icons/chevron-down.svg,Support ; voir README,66ea878e72ed3488bb3b464c39dfdccee8d1f78e560dccea40e5e12da0e87e87,236
+chevron-left.svg,Source / ressource,assets/relai-design/icons/chevron-left.svg,Support ; voir README,83b0681aa38bf55e9d52a1e4b4cced624abe1fe7678ecafda133a574f1161d93,238
+chevron-right.svg,Source / ressource,assets/relai-design/icons/chevron-right.svg,Support ; voir README,2758143d7b2434e4aa7307dfd34405c87909ff4052f21b5f3f40d45224b4f19b,237
+chevron-up.svg,Source / ressource,assets/relai-design/icons/chevron-up.svg,Support ; voir README,d09f13fcbef3c493ead7e4663b5ee91804fec38d5edb5e7cc3acfbd547641cf4,238
+circle-help.svg,Source / ressource,assets/relai-design/icons/circle-help.svg,Support ; voir README,975db087da041530dbf59ba1e61a7b99c3519fad43dae6375e42ccc74ba63924,322
+clock.svg,Source / ressource,assets/relai-design/icons/clock.svg,Support ; voir README,e9d3e3acf4d1c280fcf8092293439dc0a4756a908ceb859de144b12451cd1cb9,271
+code.svg,Source / ressource,assets/relai-design/icons/code.svg,Support ; voir README,83235d4a0352d74234f949c9fc23f89c65ff165f1b6d54a90e5f0ea5bfc2c3d7,266
+copy.svg,Source / ressource,assets/relai-design/icons/copy.svg,Support ; voir README,ea80e566c7a12628a447cb53179b19aea4f60b9143e2becd0d0f20bf260e5718,339
+ellipsis.svg,Source / ressource,assets/relai-design/icons/ellipsis.svg,Support ; voir README,4f495cc72013ffdfec677f03b33a150f7b4dd741979283fd6853a09024bca112,312
+file-text.svg,Source / ressource,assets/relai-design/icons/file-text.svg,Support ; voir README,52ca55846c202335fb870c8aa23e9345630ec10489303756d62e750f7109605c,444
+folder.svg,Source / ressource,assets/relai-design/icons/folder.svg,Support ; voir README,f0d92b94b797a8ab7d4c4ae33c3236c47f64068351b4e14bdb5014ee42898a39,342
+git-branch.svg,Source / ressource,assets/relai-design/icons/git-branch.svg,Support ; voir README,041f04acc8f92657b849540f0440e2e85d0df0b8da2365611e81b9bebfafc4eb,313
+heading.svg,Source / ressource,assets/relai-design/icons/heading.svg,Support ; voir README,496295f2ac974c816a61701b5abb5f15b35657e6b573ae1755ebb27541f1e97c,279
+inbox.svg,Source / ressource,assets/relai-design/icons/inbox.svg,Support ; voir README,1838482c53d0846badef9be96fdcf7a167064241bd4891efa995c77ebec5f187,388
+list.svg,Source / ressource,assets/relai-design/icons/list.svg,Support ; voir README,ff97a7379eb962ddc3863bb59f0f45875ac8da91aac8a38a67361e7118d2d627,353
+maximize-2.svg,Source / ressource,assets/relai-design/icons/maximize-2.svg,Support ; voir README,9b8413ad44a3d4f5a80049713743daddcdc3c5465a71c218cac156a99f582b5b,309
+menu.svg,Source / ressource,assets/relai-design/icons/menu.svg,Support ; voir README,af6491988ac1ba30dc5414f485bc48713e957e1edb0fbef4a0dd8691c3c21598,279
+messages-square.svg,Source / ressource,assets/relai-design/icons/messages-square.svg,Support ; voir README,97733c58b74f8beddd569927f8453c86bca4afa394e6aad606db1acff4bd8355,457
+minimize-2.svg,Source / ressource,assets/relai-design/icons/minimize-2.svg,Support ; voir README,1150437d5a870321c59b7ebca2e1bc3f6227f0fa03dd10484ab384dfe5110739,311
+minus.svg,Source / ressource,assets/relai-design/icons/minus.svg,Support ; voir README,a0c743ab6dbf545d8a6e19ef3874f48ede686ce68d25e231bd81f540d97b1f19,232
+notebook.svg,Source / ressource,assets/relai-design/icons/notebook.svg,Support ; voir README,03c9f3fa8ead15c1f64c7dd4269d4c0376d1e88f7c534acbbb716f2995942821,376
+panel-left.svg,Source / ressource,assets/relai-design/icons/panel-left.svg,Support ; voir README,029f67b9e3eeb7ddf7c7c499b174c50388725e8ea50d4ea59ed7dbaf8d61cb82,284
+pencil.svg,Source / ressource,assets/relai-design/icons/pencil.svg,Support ; voir README,7e1ca7a6f5c1eb949671df762f2baadd32f5bd841d43153c3a15279af7d78d0c,377
+plus.svg,Source / ressource,assets/relai-design/icons/plus.svg,Support ; voir README,7f6af73bf1ff6c4bca3f18351c8d1bdec6749c0c2530c4de5da85d520c21df17,256
+refresh-cw.svg,Source / ressource,assets/relai-design/icons/refresh-cw.svg,Support ; voir README,2e10dd403c85a24f163d59fc6151aa21147fe9402e1305dfc8979208caee8944,392
+search.svg,Source / ressource,assets/relai-design/icons/search.svg,Support ; voir README,283d371c2e433817bb9c0c8310caa6c77fa4177c0f4f1168d9c83b97af7389dc,275
+send.svg,Source / ressource,assets/relai-design/icons/send.svg,Support ; voir README,a489257f447b808ab6b258ae888fa49686885bbc30a7a2774d97a01f11f9cd5e,393
+settings.svg,Source / ressource,assets/relai-design/icons/settings.svg,Support ; voir README,0ae27fd0f81999229e3127ac96c5b32edfea448e291d509e76212b917551d66b,586
+sliders-horizontal.svg,Source / ressource,assets/relai-design/icons/sliders-horizontal.svg,Support ; voir README,e43a00e5eb684e6cbb61083bed2528d7a3fa5f265693eb2b5f314cd432aa65f4,422
+square-check.svg,Source / ressource,assets/relai-design/icons/square-check.svg,Support ; voir README,7e7683faad24baa43520945a95f6d44028fb862791911b13505c422ccba6e339,295
+star.svg,Source / ressource,assets/relai-design/icons/star.svg,Support ; voir README,c59da86b889569387db28e69ad00a89f96af22863ad9eea9aa12c4876a14338c,588
+x.svg,Source / ressource,assets/relai-design/icons/x.svg,Support ; voir README,4a9cdab38fbb96162e7dace28e33f4ca0e49d8963a6162abc3d4691b7d675117,260
+inbox-dark.png,Capture,assets/relai-design/inbox-dark.png,Support ; voir README,7cc0e54638dadd8052061587204711cb74b92e4b2e898512c13b99c825e3aefa,180298
+inbox-desktop.png,Capture,assets/relai-design/inbox-desktop.png,Support ; voir README,45d748bb13b9052641d4d606e965678e58d705d3ad1c6476930723e0f53a7b52,126735
+inbox-mobile.png,Capture,assets/relai-design/inbox-mobile.png,Support ; voir README,e8eaa9fe371b1876fd36ba82a65b7410b99e8403dbf2df29f2df56737489c544,66517
+index.html,HTML,assets/relai-design/index.html,Courant,009aec59af5b0f5e16a0249bd5a7d9ad95f6e5096e9ba6605c0002f483cfb436,1016424
+pending.png,Capture,assets/relai-design/pending.png,Support ; voir README,f6f26e17fd6f4a408c3d59599131247a0764bf8aa1174a9ac89e9c66e1b79557,70225
+previous-interface.html,HTML,assets/relai-design/previous-interface.html,Historique,025cf7dc3be5cfa59ecea0c4bae78740e35b1b1b94595c4aeb5a65859abc7684,905808
+refinements.css,Source / ressource,assets/relai-design/refinements.css,Support ; voir README,22a95fe3ffa7721feeead9cd4004254df02e99b4cd678d9cd11c9216cef1540e,7491
+relai-terminal-concepts.zip,Archive,assets/relai-design/relai-terminal-concepts.zip,Support ; voir README,7d054db3c301d668215321f8748042b6132381643e1cdd1dc14e05bd2011e556,3129600
+runtime.css,Source / ressource,assets/relai-design/runtime.css,Support ; voir README,309dcc94a8aaf0d3517ce2d4be8767d4992408e6ed5e7c3653c4fd613de3732a,4684
+runtime.js,Source / ressource,assets/relai-design/runtime.js,Support ; voir README,19058b38883440d21973037d112fdb058fe1f58b2ce90fc980b1d94b194ff273,18480
+sent.png,Capture,assets/relai-design/sent.png,Support ; voir README,3f50a24993e035ba99b09a027ef37889cae792b7962e0520b06b7d22626d28b7,61713
+session-design.js,Source / ressource,assets/relai-design/session-design.js,Support ; voir README,8dc81935066c9b0645a0fce4463579e8f27d225b0eac5aefc9bff642f78aead8,11440
+session-git.png,Capture,assets/relai-design/session-git.png,Support ; voir README,1b56aa9e248deec14eeed2261af8830579ba182935b8b85f0b9b66cc098be991,140063
+session-picker-mobile.png,Capture,assets/relai-design/session-picker-mobile.png,Support ; voir README,8ee4801d38fcdc930f5716a17e2681f3b7e79bf752a37b82701bec354b035271,78510
+session-picker.png,Capture,assets/relai-design/session-picker.png,Support ; voir README,59ca22fd1d54e9a9ad1ca71df295beee283835d206e3ca5b65436bc8b523520e,192012
+session-relays.png,Capture,assets/relai-design/session-relays.png,Support ; voir README,1e784fc0e22fb742e6abf72cd3526c12f0011430631b1391b49943021fb069b0,82494
+session-style.css,Source / ressource,assets/relai-design/session-style.css,Support ; voir README,18d272cae33e7bd9118a0cba56a153624d6f5fb1e791437d3cadee4859e21070,6892
+sessions.png,Capture,assets/relai-design/sessions.png,Support ; voir README,e153952388b77186ed3fabad83f11363738b903feb1282173166f0d5bda8dbc3,94838
+settings-dark.png,Capture,assets/relai-design/settings-dark.png,Support ; voir README,f53e6dfe15cfca5674a3c56459226b4c8261a468daf3b296577e18e9790f1cad,154178
+settings-light.png,Capture,assets/relai-design/settings-light.png,Support ; voir README,c3e70c6050b83524f166d9a096993ae645953beaa846f04c160b2a2e9ce44ee0,140824
+starred.png,Capture,assets/relai-design/starred.png,Support ; voir README,c50f73b4b5fcbd91c800213b7efcad9412e7d48fbf083cc40da5d89548c34b64,79648
+01-dark.png,Capture,assets/relai-design/terminal-concepts/01-dark.png,Concept proposé,886124eec64b8b5dc0747d234d1c69971e756620890001faafeb09e8885487fc,172780
+01-light.png,Capture,assets/relai-design/terminal-concepts/01-light.png,Concept proposé,742eb88389fcd1451a0b9ad893755f4ae5c994b2c19821b758d78832860cd848,164977
+01-session-workspace.html,HTML,assets/relai-design/terminal-concepts/01-session-workspace.html,Concept proposé,c6b6b074885ea34dfde24f9d77ad07be780f466efd0a8d72b86fd7870f5ced5f,767315
+02-agent-profiles.html,HTML,assets/relai-design/terminal-concepts/02-agent-profiles.html,Concept proposé,d9334a12cd12a83dd965f1d47a015a347ca0ddcc1a37443a7e33ff90b07eee67,766563
+02-dark.png,Capture,assets/relai-design/terminal-concepts/02-dark.png,Concept proposé,ce70492b060633d82875d3539cde36084f9bc6c4b1923f02eefe0e2a11f108ec,102973
+02-light.png,Capture,assets/relai-design/terminal-concepts/02-light.png,Concept proposé,e4ddde56028e068e86f4c4674ce5617b6bfcaeeff3a671acd35a8db9b10de2bd,101406
+03-dark.png,Capture,assets/relai-design/terminal-concepts/03-dark.png,Concept proposé,c9c79c3b0fed6e11b38545005e359dd90509d80e98f247b2408ad2040801d19d,121840
+03-light.png,Capture,assets/relai-design/terminal-concepts/03-light.png,Concept proposé,1858305145665b4b0f36def3d08bd2d5be07d72a3a0be16a8e18939ed0aa60a7,119537
+03-session-connections.html,HTML,assets/relai-design/terminal-concepts/03-session-connections.html,Concept proposé,6cea72f836add5e16d6ec63649797c17267ae985a26cf85f1e0c5c9aa52e40ca,764650
+README.md,Documentation,assets/relai-design/terminal-concepts/README.md,Concept proposé,f5278e359313d99cf6bf8d75437ca30a65ef74a0d3204e4d9442522cb27f34b0,1260
+TERMINAL-INTEGRATION.md,Documentation,assets/relai-design/terminal-concepts/TERMINAL-INTEGRATION.md,Concept proposé,cbc1f24fe944c36f4623365406ef86a8cfddf9c048c9acd9a20603ad8bb607db,18909
+UX-DECISIONS.md,Documentation,assets/relai-design/terminal-concepts/UX-DECISIONS.md,Concept proposé,dd8bccd1549a2cd18febc4080c5073fac6bc12b749c82afe366354a248488654,3312
+build-concepts.py,Source / ressource,assets/relai-design/terminal-concepts/build-concepts.py,Concept proposé,0eb38ebb3a13d521337dd133738d840b261a8251dc58674ad8d6ba29908e2aea,47994
+compatibility-limited.png,Capture,assets/relai-design/terminal-concepts/compatibility-limited.png,Concept proposé,eb1dc37dd2d8ff6992437473406772c781b297a0cbf9ccb3df6f6e387c3f76f5,103849
+compatibility-missing.png,Capture,assets/relai-design/terminal-concepts/compatibility-missing.png,Concept proposé,fb76264871f7e4130affe5ac7cbb5d01868e62d44be76c0b3cdc589f650d96bd,103624
+compatibility-new.png,Capture,assets/relai-design/terminal-concepts/compatibility-new.png,Concept proposé,480ee388075fbd661696539ae966a3e94a765d373d013b964382d463a4e247d1,103874
+external-session.png,Capture,assets/relai-design/terminal-concepts/external-session.png,Concept proposé,3ce51f1436843f2c3b26f3d02a5e841b6b7ffc2fa91408c0587f10784325fa31,123682
+index.html,HTML,assets/relai-design/terminal-concepts/index.html,Concept proposé,d0f8027ab9a4c914034a9f2239f39e1d81356dc763b98b38d3aa71be3b79b479,756610
+IBM-Plex-OFL.txt,Source / licence,assets/relai-design/terminal-concepts/licenses/IBM-Plex-OFL.txt,Concept proposé,d741e57d5f865e294df801f96b7b5161a88b211df65887e4358d271c9fc5fb4f,4362
+Lucide-LICENSE.txt,Source / licence,assets/relai-design/terminal-concepts/licenses/Lucide-LICENSE.txt,Concept proposé,b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57,3208
+overview-dark.png,Capture,assets/relai-design/terminal-concepts/overview-dark.png,Concept proposé,1bb8bcffbadd9c22684c8c6644a041dfdd4db33270a8226e2d7e34621d714c18,126881
+overview-light.png,Capture,assets/relai-design/terminal-concepts/overview-light.png,Concept proposé,52d9ca8288f2d9e993441bedaa7365fee523c499724495d72b687a7edf042a58,123929
+acp-readme.txt,Source / licence,assets/relai-design/terminal-concepts/research/acp-readme.txt,Concept proposé,56f5d88d99567098850f27a25f97f45f49c43899097ae9bf988f79c0d66adf13,5444
+aider-cli.txt,Source / licence,assets/relai-design/terminal-concepts/research/aider-cli.txt,Concept proposé,bc38cb83d33435f7cfd8dc160cd4b1b3aeb607590334997e5ff90c26f0d41270,30298
+claude-sdk-readme.txt,Source / licence,assets/relai-design/terminal-concepts/research/claude-sdk-readme.txt,Concept proposé,c38a933bf8fef26316ea38635989b254e69a26d21d80b96bf5731cba4e88bcc6,13250
+claude-sdk-sessions.txt,Source / licence,assets/relai-design/terminal-concepts/research/claude-sdk-sessions.txt,Concept proposé,d5323963daf711c8bcc684057fd48d0cb786ee04d8329be6dec82444ec505662,71476
+claude-sdk-types.txt,Source / licence,assets/relai-design/terminal-concepts/research/claude-sdk-types.txt,Concept proposé,b1054473280782ab57b2b0690a49a820a2f97dbd2eb6b2ff1bbd3e6205b71bdb,93134
+codex-app-server.txt,Source / licence,assets/relai-design/terminal-concepts/research/codex-app-server.txt,Concept proposé,5d1b3014441120061a8e41e233b5d9c0d0d6f8bf9e2aaf9765b1bf581ebdcb79,34103
+codex-config.txt,Source / licence,assets/relai-design/terminal-concepts/research/codex-config.txt,Concept proposé,745768b4da6cd73e414fc49c5c6ef3d6bf8a0c08289fab23a7dd79776ab31d9d,726
+codex-handshake.txt,Source / licence,assets/relai-design/terminal-concepts/research/codex-handshake.txt,Concept proposé,b6dd9ded3bd8493f899d128c06cfdf717ab5cf1561441dfb369e291bd7048496,174591
+codex-skills.txt,Source / licence,assets/relai-design/terminal-concepts/research/codex-skills.txt,Concept proposé,e59789d09692310bbf94e2ef8db0aaf00d97f2226982c8c5330d2d260583a97d,115
+gemini-acp.txt,Source / licence,assets/relai-design/terminal-concepts/research/gemini-acp.txt,Concept proposé,143b49bbf7817cc5d6c8c3c6e3e1b255cb2a0f4c710a039d756cf8028c68cd91,10821
+gemini-headless.txt,Source / licence,assets/relai-design/terminal-concepts/research/gemini-headless.txt,Concept proposé,42718e00f5acac2ab039091fab282ed9b3d992ae9f49afc64ec7636fbf6fa6ec,1578
+opencode-acp.txt,Source / licence,assets/relai-design/terminal-concepts/research/opencode-acp.txt,Concept proposé,4ba7c9833d84927fe7361c3e7811faff390c94ba3d60f6ab897fece685f31fbd,3780
+opencode-cli.txt,Source / licence,assets/relai-design/terminal-concepts/research/opencode-cli.txt,Concept proposé,165e6cc87ec2c3e05b8b0536e1ae460e6f3987c324dd67808ec8a94586636911,27298
+opencode-config.txt,Source / licence,assets/relai-design/terminal-concepts/research/opencode-config.txt,Concept proposé,8002123cfd54b17aa10b51c94ce76af8f50eba2d445ebfa62b813d3e93fa92be,26657
+opencode-server.txt,Source / licence,assets/relai-design/terminal-concepts/research/opencode-server.txt,Concept proposé,56aac4ea75990012a9ebf838d074760aa91e198f3b5859b38d6786b5e2d14c39,18243
+opencode-skills.txt,Source / licence,assets/relai-design/terminal-concepts/research/opencode-skills.txt,Concept proposé,7ff4df3a1a4909fa0e0025a6f086c3dbc63d09fdd578bc13f3f4ae30fcfe4627,4641
+pi-rpc.txt,Source / licence,assets/relai-design/terminal-concepts/research/pi-rpc.txt,Concept proposé,37a03d180115460a0a275022f4aeabef1e5345458df6a9b6e8a6de18474de720,8897
+sources.json,Preuve / données,assets/relai-design/terminal-concepts/research/sources.json,Concept proposé,04f967040b6e0e3bd18a8d6248cb859f18a01dd1346705483ec09be4d28b53f1,5591
+skills-dark.png,Capture,assets/relai-design/terminal-concepts/skills-dark.png,Concept proposé,9d3e35d5dd8a8f2bd5f3a2b160f475bc71425669a1fa8e5acd42a484583caea1,110023
+terminal-dark.png,Capture,assets/relai-design/terminal-concepts/terminal-dark.png,Concept proposé,f3c65e3219c6d1dbc20a2fcecc62c9878c05d9f05b048f431173d94e112b36e7,176865
+validation.json,Preuve / données,assets/relai-design/terminal-concepts/validation.json,Concept proposé,822c766d69f4887b5b4a5b7c05dafedb369d9a41828c7930173a0af927078399,428
+marked-LICENSE.md,Documentation,assets/relai-design/vendor/marked-LICENSE.md,Support ; voir README,8e3a3f82f59a60958f56ca08f445647c32a4733dc7ca6c2c46f6eb898471ab9c,2942
+marked.umd.js,Source / ressource,assets/relai-design/vendor/marked.umd.js,Support ; voir README,0db7abc826b5ac76f6ed11951ae34074ba50438ce6ea8d52889203779e5cbbad,42540
+window-behavior.js,Source / ressource,assets/relai-design/window-behavior.js,Support ; voir README,407eed283c5ffb47d7a1c80f91b304938d6c72955c20783d7a60b84bc3cc6ca7,5954
+window-style.css,Source / ressource,assets/relai-design/window-style.css,Support ; voir README,5b9228290722cd67442cc17d20336f55cf241379df9edf83fff5b23b7f7ce98a,5406
