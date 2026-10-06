@@ -16,6 +16,19 @@ An interactive [inbox design mockup](design/README.md) uses fictitious data to e
 
 See [product direction](docs/product-direction.md) for confirmed requirements and open decisions, and [CONTEXT.md](CONTEXT.md) for the project glossary.
 
+## Development environment
+
+No application code exists yet, so the environment only covers the design mockup. It needs `git` and `python3`; `node` and `cargo` are optional until the app is built.
+
+```bash
+make doctor   # check installed tools
+make design   # rebuild design/relai-v1/index.html
+make serve    # serve the mockup on http://127.0.0.1:4173
+make check    # fail if the built mockup is out of date
+```
+
+Claude Code cloud sessions run `.claude/hooks/session-start.sh` at startup to verify the same setup.
+
 ## Security
 
 Please report vulnerabilities privately as described in [SECURITY.md](SECURITY.md). Never post credentials, private messages, or customer data in issues or pull requests.
