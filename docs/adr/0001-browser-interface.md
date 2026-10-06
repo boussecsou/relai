@@ -1,3 +1,5 @@
+> Historical reference: this document describes the previous Relai scope. Read [current product direction](../product-direction.md) before applying its decisions.
+
 ---
 status: accepted
 ---

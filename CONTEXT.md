@@ -1,38 +1,33 @@
-> **Contexte actuel (5 octobre 2026)** : lire [docs/context/RESUME.md](docs/context/RESUME.md) avant de poursuivre. La dernière maquette et les décisions UX sont sauvegardées sur `feat/relai-v1-workspace-and-context`. Certaines règles historiques ci-dessous ont été remplacées ; le guide précise les références actuelles.
+# Relai — current context
 
-# Relai
+Relai receives and organizes the work produced by coding agents. Read [product direction](docs/product-direction.md) and the [continuation guide](docs/context/RESUME.md) before changing the prototype.
 
-Relai organise les échanges entre un utilisateur et les sessions de ses outils de coding IA.
+## Glossary
 
-## Language
+**Agent tool / harness:** the native coding tool that owns the conversation and execution, such as Codex, Claude Code, Pi or OpenCode. It is distinct from the model provider.
 
-**Relai (application)** :
-Interface locale et open source de gestion du travail avec des outils de coding IA, organisée comme une boîte de réception.
+**Source:** the tool and environment from which Relai obtains history or events. A source can be local or remote; integrations remain to be built.
 
-**Relai (message)** :
-Message envoyé par l’utilisateur à une destination de coding depuis l’application Relai.
+**Native session:** the conversation managed by the agent tool. Saved history may outlive a running process or terminal.
 
-**Harness** :
-Outil de coding IA externe qui porte les conversations et le travail de l’agent, comme Codex, Claude Code, OpenCode ou Pi.
-_Avoid_ : Modèle IA, fournisseur de modèles.
+**Thread:** Relai's view of one native session, including user messages sent in the native tool, agent responses and associated context.
 
-**Message** :
-Contenu échangé dans Relai pour demander du travail à un agent, recevoir son retour ou poursuivre la conversation. Un retour peut être une réponse, une question ou une demande d’approbation.
+**Native chat title:** the session's display name, kept separate from its stable identity.
 
-**Session** :
-Conversation gérée par un harness et associée à un dossier de travail. Relai affiche son titre de chat, le nom du harness et son dossier de travail. Son historique reste accessible lorsque le terminal est fermé.
+**Result:** a response or deliverable to review. It is not automatically a successful implementation.
 
-**Destinataire** :
-Destination unique d’un envoi : une session existante ou un dossier de travail et un harness pour ouvrir une nouvelle session. Le nom de l’agent affiché est celui du harness détecté. La sélection affiche ce nom, le dossier courant, le titre du chat et un résumé Git/GitHub lorsque disponible.
+**Execution status:** the source's observed state, such as active, waiting for permission, failed or unknown.
 
-**Titre du chat** :
-Nom de la conversation, détecté depuis le harness ou choisi lors de « New session ».
+**Review disposition:** the user's inbox decision, such as in inbox, handled or snoozed. Read state and stars are separate properties.
 
-**Prompt** :
-Corps du message envoyé au harness, rédigé en Markdown.
+**Workspace:** working directory and, where available, its repository, worktree, branch and commits. Git is optional.
 
-**Reply** :
-Réponse qui poursuit la conversation dans la même session native.
+**Response snapshot:** context associated with a particular result, which may differ from current workspace state.
 
-**New session** :
-Action qui crée une nouvelle session native et sa conversation Relai.
+**Native terminal action:** access to or resumption of the original session, subject to the tool's capabilities. The prototype displays an illustration only.
+
+## Current scope
+
+Gmail-inspired review and organization, with local and server sources as the intended direction. No Compose or Reply action in this version; work continues in the native tool. Architecture and native integrations remain open.
+
+The prototype is [index.html](index.html). Historical exports and specifications describe earlier scope and must not override current decisions.

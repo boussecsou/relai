@@ -1,19 +1,18 @@
 .PHONY: help doctor design serve check
 
 help:
-	@echo "make doctor  Check installed tools"
-	@echo "make design  Rebuild design/relai-v1/index.html"
-	@echo "make serve   Serve the mockup on http://127.0.0.1:4173"
-	@echo "make check   Fail if the built mockup is out of date"
+	@echo "make doctor  Check available development tools"
+	@echo "make serve   Serve index.html on http://127.0.0.1:4173"
+	@echo "make check   Check the standalone prototype"
+	@echo "make design  Alias for check; the HTML needs no build step"
 
 doctor:
 	./scripts/doctor.sh
 
-design:
-	python3 design/relai-v1/build-preview.py
+design: check
 
 serve:
-	python3 -m http.server 4173 --bind 127.0.0.1 --directory design/relai-v1
+	python3 -m http.server 4173 --bind 127.0.0.1
 
 check:
 	./scripts/check-design.sh

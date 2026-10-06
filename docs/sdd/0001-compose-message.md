@@ -1,3 +1,5 @@
+> Historical reference: this document describes the previous Relai scope. Read [current product direction](../product-direction.md) before applying its decisions.
+
 # SDD-001 — Composer un message
 
 Statut : brouillon. Ce document enregistre le parcours demandé et les décisions encore ouvertes ; il ne décrit pas une fonctionnalité déjà implémentée.

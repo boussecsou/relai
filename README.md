@@ -1,38 +1,65 @@
-# relai
+# Relai
 
-A local, open-source interface for managing coding AI agents like an inbox. Messages target an existing harness session or start a new one in a selected working directory.
+An open-source inbox for the work produced by coding agents.
 
-The interface runs in a browser. Agent replies, questions, and approval requests appear as inbox messages, with file changes presented as attachments.
+Work with your agents in their native tools, then use Relai to review their results, find the relevant context and decide what needs your attention. The product is intended to cover sessions on your computer and on servers, with a Gmail-inspired interface.
 
-New session uses a destination, chat title, and Markdown prompt; Reply continues an existing session with a Markdown prompt. Available harnesses and active sessions should be discovered automatically; discovery and control capabilities vary by harness and remain under design. See the [compose draft](docs/sdd/0001-compose-message.md).
+## Try the prototype
 
-## Status
-
-**In development — product design and architecture exploration.** No application or API is available yet.
-
-The first integration targets Codex and the initial user's WSL environment. Relai is intended to use harnesses already installed on the user's machine. The chosen architecture is a native local Rust service with a TypeScript/React browser UI, SQLite storage, and Git CLI. UI and API share application operations that a future MCP adapter can reuse; MCP implementation is deferred. Distribution targets Linux/WSL first, with independent installations on multiple machines. Broader platform support and Docker distribution remain future options. See the [installation draft](docs/sdd/0004-local-installation-and-api.md).
-
-An interactive [inbox design mockup](design/README.md) uses fictitious data to explore the UI/UX. It is separate from the future production app. See the [visual direction draft](docs/sdd/0005-inbox-ui-ux.md).
-
-See [product direction](docs/product-direction.md) for confirmed requirements and open decisions, and [CONTEXT.md](CONTEXT.md) for the project glossary.
-
-## Development environment
-
-No application code exists yet, so the environment only covers the design mockup. It needs `git` and `python3`; `node` and `cargo` are optional until the app is built.
+Open [index.html](index.html) in a browser, or run:
 
 ```bash
-make doctor   # check installed tools
-make design   # rebuild design/relai-v1/index.html
-make serve    # serve the mockup on http://127.0.0.1:4173
-make check    # fail if the built mockup is out of date
+git clone --branch feat/relai-agent-inbox https://github.com/boussecsou/relai.git
+cd relai
+make serve
 ```
 
-Claude Code cloud sessions run `.claude/hooks/session-start.sh` at startup to verify the same setup.
+Visit **http://127.0.0.1:4173**. Serving the prototype needs Python 3; opening the HTML directly needs only a browser. Fonts, icons, styles and demonstration data are embedded in the file.
 
-## Security
+## What Relai is for
 
-Please report vulnerabilities privately as described in [SECURITY.md](SECURITY.md). Never post credentials, private messages, or customer data in issues or pull requests.
+- Receive and review agent results, including deliverables and recorded checks.
+- Find sessions that need an intervention: questions, approval requests, failures or incomplete work.
+- Organize work by project, source, agent and workspace.
+- Follow recurring reviews and highlight meaningful changes.
+- Preserve useful results and the decisions made about them.
 
-## License
+One thread follows one native session. Its title follows the native chat name, while its identity remains stable. The reader shows messages sent from the native terminal and the agent's responses. Further work continues in the original tool; this version has no Reply or Compose action.
 
-Apache License 2.0. See [LICENSE](LICENSE).
+Agent execution status and user review status are separate. An agent finishing a task does not mean its result has been reviewed. Repository, worktree, branch, commit, PR and test context help the user assess the work.
+
+## Current status
+
+**Interactive design prototype; native integrations are still to be built.**
+
+The prototype includes 19 synthetic sessions for Codex, Claude Code, Pi and OpenCode, with local and remote examples. It covers completed work, active runs, permissions, questions, failures, conflicts, disconnected sources, retries, interrupted sessions and historical results.
+
+Search, filters, stars, read states, handling, snoozing, bulk actions, private notes and transcript export are interactive. Browser preferences and review decisions persist locally. Light and dark themes and compact rows are available.
+
+Terminal, Git, diff and PR views are illustrations. The prototype starts no agent processes and makes no server or GitHub calls. Snoozing stores a review choice; it does not schedule a background reminder.
+
+## Project documentation
+
+- [Product vision, objectives and open decisions](docs/product-direction.md)
+- [Current context and glossary](CONTEXT.md)
+- [Guide for continuing development](docs/context/RESUME.md)
+- [Prototype interactions and all demo scenarios](design/relai-inbox/README.md)
+- [UI change journal](design/relai-inbox/CHANGELOG-UI.md)
+
+Older designs, SDDs and architecture drafts are historical references. They describe an earlier product direction and do not establish requirements for this version. The architecture for local and server sources remains to be designed.
+
+## Development
+
+```bash
+make doctor   # inspect available development tools
+make check    # check the self-contained prototype
+make serve    # serve index.html locally
+```
+
+The HTML is the current editable source; no build step is required. Python 3 serves the demo and runs structural checks; Node.js enables the optional JavaScript syntax check. There is no production application package or backend yet.
+
+## Security and license
+
+Please report vulnerabilities as described in [SECURITY.md](SECURITY.md).
+
+Relai is licensed under [Apache 2.0](LICENSE). Embedded IBM Plex fonts and Lucide icons retain their respective [third-party licenses](design/relai-inbox/licenses/).

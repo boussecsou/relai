@@ -1,3 +1,5 @@
+> Historical reference: this document describes the previous Relai scope. Read [current product direction](../product-direction.md) before applying its decisions.
+
 # SDD-005 — Interface inbox et direction visuelle
 
 Statut : brouillon. Direction demandée par l’utilisateur et proposition de parcours ; la maquette utilise uniquement des données fictives et ne contrôle aucun agent.

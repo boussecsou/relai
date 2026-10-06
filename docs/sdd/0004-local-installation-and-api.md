@@ -1,3 +1,5 @@
+> Historical reference: this document describes the previous Relai scope. Read [current product direction](../product-direction.md) before applying its decisions.
+
 # SDD-004 — Installation locale et cœur applicatif
 
 Statut : brouillon. Le choix d’architecture est retenu ; les détails de distribution et critères techniques ci-dessous doivent être validés lors du prototype. Aucune application implémentée.

@@ -1,5 +1,7 @@
 # Maquette UI/UX Relai
 
+La nouvelle version centrée sur la réception et la gestion des sessions est dans [index.html](../index.html). Voir [son guide](relai-inbox/README.md) pour les 19 scénarios et interactions. La maquette ci-dessous conserve l’ancien concept avec Reply.
+
 Ouvrir `relai-inbox.html` dans un navigateur, ou lancer depuis la racine du dépôt :
 
 ```bash

@@ -12,5 +12,5 @@ cd "${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}"
 # Install dependencies here once Cargo.toml or package.json exist.
 ./scripts/doctor.sh
 
-# Make sure the self-contained mockup can be rebuilt.
-python3 design/relai-v1/build-preview.py >/dev/null
+# Check the current self-contained prototype.
+./scripts/check-design.sh

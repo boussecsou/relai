@@ -1,3 +1,5 @@
+> Historical reference: this document describes the previous Relai scope. Read [current product direction](../product-direction.md) before applying its decisions.
+
 # SDD-002 — Organiser et retrouver les chats
 
 Statut : brouillon. Besoins recueillis ; aucune fonctionnalité implémentée.

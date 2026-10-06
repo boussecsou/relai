@@ -1,3 +1,5 @@
+> Historical reference: this document describes the previous Relai scope. Read [current product direction](../product-direction.md) before applying its decisions.
+
 # SDD-003 — Erreurs et récupération
 
 Statut : brouillon. L’utilisateur demande une gestion des erreurs explicite et documentée. Les règles suivantes sont des propositions à valider avant implémentation.
