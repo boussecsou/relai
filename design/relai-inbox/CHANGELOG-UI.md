@@ -17,3 +17,5 @@ Contrôle des largeurs 1440, 1280, 1024, 768, 390 et 320 px, avec inspection vis
 ## 2026-10-06 — Nouvelle branche et documentation publique
 
 Nouvelle base de travail `feat/relai-agent-inbox`. La maquette est maintenant `index.html` à la racine. Le README public, les objectifs, le glossaire et le guide de reprise reflètent la réception et la gestion des résultats. Les spécifications historiques sont identifiées comme telles. Les commandes Makefile et le hook de démarrage utilisent le fichier autonome actuel. Le dernier état distant de l’ancienne branche workspace, y compris sa suppression de `design/relai-v1/`, a été repris.
+
+Les ajouts distants de gouvernance et CI ont aussi été intégrés : templates GitHub, CODEOWNERS, dépendances, contribution et vérification des liens Markdown. `make check` vérifie maintenant le prototype et les liens ; la CI couvre `main` et la nouvelle branche de travail.

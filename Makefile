@@ -16,3 +16,4 @@ serve:
 
 check:
 	./scripts/check-design.sh
+	python3 scripts/check-links.py

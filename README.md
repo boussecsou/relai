@@ -52,7 +52,7 @@ Older designs, SDDs and architecture drafts are historical references. They desc
 
 ```bash
 make doctor   # inspect available development tools
-make check    # check the self-contained prototype
+make check    # check the prototype and documentation links
 make serve    # serve index.html locally
 ```
 

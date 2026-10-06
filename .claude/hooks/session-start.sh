@@ -13,4 +13,4 @@ cd "${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}"
 ./scripts/doctor.sh
 
 # Check the current self-contained prototype.
-./scripts/check-design.sh
+make check
