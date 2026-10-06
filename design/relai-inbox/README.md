@@ -55,6 +55,6 @@ Le report enregistre un choix ; il ne déclenche aucun rappel en arrière-plan. 
 
 ## Origine et licences
 
-La structure reprend les anciennes maquettes `design/relai-inbox.html` et `design/relai-v1/`, avec IBM Plex, les icônes Lucide et les couleurs par agent. Les licences des éléments intégrés figurent dans `licenses/`.
+L’interface utilise IBM Plex, les icônes Lucide et des couleurs par agent. Les licences des éléments intégrés figurent dans `licenses/`.
 
 Voir `CHANGELOG-UI.md` pour les décisions de cette version et les vérifications effectuées.

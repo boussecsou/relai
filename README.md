@@ -46,7 +46,7 @@ Terminal, Git, diff and PR views are illustrations. The prototype starts no agen
 - [Prototype interactions and all demo scenarios](design/relai-inbox/README.md)
 - [UI change journal](design/relai-inbox/CHANGELOG-UI.md)
 
-Older designs, SDDs and architecture drafts are historical references. They describe an earlier product direction and do not establish requirements for this version. The architecture for local and server sources remains to be designed.
+The architecture for local and server sources remains to be designed.
 
 ## Development
 

@@ -7,8 +7,7 @@ from pathlib import Path
 from urllib.parse import unquote
 
 LINK = re.compile(r"(?<!!)\[[^\]]*\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)|!\[[^\]]*\]\(([^)\s]+)\)")
-# Dated context backups are kept as written, so their links are not checked.
-IGNORED = ("docs/context/",)
+IGNORED = ()
 SKIP = ("http://", "https://", "mailto:", "#", "/workspace/")
 
 root = Path(subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip())

@@ -30,4 +30,4 @@ Relai receives and organizes the work produced by coding agents. Read [product d
 
 Gmail-inspired review and organization, with local and server sources as the intended direction. No Compose or Reply action in this version; work continues in the native tool. Architecture and native integrations remain open.
 
-The prototype is [index.html](index.html). Historical exports and specifications describe earlier scope and must not override current decisions.
+The prototype is [index.html](index.html).

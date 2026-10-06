@@ -23,4 +23,5 @@ The 19 scenarios, terminal illustrations and metrics are synthetic. Do not descr
 
 Refine the inbox use cases and missing review behavior before choosing a production architecture. Record decisions in the product document and UI changes in [CHANGELOG-UI.md](../../design/relai-inbox/CHANGELOG-UI.md).
 
-Historical SDDs, ADRs and exports remain references. The [previous continuation guide](relai-v1/RESUME-2026-10-05.md) is an archival snapshot; its old branch and interface paths are historical. The remote deletion of `design/relai-v1/` has been retained. Earlier sources remain in Git history and `docs/context/relai-v1/`.
+
+The working tree contains the current inbox prototype, product documentation, licenses and repository tooling.

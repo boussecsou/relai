@@ -1,6 +1,6 @@
 # Relai: current product direction
 
-Updated 6 October 2026. This document supersedes the earlier direction based on composing messages and controlling agents from Relai.
+Updated 6 October 2026. This document records the current product scope and open decisions.
 
 ## Vision and objectives
 
@@ -50,7 +50,7 @@ A disconnected source has an unknown current execution state even when its trans
 
 ## Open architecture and behavior decisions
 
-The collection and review focus requires a fresh architecture discussion. Earlier Rust, React, SQLite, Git CLI, Tauri and local-service documents are historical proposals or decisions for the previous scope.
+The architecture must support collection and review of native sessions from local and server sources. The production stack, deployment model and storage remain to be selected.
 
 Resolve how sources are connected, which events represent a new result, how histories are imported and reconciled, how stable identities and duplicate events are handled, and how local and remote data are stored and accessed. Native terminal access must declare capabilities per tool and environment.
 
@@ -60,4 +60,4 @@ Also define what happens when a new response arrives in a handled or snoozed thr
 
 [index.html](../index.html) is a self-contained interactive prototype with 19 synthetic sessions. It demonstrates navigation, review management, conversations and context. Native connectors, live terminal access, GitHub actions, background reminders and production persistence have not been implemented.
 
-See the [scenario guide](../design/relai-inbox/README.md) and [UI journal](../design/relai-inbox/CHANGELOG-UI.md). Use this document and the latest user decisions as the current product reference; historical specifications remain useful for understanding past work.
+See the [scenario guide](../design/relai-inbox/README.md) and [UI journal](../design/relai-inbox/CHANGELOG-UI.md). Use this document and the latest user decisions as the current product reference.

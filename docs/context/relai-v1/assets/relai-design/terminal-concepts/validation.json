@@ -1,9 +1,0 @@
-{
-  "checks": [
-    "Four standalone files in light/dark, theme persistence and desktop containment",
-    "Session drawer, saved-session resume, send availability, terminal distinction and approval preview",
-    "Independent native profiles, optional overrides, supported skill controls and compatibility recovery",
-    "Connection scenarios: resume, server input validation and uncertain external control"
-  ],
-  "errors": []
-}
