@@ -13,8 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  design:
-    name: Design preview is up to date
+  docs:
+    name: Markdown links resolve
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

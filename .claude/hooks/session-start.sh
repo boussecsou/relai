@@ -8,9 +8,6 @@ fi
 
 cd "${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}"
 
-# The repository has no package manifests yet (design and docs only).
+# The repository has no package manifests yet (docs and a static mockup only).
 # Install dependencies here once Cargo.toml or package.json exist.
 ./scripts/doctor.sh
-
-# Make sure the self-contained mockup can be rebuilt.
-python3 design/relai-v1/build-preview.py >/dev/null

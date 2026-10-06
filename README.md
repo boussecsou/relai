@@ -18,13 +18,12 @@ See [product direction](docs/product-direction.md) for confirmed requirements an
 
 ## Development environment
 
-No application code exists yet, so the environment only covers the design mockup. It needs `git` and `python3`; `node` and `cargo` are optional until the app is built.
+No application code exists yet, so the environment is small. It needs `git` and `python3`; `node` and `cargo` are optional until the app is built.
 
 ```bash
 make doctor   # check installed tools
-make design   # rebuild design/relai-v1/index.html
-make serve    # serve the mockup on http://127.0.0.1:4173
-make check    # fail if the built mockup is out of date
+make serve    # serve the mockup on http://127.0.0.1:4173/relai-inbox.html
+make check    # fail on broken relative links in Markdown files
 ```
 
 Claude Code cloud sessions run `.claude/hooks/session-start.sh` at startup to verify the same setup.
