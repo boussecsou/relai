@@ -1,5 +1,17 @@
 # Journal UI — Relai inbox
 
+## 2026-10-07 — Interface plus claire et mouvement mesuré
+
+La liste est allégée. Les cases et étoiles n’apparaissent qu’au survol, au focus clavier ou pendant une sélection. Les doublons disparaissent : « Local session » n’est plus répété, le nombre de messages passe en infobulle, le compte « 1–16 of 16 » et la note « Sample snapshot » sont retirés. Les filtres et les actions groupées partagent une seule barre, sans décalage de la liste. Les lignes ont toutes le même fond ; le point bleu et le gras signalent le non lu. Le projet s’affiche avec sa pastille de couleur, comme dans la barre latérale.
+
+Les onglets s’appellent All, Ready, Needs attention et Working, sans icônes, et reprennent les noms des badges de statut. Les états vides expliquent comment remplir la vue. Dans le lecteur, Agent & resources, Permissions & tools et Origin & identity sont repliables ; leur état est mémorisé.
+
+Mouvement, choisi selon la fréquence d’usage : l’indicateur d’onglet glisse, les lignes apparaissent en cascade de 25 ms seulement après un changement de boîte, le lecteur entre par la droite et la liste revient par la gauche, uniquement à la souris ou au toucher. La navigation clavier (J/K, Échap) reste sans animation. L’étoile rebondit à l’activation, les dialogues et toasts sortent plus vite qu’ils n’entrent, le menu mobile glisse comme un tiroir et les blocs de contexte se déploient. Avec « réduire les animations », ces mouvements deviennent de simples fondus.
+
+### Vérification
+
+Contrôle Chromium à 1440 et 390 px : liste, sélection, onglets, ouverture du lecteur, blocs repliables et menu mobile, sans erreur JavaScript. Structure HTML, syntaxe JavaScript et liens Markdown vérifiés.
+
 ## 2026-10-06 — Première version du nouveau concept
 
 Relai devient une inbox pour relire et gérer les résultats de sessions CLI. La navigation Gmail utilise une typographie IBM Plex, des surfaces légères, des couleurs par agent et des thèmes clair/sombre.
