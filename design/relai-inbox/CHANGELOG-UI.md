@@ -8,6 +8,8 @@ Les onglets s’appellent All, Ready, Needs attention et Working, sans icônes, 
 
 Mouvement, choisi selon la fréquence d’usage : l’indicateur d’onglet glisse, les lignes apparaissent en cascade de 25 ms seulement après un changement de boîte, le lecteur entre par la droite et la liste revient par la gauche, uniquement à la souris ou au toucher. La navigation clavier (J/K, Échap) reste sans animation. L’étoile rebondit à l’activation, les dialogues et toasts sortent plus vite qu’ils n’entrent, le menu mobile glisse comme un tiroir et les blocs de contexte se déploient. Avec « réduire les animations », ces mouvements deviennent de simples fondus.
 
+Le bloc « Personal workspace » de la barre latérale est retiré : il n’offrait aucune action et poussait la navigation vers le bas.
+
 ### Vérification
 
 Contrôle Chromium à 1440 et 390 px : liste, sélection, onglets, ouverture du lecteur, blocs repliables et menu mobile, sans erreur JavaScript. Structure HTML, syntaxe JavaScript et liens Markdown vérifiés.
