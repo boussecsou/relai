@@ -1,5 +1,13 @@
 # Journal UI — Relai inbox
 
+## 2026-10-07 — Page de détail : une seule zone par rôle
+
+- Barre du haut : navigation (retour, « 1 of N », précédent/suivant) à gauche ; tri (Mark handled, Snooze, étoile, menu) à droite. « Open terminal » n'y est plus.
+- Réponse en bas : un champ en lecture seule porte la phrase d'état et l'unique bouton « Open terminal » (raccourci T). Il remplace la barre du bas et la carte « Continue where you left off », qui répétaient les mêmes actions.
+- En-tête : titre, puis une seule ligne (état, agent, projet, machine, mise à jour). Le libellé « In inbox » et la ligne « N messages » disparaissent : le nombre de messages passe dans l'onglet Conversation, et un point de couleur sur Checks donne le résultat sans ouvrir l'onglet.
+- Panneau « Details » : ouvert par défaut à partir de 1280 px, ouvert ou fermé au bouton ou à la touche I, choix mémorisé. Il garde l'espace de lecture quand on le ferme.
+- Dans le panneau : Workspace (chemin, branche, commit, Git) puis Execution restent visibles. Agent, Permissions et Origin sont repliés et montrent un aperçu de leur contenu. Le champ « Project » est retiré, car il est dans l'en-tête.
+
 ## 2026-10-07 — Identité visuelle
 
 - Les logos et le favicon sont rangés dans `assets/brand/` (`logo-light.svg`, `logo-dark.svg`, `favicon.svg`).
