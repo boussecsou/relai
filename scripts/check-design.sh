@@ -11,6 +11,17 @@ for marker in ('<!DOCTYPE html>', '<title>Relai', '<script>', '</script>', '</ht
     if marker not in html:
         raise SystemExit(f'Missing HTML marker: {marker}')
 print('Standalone HTML structure checked.')
+import re
+from urllib.parse import unquote
+embedded = re.search(r'<link rel="icon"[^>]*href="data:image/svg\+xml,([^"]*)"', html)
+if not embedded:
+    raise SystemExit('Missing embedded SVG favicon')
+if unquote(embedded.group(1)).strip() != Path('assets/brand/favicon.svg').read_text().strip():
+    raise SystemExit('Embedded favicon differs from assets/brand/favicon.svg')
+for name in ('logo-light.svg', 'logo-dark.svg', 'favicon.svg'):
+    if not Path('assets/brand', name).is_file():
+        raise SystemExit(f'Missing brand asset: {name}')
+print('Brand assets checked.')
 PY
 if command -v node >/dev/null 2>&1; then
   node - <<'JS'

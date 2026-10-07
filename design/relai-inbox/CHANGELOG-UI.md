@@ -1,5 +1,12 @@
 # Journal UI — Relai inbox
 
+## 2026-10-07 — Identité visuelle
+
+- Les logos et le favicon sont rangés dans `assets/brand/` (`logo-light.svg`, `logo-dark.svg`, `favicon.svg`).
+- L'en-tête affiche le logo complet, dont le mot « relai » suit le thème clair ou sombre, et la marque seule sur mobile.
+- Le favicon est le nouveau logo, sur un canevas carré, intégré au fichier pour fonctionner hors serveur.
+- `make check` vérifie que le favicon intégré correspond à `assets/brand/favicon.svg`.
+
 ## 2026-10-07 — Libellé unique, messages distincts, menu fluide
 
 - Le bouton de la barre du lecteur affiche toujours « Open terminal ». L'action attendue (approuver, répondre, corriger, reprendre) passe dans la phrase de la carte « Continue where you left off ».

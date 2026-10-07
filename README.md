@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/logo-dark.svg">
+    <img alt="Relai" src="assets/brand/logo-light.svg" height="64">
+  </picture>
+</p>
+
 # Relai
 
 An open-source inbox for the work produced by coding agents.
@@ -15,6 +22,17 @@ make serve
 ```
 
 Visit **http://127.0.0.1:4173**. Serving the prototype needs Python 3; opening the HTML directly needs only a browser. Fonts, icons, styles and demonstration data are embedded in the file.
+
+## Repository layout
+
+```text
+index.html            Self-contained interactive prototype
+assets/brand/         Logos and favicon (light and dark variants)
+design/relai-inbox/   Prototype notes, UI change journal, third-party licenses
+docs/                 Product direction and project context
+scripts/              Checks run by `make check` and CI
+.github/              CI, issue and pull request templates
+```
 
 ## What Relai is for
 
