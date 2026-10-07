@@ -54,7 +54,7 @@ Every tab of the thread reader states what it covers, so a reader never has to g
 
 | Tab | Scope | Content |
 |---|---|---|
-| Conversation | Whole thread | All messages, newest first. Earlier messages stay collapsed. A banner states what the latest response needs from the user. |
+| Conversation | Whole thread | All messages. The latest response is shown first and earlier messages stay collapsed below it, in chronological order. A banner states what the latest response needs from the user. |
 | Changes | Latest response snapshot (switchable to whole session) | Files changed since the previous response, the response commit, deliverables and the linked PR. |
 | Checks | Latest response snapshot (switchable to whole session) | Recorded commands and outcomes, tied to the commit they ran on. Marked stale when the branch has moved on. |
 | Activity | Whole thread | Execution events in order: session opened, prompt accepted, compaction, queued follow-ups, current state. |

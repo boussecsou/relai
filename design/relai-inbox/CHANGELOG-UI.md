@@ -1,5 +1,14 @@
 # Journal UI — Relai inbox
 
+## 2026-10-07 — Audit de la page de détail
+
+- Audit complet dans [AUDIT-DETAIL.md](AUDIT-DETAIL.md) : 15 constats corrigés, 5 points ouverts.
+- Plus de place pour lire (391 → 597 px à 1536 × 740) : le titre défile, les onglets restent, le titre compact passe dans la barre du haut.
+- « Mark handled » et « Snooze » passent à la session suivante ; « Undo » revient à la session d'origine.
+- Une seule phrase d'action dans l'encadré d'état, « 3 of 15 in Inbox », zone de réponse alignée et collée en bas, heures dans Activity.
+- Checks, Changes : textes corrects pour chaque état et portée affichée.
+- Onglets navigables aux flèches, focus sur le titre à l'ouverture, textes d'au moins 12 px, barres de défilement fines, panneau Details avec en-tête collant.
+
 ## 2026-10-07 — Portée des onglets de détail
 
 - Définie dans `docs/product-direction.md` (« Scope of the detail tabs ») et dans le glossaire de `CONTEXT.md`.

@@ -15,10 +15,10 @@ Ouvrir ensuite http://localhost:4180.
 - Navigation Gmail : Inbox, Needs attention, Starred, Snoozed, Handled, All sessions ; projets et agents.
 - Recherche dans les titres, messages, projets, branches et machines ; filtres par agent, statut, machine et lecture.
 - Une session ouvre son fil de messages utilisateur et agent, avec commandes et sorties repliables. Aucun Reply ou Compose.
-- Détail Conversation / Changes / Checks / Activity et panneau de contexte : machine, dossier, dépôt, worktree, branche, commits, PR, modèle, ressources, permissions, skills et identité.
+- Détail Conversation / Changes / Checks / Activity (audit : [AUDIT-DETAIL.md](AUDIT-DETAIL.md)) et panneau Details : machine, dossier, dépôt, worktree, branche, commits, PR, modèle, ressources, permissions, skills et identité.
 - Étoiles, lu/non lu, traitement, report, sélection multiple, annulation, notes privées et export Markdown du fil.
 - Aperçus Git, PR, diff et relations entre conversations. Ces aperçus sont simulés.
-- Thèmes clair et sombre, densité compacte, adaptation mobile et raccourcis `/`, J/K, S, E, T et Échap.
+- Thèmes clair et sombre, densité compacte, adaptation mobile et raccourcis `/`, J/K, S, E, T, I et Échap.
 - Le panneau Agent sources permet de simuler une nouvelle réponse : le fil devient non lu et remonte dans la liste.
 
 ## Données de démonstration
