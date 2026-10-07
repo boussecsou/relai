@@ -36,7 +36,7 @@ The prototype includes 19 synthetic sessions for Codex, Claude Code, Pi and Open
 
 Search, filters, stars, read states, handling, snoozing, bulk actions, private notes and transcript export are interactive. Browser preferences and review decisions persist locally. Light and dark themes and compact rows are available.
 
-Terminal, Git, diff and PR views are illustrations. The prototype starts no agent processes and makes no server or GitHub calls. Snoozing stores a review choice; it does not schedule a background reminder.
+Git, diff and PR views are illustrations. The terminal button opens nothing in the prototype: it states which terminal action a real build would run and copies the resume command. The prototype starts no agent processes and makes no server or GitHub calls. Snoozing stores a review choice; it does not schedule a background reminder.
 
 ## Project documentation
 

@@ -1,5 +1,19 @@
 # Journal UI — Relai inbox
 
+## 2026-10-07 — Audit UX appliqué
+
+Le bouton « Open terminal » ne montre plus de terminal intégré. Dans le produit réel, il ouvre le terminal de l’utilisateur dans le dossier de la session, ou s’y connecte en `ssh` pour une session distante. Dans la démo, il indique ce qui s’ouvrirait et copie la commande. Son libellé suit l’état : Review in terminal (approbation), Answer in terminal (question), Fix in terminal (échec), Resolve in terminal (conflit), Resume in terminal (reprise). Pour une réponse prête, l’action principale devient « Mark as handled ».
+
+La boîte regroupe en tête les sessions qui attendent l’utilisateur (« Needs attention »). Tous les compteurs de la barre latérale comptent des sessions dans la vue. Une source hors ligne affiche un bandeau avec un lien vers les sessions concernées, et l’heure de synchronisation est visible. Les filtres sont réduits : les listes déroulantes d’agent, de statut et de machine disparaissent au profit de la barre latérale, des onglets (All, Ready, Working) et de puces retirables. Le badge de statut suit le titre, et le détail passe en fin de ligne.
+
+Le lecteur affiche la dernière réponse en premier ; les échanges précédents sont repliés. Le bandeau d’état ne répète plus le texte et donne l’action à faire. La barre d’outils nomme « Mark handled » et « Snooze », et range « Mark unread » et l’export dans un menu. « Mark read » en lot est retiré ; la lecture se fait à l’ouverture. Raccourcis ajoutés : Enter, X, U, Z et ?. Le report accepte une date libre. La recherche garde les dernières requêtes et montre un extrait quand le texte n’est trouvé que dans la conversation.
+
+Lisibilité : le gris secondaire passe de 3,1:1 à plus de 4,8:1 sur les fonds clairs, le texte utile ne descend plus sous 12 px et le vocabulaire « native » est remplacé par « terminal ».
+
+### Vérification
+
+Contrôle Chromium à 1440 et 390 px : bandeau, groupe prioritaire, puces, lecteur, menu, report libre, annulation avec Z, extrait de recherche et recherches récentes, sans erreur JavaScript ni défilement horizontal.
+
 ## 2026-10-07 — Interface plus claire et mouvement mesuré
 
 La liste est allégée. Les cases et étoiles n’apparaissent qu’au survol, au focus clavier ou pendant une sélection. Les doublons disparaissent : « Local session » n’est plus répété, le nombre de messages passe en infobulle, le compte « 1–16 of 16 » et la note « Sample snapshot » sont retirés. Les filtres et les actions groupées partagent une seule barre, sans décalage de la liste. Les lignes ont toutes le même fond ; le point bleu et le gras signalent le non lu. Le projet s’affiche avec sa pastille de couleur, comme dans la barre latérale.

@@ -24,7 +24,7 @@ Relai receives and organizes the work produced by coding agents. Read [product d
 
 **Response snapshot:** context associated with a particular result, which may differ from current workspace state.
 
-**Native terminal action:** access to or resumption of the original session, subject to the tool's capabilities. The prototype displays an illustration only.
+**Native terminal action:** opens the user's own terminal on their machine, in the session's directory, to resume the original session, subject to the tool's capabilities. For a remote source the local terminal connects to that machine. Relai has no embedded terminal. The prototype only shows what would open and copies the command.
 
 ## Current scope
 

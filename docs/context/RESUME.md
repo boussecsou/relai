@@ -17,7 +17,7 @@ The current interface is [index.html](../../index.html), a standalone editable H
 - Local and server sources, with integrations based on actual per-tool capabilities.
 - Gmail-inspired navigation, Codex blue, Claude orange, Pi purple, OpenCode grey, light/dark themes and responsive layouts.
 
-The 19 scenarios, terminal illustrations and metrics are synthetic. Do not describe them as native integrations or real project validation. Browser storage is not production persistence.
+The 19 scenarios, Git and PR illustrations and metrics are synthetic. The terminal button only simulates the hand-off to the user's own terminal. Do not describe them as native integrations or real project validation. Browser storage is not production persistence.
 
 ## Continue with the user
 

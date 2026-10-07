@@ -17,7 +17,7 @@ Ouvrir ensuite http://localhost:4180.
 - Une session ouvre son fil de messages utilisateur et agent, avec commandes et sorties repliables. Aucun Reply ou Compose.
 - Détail Conversation / Changes / Checks / Activity et panneau de contexte : machine, dossier, dépôt, worktree, branche, commits, PR, modèle, ressources, permissions, skills et identité.
 - Étoiles, lu/non lu, traitement, report, sélection multiple, annulation, notes privées et export Markdown du fil.
-- Aperçus de terminal, Git, PR, diff et relations entre conversations. Ces aperçus sont simulés.
+- Aperçus Git, PR, diff et relations entre conversations. Ces aperçus sont simulés.
 - Thèmes clair et sombre, densité compacte, adaptation mobile et raccourcis `/`, J/K, S, E, T et Échap.
 - Le panneau Agent sources permet de simuler une nouvelle réponse : le fil devient non lu et remonte dans la liste.
 
@@ -51,7 +51,7 @@ Ouvrir ensuite http://localhost:4180.
 
 Les décisions de lecture/classement, étoiles, notes, thèmes, densité et réponse simulée sont conservés dans `localStorage`, sous la clé `relai-inbox-v1`. Preferences → Reset restaure les données fictives. Si le navigateur bloque le stockage, les changements restent dans l’onglet.
 
-Le report enregistre un choix ; il ne déclenche aucun rappel en arrière-plan. Le bouton terminal ouvre une illustration et affiche une commande fictive à copier. Aucun processus d’agent, commande Git, migration, connexion serveur ou appel GitHub n’est lancé. Ce fichier explore le produit ; il ne remplace pas l’application React.
+Le report enregistre un choix ; il ne déclenche aucun rappel en arrière-plan. Le bouton terminal n’ouvre aucun terminal intégré : il indique le terminal local qui s’ouvrirait et copie la commande de reprise. Aucun processus d’agent, commande Git, migration, connexion serveur ou appel GitHub n’est lancé. Ce fichier explore le produit ; il ne remplace pas l’application React.
 
 ## Origine et licences
 
