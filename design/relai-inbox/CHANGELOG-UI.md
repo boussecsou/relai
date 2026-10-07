@@ -1,5 +1,12 @@
 # Journal UI — Relai inbox
 
+## 2026-10-07 — Libellé unique, messages distincts, menu fluide
+
+- Le bouton de la barre du lecteur affiche toujours « Open terminal ». L'action attendue (approuver, répondre, corriger, reprendre) passe dans la phrase de la carte « Continue where you left off ».
+- Dans la conversation, vos messages ont un bloc teinté et un avatar bleu. Les réponses de l'agent restent sur le fond de la page, avec un filet à gauche.
+- Le menu latéral se replie en 280 ms : les colonnes glissent, les libellés s'estompent, les icônes ne bougent pas.
+- Le titre de l'onglet devient « Relai ».
+
 ## 2026-10-07 — Audit UX appliqué
 
 Le bouton « Open terminal » ne montre plus de terminal intégré. Dans le produit réel, il ouvre le terminal de l’utilisateur dans le dossier de la session, ou s’y connecte en `ssh` pour une session distante. Dans la démo, il indique ce qui s’ouvrirait et copie la commande. Son libellé suit l’état : Review in terminal (approbation), Answer in terminal (question), Fix in terminal (échec), Resolve in terminal (conflit), Resume in terminal (reprise). Pour une réponse prête, l’action principale devient « Mark as handled ».
