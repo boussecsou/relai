@@ -1,5 +1,11 @@
 # Journal UI — Relai inbox
 
+## 2026-10-07 — Portée des onglets de détail
+
+- Définie dans `docs/product-direction.md` (« Scope of the detail tabs ») et dans le glossaire de `CONTEXT.md`.
+- Conversation et Activity couvrent tout le thread. Changes et Checks couvrent la dernière réponse par défaut, avec un choix « toute la session ».
+- À faire dans la démo : rattacher fichiers et checks à chaque réponse, ajouter le sélecteur et indiquer la portée dans les libellés.
+
 ## 2026-10-07 — Page de détail : une seule zone par rôle
 
 - Barre du haut : navigation (retour, « 1 of N », précédent/suivant) à gauche ; tri (Mark handled, Snooze, étoile, menu) à droite. « Open terminal » n'y est plus.

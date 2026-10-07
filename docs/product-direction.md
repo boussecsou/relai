@@ -48,6 +48,26 @@ Show context when available, without inventing missing values:
 
 A disconnected source has an unknown current execution state even when its transcript remains readable. Changes in a shared checkout must not automatically be attributed to one agent. Reported resource estimates are not billing totals.
 
+## Scope of the detail tabs
+
+Every tab of the thread reader states what it covers, so a reader never has to guess whether a list describes the last response or the whole session.
+
+| Tab | Scope | Content |
+|---|---|---|
+| Conversation | Whole thread | All messages, newest first. Earlier messages stay collapsed. A banner states what the latest response needs from the user. |
+| Changes | Latest response snapshot (switchable to whole session) | Files changed since the previous response, the response commit, deliverables and the linked PR. |
+| Checks | Latest response snapshot (switchable to whole session) | Recorded commands and outcomes, tied to the commit they ran on. Marked stale when the branch has moved on. |
+| Activity | Whole thread | Execution events in order: session opened, prompt accepted, compaction, queued follow-ups, current state. |
+
+Rules:
+
+- The default for Changes and Checks is the latest response, because that is the result the user decides on. The switch to the whole session shows the cumulative view, with each earlier response keeping its own commit.
+- Tab labels carry the scope when it is not obvious, for example "Changes · latest response" or "Checks · c4a92d1". The Checks dot reflects the same snapshot.
+- Changes in a shared checkout are not attributed to one agent unless the source reports them. Checks are never inferred from the agent's own claims.
+- Data is attached to a response, not to the session. A session with several responses has several snapshots.
+
+The prototype does not implement this yet: its changed files and checks are one fixture per session, and the Changes text says "this response" without a switch.
+
 ## Open architecture and behavior decisions
 
 The architecture must support collection and review of native sessions from local and server sources. The production stack, deployment model and storage remain to be selected.

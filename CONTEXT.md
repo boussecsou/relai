@@ -24,6 +24,8 @@ Relai receives and organizes the work produced by coding agents. Read [product d
 
 **Response snapshot:** context associated with a particular result, which may differ from current workspace state.
 
+**Detail tab scope:** each tab of the thread reader has a fixed scope. Conversation and Activity cover the whole thread. Changes and Checks cover the latest response snapshot by default, and may be switched to the whole session. See [product direction](docs/product-direction.md#scope-of-the-detail-tabs).
+
 **Native terminal action:** opens the user's own terminal on their machine, in the session's directory, to resume the original session, subject to the tool's capabilities. For a remote source the local terminal connects to that machine. Relai has no embedded terminal. The prototype only shows what would open and copies the command.
 
 ## Current scope
