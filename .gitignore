@@ -1,0 +1,23 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+service-account.json
+
+# Common local artifacts
+.DS_Store
+.idea/
+.vscode/
+node_modules/
+__pycache__/
+.venv/
+dist/
+build/
+coverage/
+
+screens

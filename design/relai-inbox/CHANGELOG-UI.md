@@ -1,0 +1,110 @@
+# Journal UI — Relai inbox
+
+## 2026-10-08 — Ouverture des détails
+
+- L’icône des détails représente désormais un panneau latéral à droite, en cohérence avec sa destination.
+- À la souris ou au toucher : ouverture desktop en 300 ms avec glissement et fondu ; fenêtre mobile/tablette en 280 ms avec une légère montée, et fond assombri progressif.
+- Le clavier et la préférence de réduction des animations gardent une ouverture immédiate. Changer de section ne relance pas l’animation.
+- Aucun ajout de dépendance ; modifications locales.
+
+## 2026-10-08 — Gabarit de réception et inspecteur
+
+- Un même gabarit pour les 19 sessions : identité compacte avec branche, dernier prompt et réponse dans l’ordre chronologique, historique au-dessus, mises à jour intermédiaires et commandes repliables.
+- La conversation reste centrale. Result / Activity / Context passent dans un inspecteur fermé à l’entrée, sans reprendre l’ancienne préférence d’ouverture.
+- Les liens de fichiers et checks ouvrent la réponse concernée. Deux snapshots distincts dans la session navigation ; les preuves manquantes restent indisponibles. Les diffs absents et compteurs de lignes ne sont plus inventés.
+- Le panneau à droite mesure 360 px à partir de 1200 px. En dessous : fenêtre modale, plein écran sur mobile, Échap ferme les détails avant le lecteur et restaure le focus.
+- L’ouverture et la fermeture de l’inspecteur conservent l’historique et le défilement de la conversation. Une nouvelle réponse simulée est ajoutée au fil existant.
+- Les bandeaux restent réservés aux approbations, décisions, erreurs, conflits, interruptions, sources hors ligne et vérifications périmées. La poursuite du travail se fait dans le terminal.
+
+### Vérification
+
+« make check » passe (HTML, assets, syntaxe JavaScript et liens Markdown). Chromium : 19 scénarios, huit largeurs de 320 à 1600 px, thèmes clair/sombre, focus et Échap, fenêtre imbriquée, conservation du défilement/historique, notes, sélection de snapshots et réponse simulée après rechargement. Aucun débordement horizontal ni erreur JavaScript observé. Captures locales dans `screens/receipt-*.png` ; ce dossier est ignoré par Git.
+
+## 2026-10-07 — Audit de la page de détail
+
+- Audit complet dans [AUDIT-DETAIL.md](AUDIT-DETAIL.md) : 15 constats corrigés, 5 points ouverts.
+- Plus de place pour lire (391 → 597 px à 1536 × 740) : le titre défile, les onglets restent, le titre compact passe dans la barre du haut.
+- « Mark handled » et « Snooze » passent à la session suivante ; « Undo » revient à la session d'origine.
+- Une seule phrase d'action dans l'encadré d'état, « 3 of 15 in Inbox », zone de réponse alignée et collée en bas, heures dans Activity.
+- Checks, Changes : textes corrects pour chaque état et portée affichée.
+- Onglets navigables aux flèches, focus sur le titre à l'ouverture, textes d'au moins 12 px, barres de défilement fines, panneau Details avec en-tête collant.
+
+## 2026-10-07 — Portée des onglets de détail
+
+- Définie dans `docs/product-direction.md` (« Scope of the detail tabs ») et dans le glossaire de `CONTEXT.md`.
+- Conversation et Activity couvrent tout le thread. Changes et Checks couvrent la dernière réponse par défaut, avec un choix « toute la session ».
+- À faire dans la démo : rattacher fichiers et checks à chaque réponse, ajouter le sélecteur et indiquer la portée dans les libellés.
+
+## 2026-10-07 — Page de détail : une seule zone par rôle
+
+- Barre du haut : navigation (retour, « 1 of N », précédent/suivant) à gauche ; tri (Mark handled, Snooze, étoile, menu) à droite. « Open terminal » n'y est plus.
+- Réponse en bas : un champ en lecture seule porte la phrase d'état et l'unique bouton « Open terminal » (raccourci T). Il remplace la barre du bas et la carte « Continue where you left off », qui répétaient les mêmes actions.
+- En-tête : titre, puis une seule ligne (état, agent, projet, machine, mise à jour). Le libellé « In inbox » et la ligne « N messages » disparaissent : le nombre de messages passe dans l'onglet Conversation, et un point de couleur sur Checks donne le résultat sans ouvrir l'onglet.
+- Panneau « Details » : ouvert par défaut à partir de 1280 px, ouvert ou fermé au bouton ou à la touche I, choix mémorisé. Il garde l'espace de lecture quand on le ferme.
+- Dans le panneau : Workspace (chemin, branche, commit, Git) puis Execution restent visibles. Agent, Permissions et Origin sont repliés et montrent un aperçu de leur contenu. Le champ « Project » est retiré, car il est dans l'en-tête.
+
+## 2026-10-07 — Identité visuelle
+
+- Les logos et le favicon sont rangés dans `assets/brand/` (`logo-light.svg`, `logo-dark.svg`, `favicon.svg`).
+- L'en-tête affiche le logo complet, dont le mot « relai » suit le thème clair ou sombre, et la marque seule sur mobile.
+- Le favicon est le nouveau logo, sur un canevas carré, intégré au fichier pour fonctionner hors serveur.
+- `make check` vérifie que le favicon intégré correspond à `assets/brand/favicon.svg`.
+
+## 2026-10-07 — Libellé unique, messages distincts, menu fluide
+
+- Le bouton de la barre du lecteur affiche toujours « Open terminal ». L'action attendue (approuver, répondre, corriger, reprendre) passe dans la phrase de la carte « Continue where you left off ».
+- Dans la conversation, vos messages ont un bloc teinté et un avatar bleu. Les réponses de l'agent restent sur le fond de la page, avec un filet à gauche.
+- Le menu latéral se replie en 280 ms : les colonnes glissent, les libellés s'estompent, les icônes ne bougent pas.
+- Le titre de l'onglet devient « Relai ».
+
+## 2026-10-07 — Audit UX appliqué
+
+Le bouton « Open terminal » ne montre plus de terminal intégré. Dans le produit réel, il ouvre le terminal de l’utilisateur dans le dossier de la session, ou s’y connecte en `ssh` pour une session distante. Dans la démo, il indique ce qui s’ouvrirait et copie la commande. Son libellé suit l’état : Review in terminal (approbation), Answer in terminal (question), Fix in terminal (échec), Resolve in terminal (conflit), Resume in terminal (reprise). Pour une réponse prête, l’action principale devient « Mark as handled ».
+
+La boîte regroupe en tête les sessions qui attendent l’utilisateur (« Needs attention »). Tous les compteurs de la barre latérale comptent des sessions dans la vue. Une source hors ligne affiche un bandeau avec un lien vers les sessions concernées, et l’heure de synchronisation est visible. Les filtres sont réduits : les listes déroulantes d’agent, de statut et de machine disparaissent au profit de la barre latérale, des onglets (All, Ready, Working) et de puces retirables. Le badge de statut suit le titre, et le détail passe en fin de ligne.
+
+Le lecteur affiche la dernière réponse en premier ; les échanges précédents sont repliés. Le bandeau d’état ne répète plus le texte et donne l’action à faire. La barre d’outils nomme « Mark handled » et « Snooze », et range « Mark unread » et l’export dans un menu. « Mark read » en lot est retiré ; la lecture se fait à l’ouverture. Raccourcis ajoutés : Enter, X, U, Z et ?. Le report accepte une date libre. La recherche garde les dernières requêtes et montre un extrait quand le texte n’est trouvé que dans la conversation.
+
+Lisibilité : le gris secondaire passe de 3,1:1 à plus de 4,8:1 sur les fonds clairs, le texte utile ne descend plus sous 12 px et le vocabulaire « native » est remplacé par « terminal ».
+
+### Vérification
+
+Contrôle Chromium à 1440 et 390 px : bandeau, groupe prioritaire, puces, lecteur, menu, report libre, annulation avec Z, extrait de recherche et recherches récentes, sans erreur JavaScript ni défilement horizontal.
+
+## 2026-10-07 — Interface plus claire et mouvement mesuré
+
+La liste est allégée. Les cases et étoiles n’apparaissent qu’au survol, au focus clavier ou pendant une sélection. Les doublons disparaissent : « Local session » n’est plus répété, le nombre de messages passe en infobulle, le compte « 1–16 of 16 » et la note « Sample snapshot » sont retirés. Les filtres et les actions groupées partagent une seule barre, sans décalage de la liste. Les lignes ont toutes le même fond ; le point bleu et le gras signalent le non lu. Le projet s’affiche avec sa pastille de couleur, comme dans la barre latérale.
+
+Les onglets s’appellent All, Ready, Needs attention et Working, sans icônes, et reprennent les noms des badges de statut. Les états vides expliquent comment remplir la vue. Dans le lecteur, Agent & resources, Permissions & tools et Origin & identity sont repliables ; leur état est mémorisé.
+
+Mouvement, choisi selon la fréquence d’usage : l’indicateur d’onglet glisse, les lignes apparaissent en cascade de 25 ms seulement après un changement de boîte, le lecteur entre par la droite et la liste revient par la gauche, uniquement à la souris ou au toucher. La navigation clavier (J/K, Échap) reste sans animation. L’étoile rebondit à l’activation, les dialogues et toasts sortent plus vite qu’ils n’entrent, le menu mobile glisse comme un tiroir et les blocs de contexte se déploient. Avec « réduire les animations », ces mouvements deviennent de simples fondus.
+
+Le bloc « Personal workspace » de la barre latérale est retiré : il n’offrait aucune action et poussait la navigation vers le bas.
+
+### Vérification
+
+Contrôle Chromium à 1440 et 390 px : liste, sélection, onglets, ouverture du lecteur, blocs repliables et menu mobile, sans erreur JavaScript. Structure HTML, syntaxe JavaScript et liens Markdown vérifiés.
+
+## 2026-10-06 — Première version du nouveau concept
+
+Relai devient une inbox pour relire et gérer les résultats de sessions CLI. La navigation Gmail utilise une typographie IBM Plex, des surfaces légères, des couleurs par agent et des thèmes clair/sombre.
+
+La liste distingue l’état d’exécution et la décision de l’utilisateur : recevoir une réponse ne signifie pas avoir traité la session. Le fil affiche les messages utilisateur venus du terminal et les réponses de l’agent. Les commandes sont repliables ; les changements, vérifications et événements ont leurs propres onglets. Le panneau de contexte regroupe machine, dépôt, worktree, branche, commits, PR et métadonnées de l’agent. Les tests périmés et sources déconnectées restent explicitement identifiés.
+
+Les interactions de gestion comprennent recherche, filtres, sélection multiple, favoris, lu/non lu, traitement, report, annulation, notes et export du fil. Une réponse simulée remonte sa session et la rend non lue. Le retour restaure le défilement et le focus de la liste. Le panneau de contexte reste accessible sur mobile. Les actions terminal/Git/PR présentent des illustrations ; aucune intégration réelle ni action Reply/Compose n’est incluse.
+
+### Vérification
+
+Contrôle automatisé au navigateur Chromium : les 19 sessions s’ouvrent, les quatre onglets de détail et les aperçus de terminal fonctionnent sans erreur JavaScript. Vérification des filtres de projet, recherche et résultat vide, lecture, classement et annulation, report, sélection multiple, note après rechargement, nouvelle réponse après rechargement, thèmes, densité et restauration du défilement.
+
+Contrôle des largeurs 1440, 1280, 1024, 768, 390 et 320 px, avec inspection visuelle des listes, conversations et thèmes. Les contrôles d’ouverture du contexte et du terminal passent sur mobile. Aucun défilement horizontal de la page n’est observé. Le HTML reste autonome, sans chargement de police ou d’icône distant.
+
+## 2026-10-06 — Nouvelle branche et documentation publique
+
+Nouvelle base de travail `feat/relai-agent-inbox`. La maquette est maintenant `index.html` à la racine. Le README public, les objectifs, le glossaire et le guide de reprise reflètent la réception et la gestion des résultats. Les commandes Makefile et le hook de démarrage utilisent le fichier autonome actuel.
+
+Les ajouts distants de gouvernance et CI ont aussi été intégrés : templates GitHub, CODEOWNERS, dépendances, contribution et vérification des liens Markdown. `make check` vérifie maintenant le prototype et les liens ; la CI couvre `main` et la nouvelle branche de travail.
+
+## 2026-10-06 — Nettoyage de la nouvelle version
+
+Suppression des anciennes maquettes, captures, exports, archives, recherches et spécifications du produit précédent. Le dépôt contient la maquette actuelle, sa documentation, ses licences et les outils de contribution et de vérification. Les guides de reprise et liens ont été actualisés. Vérification : structure HTML, syntaxe JavaScript et liens Markdown.

@@ -1,0 +1,25 @@
+name: Bug report
+description: Something in the repository, mockup, docs, or tooling is wrong.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: Include what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, browser, and tool versions if relevant.
+  - type: markdown
+    attributes:
+      value: Do not include credentials, private messages, or personal data.
